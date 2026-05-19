@@ -288,8 +288,10 @@ function preloadImage(src) {
     }
 
     const image = new Image();
+
     image.onload = resolve;
     image.onerror = resolve;
+
     image.src = src;
   });
 }
@@ -317,7 +319,9 @@ export default function FilmComposerPortfolioSite() {
       collection.tracks.forEach((track) => {
         const src = getImageSrc(track);
 
-        if (src) imageUrls.push(src);
+        if (src) {
+          imageUrls.push(src);
+        }
       });
     });
 
@@ -463,7 +467,9 @@ export default function FilmComposerPortfolioSite() {
 
                   <div className="flex justify-between items-start gap-6">
                     <div className="flex-1 min-w-0">
-                      <div className="text-lg">{t.title}</div>
+                      <div className="text-lg">
+                        {t.title}
+                      </div>
 
                       <div className="text-[1rem] text-[#5F665C] mt-2 leading-[1.6] max-w-none whitespace-pre-line">
                         {t.desc || " "}
@@ -478,7 +484,9 @@ export default function FilmComposerPortfolioSite() {
                       onClick={() => handleTrackClick(t)}
                       className="shrink-0 border px-4 py-2 text-[0.95rem] border-[#C9D0C4] bg-[#F8FBF2] text-[#5F665C] hover:border-[#1A1A1A] hover:bg-[#F7F9F2] hover:text-[#1A1A1A] transition-all duration-500 ease-out"
                     >
-                      {playingId === t.id ? "Pause" : "Play"}
+                      {playingId === t.id
+                        ? "Pause"
+                        : "Play"}
                     </button>
                   </div>
                 </div>
@@ -488,7 +496,9 @@ export default function FilmComposerPortfolioSite() {
             <div className="md:col-span-5 flex justify-center">
               <div
                 className={`w-full max-w-md flex items-center justify-center text-[#71786D] text-center transition-opacity duration-700 ${
-                  trackFading ? "opacity-0" : "opacity-100"
+                  trackFading
+                    ? "opacity-0"
+                    : "opacity-100"
                 }`}
               >
                 {displayedTrack
@@ -519,9 +529,11 @@ export default function FilmComposerPortfolioSite() {
         </div>
 
         <div className="flex justify-center items-center h-full">
-          <div className="w-[17rem] aspect-square flex items-center justify-center text-[#71786D] bg-[#F8FBF2]">
-            Secondary Image
-          </div>
+          <img
+            src="/images/marius-ygre.jpg"
+            alt="Marius Ygre"
+            className="w-[17rem] h-auto object-contain"
+          />
         </div>
       </section>
 
