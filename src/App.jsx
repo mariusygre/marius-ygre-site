@@ -13,151 +13,37 @@ const COLLECTIONS = [
     title: "Score Reel",
     type: "Emotional",
     tracks: [
-      {
-        id: "1",
-        title: "Malinconia",
-        desc: "",
-        duration: "03.08",
-        image: "Malinconia",
-      },
-      {
-        id: "2",
-        title: "Nival",
-        desc: "",
-        duration: "02.36",
-        image: img("/images/nival.png", "Nival"),
-      },
-      {
-        id: "3",
-        title: "Iben's Dance",
-        desc: "",
-        duration: "02.31",
-        image: img("/images/ibens-dance.png", "Iben's Dance"),
-      },
-      {
-        id: "4",
-        title: "Hrim",
-        desc: "",
-        duration: "03.45",
-        image: img("/images/hrim.png", "Hrim"),
-      },
-      {
-        id: "5",
-        title: "Auralis",
-        desc: "",
-        duration: "03.23",
-        image: img("/images/auralis.png", "Auralis"),
-      },
-      {
-        id: "6",
-        title: "Room in Monterey",
-        desc: "",
-        duration: "03.12",
-        image: "Room in Monterey",
-      },
-      {
-        id: "7",
-        title: "Ridge of Desolation",
-        desc: "",
-        duration: "02.42",
-        image: img("/images/ridge-of-desolation.png", "Ridge of Desolation"),
-      },
-      {
-        id: "8",
-        title: "The Quiet Between",
-        desc: "",
-        duration: "03.28",
-        image: "The Quiet Between",
-      },
-      {
-        id: "9",
-        title: "This Weight of Open Sky",
-        desc: "",
-        duration: "02.44",
-        image: img("/images/this-weight-of-open-sky.png", "This Weight of Open Sky"),
-      },
-      {
-        id: "10",
-        title: "Suite",
-        desc: "",
-        duration: "03.36",
-        image: img("/images/suite.png", "Suite"),
-      },
+      { id: "1", title: "Malinconia", desc: "", duration: "03.08", image: "Malinconia" },
+      { id: "2", title: "Nival", desc: "", duration: "02.36", image: img("/images/nival.png", "Nival") },
+      { id: "3", title: "Iben's Dance", desc: "", duration: "02.31", image: img("/images/ibens-dance.png", "Iben's Dance") },
+      { id: "4", title: "Hrim", desc: "", duration: "03.45", image: img("/images/hrim.png", "Hrim") },
+      { id: "5", title: "Auralis", desc: "", duration: "03.23", image: img("/images/auralis.png", "Auralis") },
+      { id: "6", title: "Room in Monterey", desc: "", duration: "03.12", image: "Room in Monterey" },
+      { id: "7", title: "Ridge of Desolation", desc: "", duration: "02.42", image: img("/images/ridge-of-desolation.png", "Ridge of Desolation") },
+      { id: "8", title: "The Quiet Between", desc: "", duration: "03.28", image: "The Quiet Between" },
+      { id: "9", title: "This Weight of Open Sky", desc: "", duration: "02.44", image: img("/images/this-weight-of-open-sky.png", "This Weight of Open Sky") },
+      { id: "10", title: "Suite", desc: "", duration: "03.36", image: img("/images/suite.png", "Suite") },
     ],
   },
   {
     title: "Showcase",
     type: "Trailer",
     tracks: [
-      {
-        id: "11",
-        title: "Asura Rising",
-        desc: "",
-        duration: "02.36",
-        image: "Asura Rising",
-      },
-      {
-        id: "12",
-        title: "Shock Protocol",
-        desc: "",
-        duration: "02.02",
-        image: "Shock Protocol",
-      },
-      {
-        id: "13",
-        title: "Every Shadow Hides",
-        desc: "",
-        duration: "02.06",
-        image: img("/images/every-shadow-hides.png", "Every Shadow Hides"),
-      },
-      {
-        id: "14",
-        title: "Velocidad",
-        desc: "",
-        duration: "02.07",
-        image: "Velocidad",
-      },
-      {
-        id: "15",
-        title: "Red Rebellion",
-        desc: "",
-        duration: "02.28",
-        image: "Red Rebellion",
-      },
+      { id: "11", title: "Asura Rising", desc: "", duration: "02.36", image: "Asura Rising" },
+      { id: "12", title: "Shock Protocol", desc: "", duration: "02.02", image: "Shock Protocol" },
+      { id: "13", title: "Every Shadow Hides", desc: "", duration: "02.06", image: img("/images/every-shadow-hides.png", "Every Shadow Hides") },
+      { id: "14", title: "Velocidad", desc: "", duration: "02.07", image: "Velocidad" },
+      { id: "15", title: "Red Rebellion", desc: "", duration: "02.28", image: "Red Rebellion" },
     ],
   },
   {
     title: "Uplifting Tracks",
     type: "Warm",
     tracks: [
-      {
-        id: "16",
-        title: "Chasing Horizons",
-        desc: "",
-        duration: "03.23",
-        image: "Chasing Horizons",
-      },
-      {
-        id: "17",
-        title: "Life Is a Daisy Wish",
-        desc: "",
-        duration: "01.58",
-        image: "Life Is a Daisy Wish",
-      },
-      {
-        id: "18",
-        title: "A Little Braver Now",
-        desc: "",
-        duration: "02.15",
-        image: "A Little Braver Now",
-      },
-      {
-        id: "19",
-        title: "The Wave Is Already Water",
-        desc: "",
-        duration: "03.22",
-        image: "The Wave Is Already Water",
-      },
+      { id: "16", title: "Chasing Horizons", desc: "", duration: "03.23", image: "Chasing Horizons" },
+      { id: "17", title: "Life Is a Daisy Wish", desc: "", duration: "01.58", image: "Life Is a Daisy Wish" },
+      { id: "18", title: "A Little Braver Now", desc: "", duration: "02.15", image: "A Little Braver Now" },
+      { id: "19", title: "The Wave Is Already Water", desc: "", duration: "03.22", image: "The Wave Is Already Water" },
     ],
   },
   {
@@ -227,12 +113,33 @@ function useFadedValue(value) {
   return [displayed, fading];
 }
 
+function getImageSrc(track) {
+  return track?.image?.props?.src || null;
+}
+
+function preloadImage(src) {
+  return new Promise((resolve) => {
+    if (!src) {
+      resolve();
+      return;
+    }
+
+    const image = new Image();
+    image.onload = resolve;
+    image.onerror = resolve;
+    image.src = src;
+  });
+}
+
 export default function FilmComposerPortfolioSite() {
   const [activeTitle, setActiveTitle] = useState(null);
   const [activeTrack, setActiveTrack] = useState(null);
+  const [displayedTrack, setDisplayedTrack] = useState(null);
+  const [trackFading, setTrackFading] = useState(false);
+
+  const imageSwapTimerRef = useRef(null);
 
   const [displayedTitle, collectionFading] = useFadedValue(activeTitle);
-  const [displayedTrack, trackFading] = useFadedValue(activeTrack);
 
   const activeData =
     COLLECTIONS.find((c) => c.title === displayedTitle) ?? null;
@@ -242,14 +149,8 @@ export default function FilmComposerPortfolioSite() {
 
     COLLECTIONS.forEach((collection) => {
       collection.tracks.forEach((track) => {
-        if (
-          track.image &&
-          typeof track.image !== "string" &&
-          track.image.props &&
-          track.image.props.src
-        ) {
-          imageUrls.push(track.image.props.src);
-        }
+        const src = getImageSrc(track);
+        if (src) imageUrls.push(src);
       });
     });
 
@@ -259,12 +160,38 @@ export default function FilmComposerPortfolioSite() {
     });
   }, []);
 
+  useEffect(() => {
+    return () => {
+      if (imageSwapTimerRef.current) {
+        clearTimeout(imageSwapTimerRef.current);
+      }
+    };
+  }, []);
+
   const handleCollectionClick = (title) => {
     if (title !== activeTitle) {
       setActiveTrack(null);
+      setDisplayedTrack(null);
     }
 
     setActiveTitle(title);
+  };
+
+  const handleTrackClick = async (track) => {
+    if (imageSwapTimerRef.current) {
+      clearTimeout(imageSwapTimerRef.current);
+    }
+
+    setActiveTrack(track);
+    setTrackFading(true);
+
+    const src = getImageSrc(track);
+    await preloadImage(src);
+
+    imageSwapTimerRef.current = setTimeout(() => {
+      setDisplayedTrack(track);
+      setTrackFading(false);
+    }, FADE_MS);
   };
 
   return (
@@ -340,7 +267,7 @@ export default function FilmComposerPortfolioSite() {
                     </div>
 
                     <button
-                      onClick={() => setActiveTrack(t)}
+                      onClick={() => handleTrackClick(t)}
                       className="shrink-0 border px-4 py-2 text-[0.95rem] border-[#C9D0C4] bg-[#F8FBF2] text-[#5F665C] hover:border-[#1A1A1A] hover:bg-[#F7F9F2] hover:text-[#1A1A1A] transition-all duration-500 ease-out"
                     >
                       Play
@@ -356,9 +283,7 @@ export default function FilmComposerPortfolioSite() {
                   trackFading ? "opacity-0" : "opacity-100"
                 }`}
               >
-                {displayedTrack
-                  ? displayedTrack.image
-                  : "Track Image"}
+                {displayedTrack ? displayedTrack.image : "Track Image"}
               </div>
             </div>
           </div>
