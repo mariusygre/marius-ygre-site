@@ -9,12 +9,12 @@ const COLLECTIONS = [
     title: "Score Reel",
     type: "Emotional",
     tracks: [
-      { id: "1", title: "Malinconia", desc: "", duration: "03.08", audio: "/audio/malinconia.wav", image: "Malinconia" },
+      { id: "1", title: "Malinconia", desc: "", duration: "03.08", audio: "/audio/malinconia.wav", image: img("/images/malinconia.png", "Malinconia") },
       { id: "2", title: "Nival", desc: "", duration: "02.36", audio: "/audio/nival.wav", image: img("/images/nival.png", "Nival") },
       { id: "3", title: "Iben's Dance", desc: "", duration: "02.31", audio: "/audio/ibens-dance.wav", image: img("/images/ibens-dance.png", "Iben's Dance") },
       { id: "4", title: "Hrim", desc: "", duration: "03.45", audio: "/audio/hrim.wav", image: img("/images/hrim.png", "Hrim") },
       { id: "5", title: "Auralis", desc: "", duration: "03.23", audio: "/audio/auralis.wav", image: img("/images/auralis.png", "Auralis") },
-      { id: "6", title: "Room in Monterey", desc: "", duration: "03.12", audio: "/audio/room-in-monterey.wav", image: "Room in Monterey" },
+      { id: "6", title: "Room in Monterey", desc: "", duration: "03.12", audio: "/audio/room-in-monterey.wav", image: img("/images/room-in-monterey.png", "Room in Monterey") },
       { id: "7", title: "Ridge of Desolation", desc: "", duration: "02.42", audio: "/audio/ridge-of-desolation.wav", image: img("/images/ridge-of-desolation.png", "Ridge of Desolation") },
       { id: "8", title: "The Quiet Between", desc: "", duration: "03.28", audio: "/audio/the-quiet-between.wav", image: "The Quiet Between" },
       { id: "9", title: "This Weight of Open Sky", desc: "", duration: "02.44", audio: "/audio/this-weight-of-open-sky.wav", image: img("/images/this-weight-of-open-sky.png", "This Weight of Open Sky") },
@@ -28,7 +28,7 @@ const COLLECTIONS = [
       { id: "11", title: "Asura Rising", desc: "", duration: "02.36", audio: "/audio/asura-rising.wav", image: "Asura Rising" },
       { id: "12", title: "Shock Protocol", desc: "", duration: "02.02", audio: "/audio/shock-protocol.wav", image: "Shock Protocol" },
       { id: "13", title: "Every Shadow Hides", desc: "", duration: "02.06", audio: "/audio/every-shadow-hides.wav", image: img("/images/every-shadow-hides.png", "Every Shadow Hides") },
-      { id: "14", title: "Velocidad", desc: "", duration: "02.07", audio: "/audio/velocidad.wav", image: "Velocidad" },
+      { id: "14", title: "Velocidad", desc: "", duration: "02.07", audio: "/audio/velocidad.wav", image: img("/images/velocidad.png", "Velocidad") },
       { id: "15", title: "Red Rebellion", desc: "", duration: "02.28", audio: "/audio/red-rebellion.wav", image: "Red Rebellion" },
     ],
   },
@@ -39,7 +39,7 @@ const COLLECTIONS = [
       { id: "16", title: "Chasing Horizons", desc: "", duration: "03.23", audio: "/audio/chasing-horizons.wav", image: "Chasing Horizons" },
       { id: "17", title: "Life Is a Daisy Wish", desc: "", duration: "01.58", audio: "/audio/life-is-a-daisy-wish.wav", image: "Life Is a Daisy Wish" },
       { id: "18", title: "A Little Braver Now", desc: "", duration: "02.15", audio: "/audio/a-little-braver-now.wav", image: "A Little Braver Now" },
-      { id: "19", title: "The Wave Is Already Water", desc: "", duration: "03.22", audio: "/audio/the-wave-is-already-water.wav", image: "The Wave Is Already Water" },
+      { id: "19", title: "The Wave Is Already Water", desc: "", duration: "03.22", audio: "/audio/the-wave-is-already-water.wav", image: img("/images/the-wave-is-already-water.png", "The Wave Is Already Water") },
     ],
   },
   {
@@ -91,7 +91,6 @@ function preloadImage(src) {
 
 export default function FilmComposerPortfolioSite() {
   const [activeTitle, setActiveTitle] = useState(null);
-  const [activeTrack, setActiveTrack] = useState(null);
   const [displayedTrack, setDisplayedTrack] = useState(null);
   const [trackFading, setTrackFading] = useState(false);
   const [playingId, setPlayingId] = useState(null);
@@ -122,7 +121,6 @@ export default function FilmComposerPortfolioSite() {
 
   const handleCollectionClick = (title) => {
     if (title !== activeTitle) {
-      setActiveTrack(null);
       setDisplayedTrack(null);
       Object.values(audioRefs.current).forEach((audio) => {
         if (audio) {
@@ -157,7 +155,6 @@ export default function FilmComposerPortfolioSite() {
       }
     }
 
-    setActiveTrack(track);
     setTrackFading(true);
 
     const src = getImageSrc(track);
@@ -178,9 +175,7 @@ export default function FilmComposerPortfolioSite() {
           </div>
 
           <div>
-            <div className="text-[1.7rem] tracking-[0.32em] font-medium">
-              MARIUS YGRE
-            </div>
+            <div className="text-[1.7rem] tracking-[0.32em] font-medium">MARIUS YGRE</div>
             <h1 className="mt-6 text-5xl md:text-[4.1rem] leading-[1.02]">
               Music for Film & Visual Storytelling
             </h1>
@@ -206,9 +201,7 @@ export default function FilmComposerPortfolioSite() {
                   : "border-[#C9D0C4] bg-[#F8FBF2] hover:border-[#1A1A1A] hover:bg-[#F7F9F2] hover:text-[#1A1A1A]"
               }`}
             >
-              <div className="text-sm uppercase tracking-[0.28em] text-[#71786D]">
-                {c.type}
-              </div>
+              <div className="text-sm uppercase tracking-[0.28em] text-[#71786D]">{c.type}</div>
               <div className="mt-4 text-[1.35rem]">{c.title}</div>
             </button>
           ))}
@@ -237,9 +230,7 @@ export default function FilmComposerPortfolioSite() {
                       <div className="text-[1rem] text-[#5F665C] mt-2 leading-[1.6] max-w-none whitespace-pre-line">
                         {t.desc || " "}
                       </div>
-                      <div className="text-sm text-[#71786D] mt-2">
-                        {t.duration}
-                      </div>
+                      <div className="text-sm text-[#71786D] mt-2">{t.duration}</div>
                     </div>
 
                     <button
@@ -296,9 +287,7 @@ export default function FilmComposerPortfolioSite() {
             <button className="w-full bg-[#1A1A1A] text-white py-3">Send Message</button>
           </form>
 
-          <div className="mt-6 text-[#5F665C] text-[0.98rem]">
-            mariusygre@proton.me
-          </div>
+          <div className="mt-6 text-[#5F665C] text-[0.98rem]">mariusygre@proton.me</div>
         </div>
       </section>
     </div>
