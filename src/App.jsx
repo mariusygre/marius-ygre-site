@@ -16,7 +16,7 @@ const COLLECTIONS = [
       { id: "5", title: "Auralis", desc: "", duration: "03.23", audio: "/audio/auralis.wav", image: img("/images/auralis.png", "Auralis") },
       { id: "6", title: "Room in Monterey", desc: "", duration: "03.12", audio: "/audio/room-in-monterey.wav", image: img("/images/room-in-monterey.png", "Room in Monterey") },
       { id: "7", title: "Ridge of Desolation", desc: "", duration: "02.42", audio: "/audio/ridge-of-desolation.wav", image: img("/images/ridge-of-desolation.png", "Ridge of Desolation") },
-      { id: "8", title: "The Quiet Between", desc: "", duration: "03.28", audio: "/audio/the-quiet-between.wav", image: "The Quiet Between" },
+      { id: "8", title: "The Quiet Between", desc: "", duration: "03.28", audio: "/audio/the-quiet-between.wav", image: img("/images/the-quiet-between.png", "The Quiet Between") },
       { id: "9", title: "This Weight of Open Sky", desc: "", duration: "02.44", audio: "/audio/this-weight-of-open-sky.wav", image: img("/images/this-weight-of-open-sky.png", "This Weight of Open Sky") },
       { id: "10", title: "Suite", desc: "", duration: "03.36", audio: "/audio/suite.wav", image: img("/images/suite.png", "Suite") },
     ],
@@ -38,9 +38,9 @@ const COLLECTIONS = [
     title: "Uplifting Tracks",
     type: "Warm",
     tracks: [
-      { id: "16", title: "Chasing Horizons", desc: "", duration: "03.23", audio: "/audio/chasing-horizons.wav", image: "Chasing Horizons" },
-      { id: "17", title: "Life Is a Daisy Wish", desc: "", duration: "01.58", audio: "/audio/life-is-a-daisy-wish.wav", image: "Life Is a Daisy Wish" },
-      { id: "18", title: "A Little Braver Now", desc: "", duration: "02.15", audio: "/audio/a-little-braver-now.wav", image: "A Little Braver Now" },
+      { id: "16", title: "Chasing Horizons", desc: "", duration: "03.23", audio: "/audio/chasing-horizons.wav", image: img("/images/chasing-horizons.png", "Chasing Horizons") },
+      { id: "17", title: "Life Is a Daisy Wish", desc: "", duration: "01.58", audio: "/audio/life-is-a-daisy-wish.wav", image: img("/images/life-is-a-daisy-wish.png", "Life Is a Daisy Wish") },
+      { id: "18", title: "A Little Braver Now", desc: "", duration: "02.15", audio: "/audio/a-little-braver-now.wav", image: img("/images/a-little-braver-now.png", "A Little Braver Now") },
       { id: "19", title: "The Wave Is Already Water", desc: "", duration: "03.22", audio: "/audio/the-wave-is-already-water.wav", image: img("/images/the-wave-is-already-water.png", "The Wave Is Already Water") },
     ],
   },
@@ -52,7 +52,7 @@ const COLLECTIONS = [
       { id: "20", title: "Under Currents", desc: 'a character study on Arab from "Moby Dick" by Herman Melville', duration: "02.46", audio: "/audio/under-currents.wav", image: img("/images/arab.png", "Under Currents") },
       { id: "21", title: "The Liminal Passage", desc: 'inspired by "A Constellation of Vital Phenomena" by Anthony Marra', duration: "04.39", audio: "/audio/the-liminal-passage.wav", image: img("/images/the-liminal-passage.png", "The Liminal Passage") },
       { id: "22", title: "Watch the Voltage", desc: 'inspired by "Revival" by Stephen King', duration: "03.05", audio: "/audio/watch-the-voltage.wav", image: img("/images/watch-the-voltage.png", "Watch the Voltage") },
-      { id: "23", title: "Through Smoke and Starlight", desc: 'inspired by "The Night Circus" by Erin Morgenstein', duration: "02.24", audio: "/audio/through-smoke-and-starlight.wav", image: "Through Smoke and Starlight" },
+      { id: "23", title: "Through Smoke and Starlight", desc: 'inspired by "The Night Circus" by Erin Morgenstein', duration: "02.24", audio: "/audio/through-smoke-and-starlight.wav", image: img("/images/through-smoke-and-light.png", "Through Smoke and Starlight") },
       { id: "24", title: "Flight of Hearts", desc: `inspired by "She Who Became The Sun"\nby Shelley Parker-Chan`, duration: "02.41", audio: "/audio/flight-of-hearts.wav", image: img("/images/flight-of-hearts.png", "Flight of Hearts") },
     ],
   },
@@ -302,78 +302,6 @@ export default function FilmComposerPortfolioSite() {
             </div>
           </div>
         )}
-      </section>
-
-      <section className="mx-auto max-w-6xl px-6 py-20 grid md:grid-cols-2 gap-16">
-        <div className="text-[#5F665C] space-y-6">
-          <h2 className="text-[#1A1A1A] text-[2.1rem]">
-            About
-          </h2>
-
-          <p>
-            I write music that supports narrative,
-            atmosphere, and emotional direction.
-          </p>
-
-          <p>
-            My work blends orchestral writing,
-            minimal textures, electronic production
-            and intimate piano music.
-          </p>
-        </div>
-
-        <div className="flex justify-center items-center h-full">
-          <img
-            src="/images/marius-ygre-2.jpg"
-            alt="Marius Ygre"
-            className="max-w-[17rem] h-auto object-contain"
-          />
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-6xl px-6 pb-32 grid md:grid-cols-2 gap-16">
-        <div>
-          <h2 className="text-[#1A1A1A] text-[2.1rem]">
-            Contact
-          </h2>
-        </div>
-
-        <div className="border border-[#C9D0C4] p-8 bg-[#F8FBF2]">
-          <form className="space-y-4">
-            <input
-              required
-              placeholder="Name *"
-              className="w-full border border-[#C9D0C4] bg-[#F8FAF4] px-4 py-3 text-[0.98rem]"
-            />
-
-            <input
-              required
-              type="email"
-              placeholder="E-mail *"
-              className="w-full border border-[#C9D0C4] bg-[#F8FAF4] px-4 py-3 text-[0.98rem]"
-            />
-
-            <input
-              type="tel"
-              placeholder="Phone"
-              className="w-full border border-[#C9D0C4] bg-[#F8FAF4] px-4 py-3 text-[0.98rem]"
-            />
-
-            <textarea
-              rows={5}
-              placeholder="Message"
-              className="w-full border border-[#C9D0C4] bg-[#F8FAF4] px-4 py-3 text-[0.98rem]"
-            />
-
-            <button className="w-full bg-[#1A1A1A] text-white py-3">
-              Send Message
-            </button>
-          </form>
-
-          <div className="mt-6 text-[#5F665C] text-[0.98rem]">
-            mariusygre@proton.me
-          </div>
-        </div>
       </section>
     </div>
   );
