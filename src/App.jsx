@@ -207,11 +207,11 @@ export default function FilmComposerPortfolioSite() {
           </div>
         </div>
 
-        <div className="border border-[#C9D0C4] p-6 bg-[#F8FBF2] flex items-center justify-center">
+        <div className="h-[32rem] overflow-hidden">
           <img
             src="/images/profile-image.jpg"
             alt="Profile"
-            className="max-h-[32rem] w-auto object-contain"
+            className="w-full h-full object-cover"
           />
         </div>
       </section>
