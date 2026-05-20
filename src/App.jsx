@@ -19,7 +19,7 @@ const COLLECTIONS = [
     tracks: [
       {
         id: "1",
-        title: "Malinconia",
+        title: "Malinconia (Upcoming)",
         desc: "",
         duration: "03.08",
         audio: "/audio/malinconia.wav",
@@ -46,7 +46,7 @@ const COLLECTIONS = [
 
       {
         id: "4",
-        title: "Hrim",
+        title: "Hrim (Upcoming)",
         desc: "",
         duration: "03.45",
         audio: "/audio/hrim.wav",
@@ -55,7 +55,7 @@ const COLLECTIONS = [
 
       {
         id: "5",
-        title: "Auralis",
+        title: "Auralis (Upcoming)",
         desc: "",
         duration: "03.23",
         audio: "/audio/auralis.wav",
@@ -64,7 +64,7 @@ const COLLECTIONS = [
 
       {
         id: "6",
-        title: "Room in Monterey",
+        title: "Room in Monterey (Upcoming)",
         desc: "",
         duration: "03.12",
         audio: "/audio/room-in-monterey.wav",
@@ -109,7 +109,7 @@ const COLLECTIONS = [
 
       {
         id: "10",
-        title: "Suite",
+        title: "Suite (Upcoming)",
         desc: "",
         duration: "03.36",
         audio: "/audio/suite.wav",
@@ -124,7 +124,7 @@ const COLLECTIONS = [
     tracks: [
       {
         id: "11",
-        title: "Asura Rising",
+        title: "Asura Rising (Upcoming)",
         desc: "",
         duration: "02.36",
         audio: "/audio/asura-rising.wav",
@@ -136,7 +136,7 @@ const COLLECTIONS = [
 
       {
         id: "12",
-        title: "Shock Protocol",
+        title: "Shock Protocol (Upcoming)",
         desc: "",
         duration: "02.02",
         audio: "/audio/shock-protocol.wav",
@@ -148,7 +148,7 @@ const COLLECTIONS = [
 
       {
         id: "13",
-        title: "Every Shadow Hides",
+        title: "Every Shadow Hides (Upcoming)",
         desc: "",
         duration: "02.06",
         audio: "/audio/every-shadow-hides.wav",
@@ -160,20 +160,11 @@ const COLLECTIONS = [
 
       {
         id: "14",
-        title: "Velocidad",
+        title: "Velocidad (Upcoming)",
         desc: "",
         duration: "02.07",
         audio: "/audio/velocidad.wav",
         image: img("/images/velocidad.png", "Velocidad"),
-      },
-
-      {
-        id: "15",
-        title: "Red Rebellion",
-        desc: "",
-        duration: "02.28",
-        audio: "/audio/red-rebellion.wav",
-        image: "Red Rebellion",
       },
     ],
   },
@@ -196,7 +187,7 @@ const COLLECTIONS = [
 
       {
         id: "17",
-        title: "Life Is a Daisy Wish",
+        title: "Life Is a Daisy Wish (Upcoming)",
         desc: "",
         duration: "01.58",
         audio: "/audio/life-is-a-daisy-wish.wav",
@@ -208,7 +199,7 @@ const COLLECTIONS = [
 
       {
         id: "18",
-        title: "A Little Braver Now",
+        title: "A Little Braver Now (Upcoming)",
         desc: "",
         duration: "02.15",
         audio: "/audio/a-little-braver-now.wav",
@@ -220,7 +211,7 @@ const COLLECTIONS = [
 
       {
         id: "19",
-        title: "The Wave Is Already Water",
+        title: "The Wave Is Already Water (Upcoming)",
         desc: "",
         duration: "03.22",
         audio: "/audio/the-wave-is-already-water.wav",
@@ -261,7 +252,7 @@ const COLLECTIONS = [
 
       {
         id: "22",
-        title: "Watch the Voltage",
+        title: "Watch the Voltage (Upcoming)",
         desc: 'inspired by "Revival" by Stephen King',
         duration: "03.05",
         audio: "/audio/watch-the-voltage.wav",
@@ -273,7 +264,7 @@ const COLLECTIONS = [
 
       {
         id: "23",
-        title: "Through Smoke and Starlight",
+        title: "Through Smoke and Starlight (Upcoming)",
         desc:
           'inspired by "The Night Circus" by Erin Morgenstein',
         duration: "02.24",
@@ -286,7 +277,7 @@ const COLLECTIONS = [
 
       {
         id: "24",
-        title: "Flight of Hearts",
+        title: "Flight of Hearts (Upcoming)",
         desc:
           `inspired by "She Who Became The Sun"\nby Shelley Parker-Chan`,
         duration: "02.41",
@@ -299,171 +290,3 @@ const COLLECTIONS = [
     ],
   },
 ];
-
-const FADE_MS = 600;
-
-function useFadedValue(value) {
-  const [displayed, setDisplayed] = useState(value);
-  const [fading, setFading] = useState(false);
-  const timerRef = useRef(null);
-
-  useEffect(() => {
-    if (value === displayed) return;
-
-    setFading(true);
-
-    timerRef.current = setTimeout(() => {
-      setDisplayed(value);
-      setFading(false);
-    }, FADE_MS);
-
-    return () => clearTimeout(timerRef.current);
-  }, [value, displayed]);
-
-  return [displayed, fading];
-}
-
-function getImageSrc(track) {
-  return (
-    track?.image?.props?.src ||
-    track?.image?.props?.children?.props?.src ||
-    null
-  );
-}
-
-function preloadImage(src) {
-  return new Promise((resolve) => {
-    if (!src) return resolve();
-
-    const image = new Image();
-
-    image.onload = resolve;
-    image.onerror = resolve;
-
-    image.src = src;
-  });
-}
-
-export default function FilmComposerPortfolioSite() {
-  const [activeTitle, setActiveTitle] = useState(null);
-  const [displayedTrack, setDisplayedTrack] = useState(null);
-  const [trackFading, setTrackFading] = useState(false);
-  const [playingId, setPlayingId] = useState(null);
-
-  const audioRefs = useRef({});
-  const imageSwapTimerRef = useRef(null);
-
-  const [displayedTitle, collectionFading] =
-    useFadedValue(activeTitle);
-
-  const activeData =
-    COLLECTIONS.find(
-      (c) => c.title === displayedTitle
-    ) ?? null;
-
-  useEffect(() => {
-    COLLECTIONS.forEach((collection) => {
-      collection.tracks.forEach((track) => {
-        const src = getImageSrc(track);
-
-        if (src) {
-          const preloadImg = new Image();
-          preloadImg.src = src;
-        }
-      });
-    });
-  }, []);
-
-  useEffect(() => {
-    return () => {
-      if (imageSwapTimerRef.current)
-        clearTimeout(imageSwapTimerRef.current);
-    };
-  }, []);
-
-  const handleCollectionClick = (title) => {
-    if (title !== activeTitle) {
-      setDisplayedTrack(null);
-
-      Object.values(audioRefs.current).forEach(
-        (audio) => {
-          if (audio) {
-            audio.pause();
-            audio.currentTime = 0;
-          }
-        }
-      );
-
-      setPlayingId(null);
-    }
-
-    setActiveTitle(title);
-  };
-
-  const handleTrackClick = async (track) => {
-    if (imageSwapTimerRef.current)
-      clearTimeout(imageSwapTimerRef.current);
-
-    const audio = audioRefs.current[track.id];
-
-    Object.entries(audioRefs.current).forEach(
-      ([id, otherAudio]) => {
-        if (otherAudio && id !== track.id) {
-          otherAudio.pause();
-          otherAudio.currentTime = 0;
-        }
-      }
-    );
-
-    if (audio) {
-      if (playingId === track.id) {
-        audio.pause();
-        setPlayingId(null);
-      } else {
-        audio.play();
-        setPlayingId(track.id);
-      }
-    }
-
-    setTrackFading(true);
-
-    const src = getImageSrc(track);
-
-    await preloadImage(src);
-
-    imageSwapTimerRef.current = setTimeout(() => {
-      setDisplayedTrack(track);
-      setTrackFading(false);
-    }, FADE_MS);
-  };
-
-  return (
-    <div className="min-h-screen bg-[#EFF4D6] text-[#1A1A1A] font-light">
-      <section className="mx-auto max-w-6xl px-6 py-24 grid md:grid-cols-2 gap-16 items-center">
-        <div className="space-y-8">
-          <div className="text-sm uppercase tracking-[0.38em] text-[#5F665C]">
-            <div>Modern Composer</div>
-          </div>
-
-          <div>
-            <div className="text-[1.7rem] tracking-[0.32em] font-medium">
-              MARIUS YGRE
-            </div>
-
-            <h1 className="mt-6 text-5xl md:text-[4.1rem] leading-[1.02]">
-              Music for Film & Visual Storytelling
-            </h1>
-          </div>
-        </div>
-
-        <div className="w-full flex justify-center">
-          <img
-            src="/images/profile-image-3.jpg"
-            alt="Profile"
-            className="w-full h-auto object-contain"
-          />
-        </div>
-      </section>
-    </div>
-  );
-}
