@@ -125,17 +125,14 @@ export default function FilmComposerPortfolioSite() {
   const handleCollectionClick = (title) => {
     if (title !== activeTitle) {
       setDisplayedTrack(null);
-
       Object.values(audioRefs.current).forEach((audio) => {
         if (audio) {
           audio.pause();
           audio.currentTime = 0;
         }
       });
-
       setPlayingId(null);
     }
-
     setActiveTitle(title);
   };
 
@@ -176,14 +173,12 @@ export default function FilmComposerPortfolioSite() {
     <div className="min-h-screen bg-[#EFF4D6] text-[#1A1A1A] font-light">
       <section className="mx-auto max-w-6xl px-6 py-24 grid md:grid-cols-2 gap-16 items-center">
         <div className="space-y-8">
-          <div className="text-sm uppercase tracking-[0.38em] text-[#5F665C]">
-            <div>Modern Composer</div>
-          </div>
-
           <div>
-            <div className="text-[1.7rem] tracking-[0.32em] font-medium">MARIUS YGRE</div>
+            <div className="text-[1.7rem] tracking-[0.32em] font-medium">
+              Modern Composer
+            </div>
             <h1 className="mt-6 text-5xl md:text-[4.1rem] leading-[1.02]">
-              Music for Film & Visual Storytelling
+              Marius Ygre
             </h1>
           </div>
         </div>
