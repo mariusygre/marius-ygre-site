@@ -26,8 +26,8 @@ const COLLECTIONS = [
     title: "Showcase",
     type: "Trailer",
     tracks: [
-      { id: "11", title: "Asura Rising", desc: "", duration: "02.36", audio: "/audio/asura-rising.wav", image: "Asura Rising" },
-      { id: "12", title: "Shock Protocol", desc: "", duration: "02.02", audio: "/audio/shock-protocol.wav", image: "Shock Protocol" },
+      { id: "11", title: "Asura Rising", desc: "", duration: "02.36", audio: "/audio/asura-rising.wav", image: img("/images/asura-rising 8.png", "Asura Rising") },
+      { id: "12", title: "Shock Protocol", desc: "", duration: "02.02", audio: "/audio/shock-protocol.wav", image: img("/images/shock-protocol-2.png", "Shock Protocol") },
       { id: "13", title: "Every Shadow Hides", desc: "", duration: "02.06", audio: "/audio/every-shadow-hides.wav", image: img("/images/every-shadow-hides.png", "Every Shadow Hides") },
       { id: "14", title: "Velocidad", desc: "", duration: "02.07", audio: "/audio/velocidad.wav", image: img("/images/velocidad.png", "Velocidad") },
       { id: "15", title: "Red Rebellion", desc: "", duration: "02.28", audio: "/audio/red-rebellion.wav", image: "Red Rebellion" },
@@ -49,50 +49,11 @@ const COLLECTIONS = [
     title: "Narrative Works",
     type: "Books",
     tracks: [
-      {
-        id: "20",
-        title: "Under Currents",
-        desc: 'a character study on Arab from "Moby Dick" by Herman Melville',
-        duration: "02.46",
-        audio: "/audio/under-currents.wav",
-        image: "Under Currents",
-      },
-
-      {
-        id: "21",
-        title: "The Liminal Passage",
-        desc: 'inspired by "A Constellation of Vital Phenomena" by Anthony Marra',
-        duration: "04.39",
-        audio: "/audio/the-liminal-passage.wav",
-        image: img("/images/the-liminal-passage.png", "The Liminal Passage"),
-      },
-
-      {
-        id: "22",
-        title: "Watch the Voltage",
-        desc: 'inspired by "Revival" by Stephen King',
-        duration: "03.05",
-        audio: "/audio/watch-the-voltage.wav",
-        image: img("/images/watch-the-voltage.png", "Watch the Voltage"),
-      },
-
-      {
-        id: "23",
-        title: "Through Smoke and Starlight",
-        desc: 'inspired by "The Night Circus" by Erin Morgenstein',
-        duration: "02.24",
-        audio: "/audio/through-smoke-and-starlight.wav",
-        image: "Through Smoke and Starlight",
-      },
-
-      {
-        id: "24",
-        title: "Flight of Hearts",
-        desc: `inspired by "She Who Became The Sun"\nby Shelley Parker-Chan`,
-        duration: "02.41",
-        audio: "/audio/flight-of-hearts.wav",
-        image: img("/images/flight-of-hearts.png", "Flight of Hearts"),
-      },
+      { id: "20", title: "Under Currents", desc: 'a character study on Arab from "Moby Dick" by Herman Melville', duration: "02.46", audio: "/audio/under-currents.wav", image: img("/images/arab.png", "Under Currents") },
+      { id: "21", title: "The Liminal Passage", desc: 'inspired by "A Constellation of Vital Phenomena" by Anthony Marra', duration: "04.39", audio: "/audio/the-liminal-passage.wav", image: img("/images/the-liminal-passage.png", "The Liminal Passage") },
+      { id: "22", title: "Watch the Voltage", desc: 'inspired by "Revival" by Stephen King', duration: "03.05", audio: "/audio/watch-the-voltage.wav", image: img("/images/watch-the-voltage.png", "Watch the Voltage") },
+      { id: "23", title: "Through Smoke and Starlight", desc: 'inspired by "The Night Circus" by Erin Morgenstein', duration: "02.24", audio: "/audio/through-smoke-and-starlight.wav", image: "Through Smoke and Starlight" },
+      { id: "24", title: "Flight of Hearts", desc: `inspired by "She Who Became The Sun"\nby Shelley Parker-Chan`, duration: "02.41", audio: "/audio/flight-of-hearts.wav", image: img("/images/flight-of-hearts.png", "Flight of Hearts") },
     ],
   },
 ];
@@ -246,10 +207,12 @@ export default function FilmComposerPortfolioSite() {
           </div>
         </div>
 
-        <div className="border border-[#C9D0C4] p-6 bg-[#F8FBF2]">
-          <div className="h-[32rem] flex items-center justify-center border border-dashed border-[#C9D0C4] text-[#71786D]">
-            Profile Image
-          </div>
+        <div className="border border-[#C9D0C4] p-6 bg-[#F8FBF2] flex items-center justify-center">
+          <img
+            src="/images/profile-image.jpg"
+            alt="Profile"
+            className="max-h-[32rem] w-auto object-contain"
+          />
         </div>
       </section>
 
@@ -361,7 +324,7 @@ export default function FilmComposerPortfolioSite() {
 
         <div className="flex justify-center items-center h-full">
           <img
-            src="/images/marius-ygre-small.png"
+            src="/images/marius-ygre.jpg"
             alt="Marius Ygre"
             className="max-w-[17rem] h-auto object-contain"
           />
