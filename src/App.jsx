@@ -324,7 +324,7 @@ export default function FilmComposerPortfolioSite() {
 
         <div className="flex justify-center items-center h-full">
           <img
-            src="/images/marius-ygre.jpg"
+            src="/images/marius-ygre-2.jpg"
             alt="Marius Ygre"
             className="max-w-[17rem] h-auto object-contain"
           />
