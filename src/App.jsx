@@ -320,17 +320,10 @@ export default function FilmComposerPortfolioSite() {
       </section>
 
       <section className="mx-auto max-w-6xl px-6 py-20 grid md:grid-cols-2 gap-16">
-        <div className="text-[#5F665C] space-y-6">
+        <div>
           <h2 className="text-[#1A1A1A] text-[2.1rem]">About</h2>
-
-          <p>
-            I write music that supports narrative, atmosphere, and emotional
-            direction.
-          </p>
-
-          <p>
-            My work blends orchestral writing, minimal textures, electronic
-            production and intimate piano music.
+          <p className="mt-6 text-[#5F665C] text-[1.15rem] leading-[1.8]">
+            Music for visual storytelling.
           </p>
         </div>
 
