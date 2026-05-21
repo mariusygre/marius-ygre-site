@@ -23,7 +23,7 @@ const COLLECTIONS = [
       { id: "4", title: "The Quiet Between", status: "", desc: "", duration: "03.28", audio: "/audio/the-quiet-between.wav", image: smallImg("/images/the-quiet-between.png", "The Quiet Between") },
       { id: "5", title: "Iben's Dance", status: "", desc: "", duration: "02.31", audio: "/audio/ibens-dance.wav", image: img("/images/ibens-dance.png", "Iben's Dance") },
       { id: "6", title: "Nival", status: "", desc: "", duration: "02.36", audio: "/audio/nival.wav", image: img("/images/nival.png", "Nival") },
-      { id: "7", title: "Suite", status: "UPCOMING", desc: "", duration: "03.36", audio: "/audio/suite.wav", image: img("/images/suite.png", "Suite") },
+      { id: "7", title: "Suite", status: "", desc: "", duration: "03.36", audio: "/audio/suite.wav", image: img("/images/suite.png", "Suite") },
       { id: "8", title: "Auralis", status: "UPCOMING", desc: "", duration: "03.23", audio: "/audio/auralis.wav", image: img("/images/auralis.png", "Auralis") },
       { id: "9", title: "Malinconia", status: "UPCOMING", desc: "", duration: "03.08", audio: "/audio/malinconia.wav", image: smallImg("/images/malinconia.png", "Malinconia") },
       { id: "10", title: "Hrim", status: "UPCOMING", desc: "", duration: "03.45", audio: "/audio/hrim.wav", image: img("/images/hrim.png", "Hrim") },
@@ -71,14 +71,11 @@ function useFadedValue(value) {
 
   useEffect(() => {
     if (value === displayed) return;
-
     setFading(true);
-
     timerRef.current = setTimeout(() => {
       setDisplayed(value);
       setFading(false);
     }, FADE_MS);
-
     return () => clearTimeout(timerRef.current);
   }, [value, displayed]);
 
@@ -92,7 +89,6 @@ function getImageSrc(track) {
 function preloadImage(src) {
   return new Promise((resolve) => {
     if (!src) return resolve();
-
     const image = new Image();
     image.onload = resolve;
     image.onerror = resolve;
