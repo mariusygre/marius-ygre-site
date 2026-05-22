@@ -376,7 +376,7 @@ export default function FilmComposerPortfolioSite() {
               >
                 {desktopSelectedTrack
                   ? desktopSelectedTrack.image
-                  : "Track Image"}
+                  : null}
               </div>
             </div>
           </div>
