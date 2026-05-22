@@ -2,13 +2,22 @@ import React, { useEffect, useRef, useState } from "react";
 
 const FADE_MS = 1200;
 const BORDER_SOFT = "border-[#D9DED4]";
+const IMAGE_FRAME = "border border-[#D7DDD1] p-1";
 
 const img = (src, alt) => (
-  <img src={src} alt={alt} className="max-w-full h-auto object-contain" />
+  <img
+    src={src}
+    alt={alt}
+    className={`max-w-full h-auto object-contain ${IMAGE_FRAME}`}
+  />
 );
 
 const smallImg = (src, alt) => (
-  <img src={src} alt={alt} className="max-w-full max-h-[28rem] h-auto object-contain" />
+  <img
+    src={src}
+    alt={alt}
+    className={`max-w-full max-h-[28rem] h-auto object-contain ${IMAGE_FRAME}`}
+  />
 );
 
 const COLLECTIONS = [
@@ -303,7 +312,11 @@ export default function FilmComposerPortfolioSite() {
         </div>
 
         <div className="w-full flex justify-center">
-          <img src="/images/profile-image-3.jpg" alt="Profile" className="w-full h-auto object-contain" />
+          <img
+            src="/images/profile-image-3.jpg"
+            alt="Profile"
+            className={`w-full h-auto object-contain ${IMAGE_FRAME}`}
+          />
         </div>
       </section>
 
@@ -383,7 +396,11 @@ export default function FilmComposerPortfolioSite() {
         </div>
 
         <div className="flex justify-center items-center h-full">
-          <img src="/images/marius-ygre.jpg" alt="Marius Ygre" className="max-w-[17rem] h-auto object-contain" />
+          <img
+            src="/images/marius-ygre.jpg"
+            alt="Marius Ygre"
+            className={`max-w-[17rem] h-auto object-contain ${IMAGE_FRAME}`}
+          />
         </div>
       </section>
 
