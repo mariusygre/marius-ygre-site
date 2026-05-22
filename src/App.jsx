@@ -222,6 +222,7 @@ export default function FilmComposerPortfolioSite() {
       clearTimeout(mobileImageTimerRef.current);
     }
 
+    setMobileSelectedTrackId(null);
     setMobileImageVisible(false);
 
     const src = getImageSrc(track);
@@ -229,8 +230,11 @@ export default function FilmComposerPortfolioSite() {
 
     mobileImageTimerRef.current = setTimeout(() => {
       setMobileSelectedTrackId(track.id);
-      setMobileImageVisible(true);
-    }, FADE_MS);
+
+      requestAnimationFrame(() => {
+        setMobileImageVisible(true);
+      });
+    }, 20);
 
     playOrPauseTrack(track);
   };
