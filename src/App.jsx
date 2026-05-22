@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 
 const FADE_MS = 1200;
 const BORDER_SOFT = "border-[#D9DED4]";
-const IMAGE_FRAME = "border border-[#5F665C] p-1";
+const IMAGE_FRAME = "border-[0.5px] border-[#5F665C] p-[2.5px]";
 
 const img = (src, alt) => (
   <img src={src} alt={alt} className={`max-w-full h-auto object-contain ${IMAGE_FRAME}`} />
