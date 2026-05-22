@@ -1,11 +1,17 @@
 import React, { useEffect, useRef, useState } from "react";
 
+const FADE_MS = 600;
+
 const img = (src, alt) => (
   <img src={src} alt={alt} className="max-w-full h-auto object-contain" />
 );
 
 const smallImg = (src, alt) => (
-  <img src={src} alt={alt} className="max-w-full max-h-[28rem] h-auto object-contain" />
+  <img
+    src={src}
+    alt={alt}
+    className="max-w-full max-h-[28rem] h-auto object-contain"
+  />
 );
 
 const COLLECTIONS = [
@@ -72,13 +78,49 @@ function preloadImage(src) {
   });
 }
 
+function useFadedValue(value) {
+  const [displayed, setDisplayed] = useState(value);
+  const [fading, setFading] = useState(false);
+  const timerRef = useRef(null);
+
+  useEffect(() => {
+    if (value === displayed) return;
+
+    setFading(true);
+
+    timerRef.current = setTimeout(() => {
+      setDisplayed(value);
+      setFading(false);
+    }, FADE_MS);
+
+    return () => clearTimeout(timerRef.current);
+  }, [value, displayed]);
+
+  return [displayed, fading];
+}
+
 export default function FilmComposerPortfolioSite() {
-  const [activeTitle, setActiveTitle] = useState(null);
-  const [selectedTrackId, setSelectedTrackId] = useState(null);
+  const [desktopActiveTitle, setDesktopActiveTitle] = useState(null);
+  const [mobileActiveTitle, setMobileActiveTitle] = useState(null);
+
+  const [desktopSelectedTrack, setDesktopSelectedTrack] = useState(null);
+  const [mobileSelectedTrackId, setMobileSelectedTrackId] = useState(null);
+
+  const [desktopImageVisible, setDesktopImageVisible] = useState(true);
+  const [mobileImageVisible, setMobileImageVisible] = useState(true);
+
   const [playingId, setPlayingId] = useState(null);
   const [progressById, setProgressById] = useState({});
 
   const audioRefs = useRef({});
+  const desktopImageTimerRef = useRef(null);
+  const mobileImageTimerRef = useRef(null);
+
+  const [desktopDisplayedTitle, desktopCollectionFading] =
+    useFadedValue(desktopActiveTitle);
+
+  const desktopActiveCollection =
+    COLLECTIONS.find((c) => c.title === desktopDisplayedTitle) ?? null;
 
   useEffect(() => {
     COLLECTIONS.forEach((collection) => {
@@ -92,38 +134,59 @@ export default function FilmComposerPortfolioSite() {
     });
   }, []);
 
-  const handleCollectionClick = (title) => {
-    if (title !== activeTitle) {
-      setSelectedTrackId(null);
-      Object.values(audioRefs.current).forEach((audio) => {
-        if (audio) {
-          audio.pause();
-          audio.currentTime = 0;
-        }
-      });
-      setPlayingId(null);
-      setProgressById({});
-      setActiveTitle(title);
-    } else {
-      setActiveTitle(null);
-      setSelectedTrackId(null);
-    }
+  useEffect(() => {
+    return () => {
+      if (desktopImageTimerRef.current) clearTimeout(desktopImageTimerRef.current);
+      if (mobileImageTimerRef.current) clearTimeout(mobileImageTimerRef.current);
+    };
+  }, []);
+
+  const pauseAllExcept = (trackId) => {
+    Object.entries(audioRefs.current).forEach(([id, audio]) => {
+      if (audio && id !== trackId) {
+        audio.pause();
+        audio.currentTime = 0;
+      }
+    });
   };
 
-  const handleTrackClick = async (track) => {
-    const audio = audioRefs.current[track.id];
-
-    Object.entries(audioRefs.current).forEach(([id, otherAudio]) => {
-      if (otherAudio && id !== track.id) {
-        otherAudio.pause();
-        otherAudio.currentTime = 0;
+  const stopAllAudio = () => {
+    Object.values(audioRefs.current).forEach((audio) => {
+      if (audio) {
+        audio.pause();
+        audio.currentTime = 0;
       }
     });
 
-    const src = getImageSrc(track);
-    await preloadImage(src);
+    setPlayingId(null);
+    setProgressById({});
+  };
 
-    setSelectedTrackId(track.id);
+  const handleDesktopCollectionClick = (title) => {
+    if (title !== desktopActiveTitle) {
+      setDesktopSelectedTrack(null);
+      stopAllAudio();
+    }
+
+    setDesktopActiveTitle(title);
+  };
+
+  const handleMobileCollectionClick = (title) => {
+    if (title !== mobileActiveTitle) {
+      setMobileSelectedTrackId(null);
+      stopAllAudio();
+      setMobileActiveTitle(title);
+    } else {
+      setMobileSelectedTrackId(null);
+      stopAllAudio();
+      setMobileActiveTitle(null);
+    }
+  };
+
+  const playOrPauseTrack = (track) => {
+    const audio = audioRefs.current[track.id];
+
+    pauseAllExcept(track.id);
 
     if (audio) {
       if (playingId === track.id) {
@@ -136,7 +199,112 @@ export default function FilmComposerPortfolioSite() {
     }
   };
 
-  const activeCollection = COLLECTIONS.find((c) => c.title === activeTitle);
+  const handleDesktopTrackClick = async (track) => {
+    if (desktopImageTimerRef.current) {
+      clearTimeout(desktopImageTimerRef.current);
+    }
+
+    setDesktopImageVisible(false);
+
+    const src = getImageSrc(track);
+    await preloadImage(src);
+
+    desktopImageTimerRef.current = setTimeout(() => {
+      setDesktopSelectedTrack(track);
+      setDesktopImageVisible(true);
+    }, FADE_MS);
+
+    playOrPauseTrack(track);
+  };
+
+  const handleMobileTrackClick = async (track) => {
+    if (mobileImageTimerRef.current) {
+      clearTimeout(mobileImageTimerRef.current);
+    }
+
+    setMobileImageVisible(false);
+
+    const src = getImageSrc(track);
+    await preloadImage(src);
+
+    mobileImageTimerRef.current = setTimeout(() => {
+      setMobileSelectedTrackId(track.id);
+      setMobileImageVisible(true);
+    }, FADE_MS);
+
+    playOrPauseTrack(track);
+  };
+
+  const renderTrackCard = (track, onClick, showInlineImage = false) => (
+    <div key={track.id} className="border border-[#C9D0C4] p-5 bg-[#F8FBF2]">
+      <audio
+        ref={(el) => {
+          audioRefs.current[track.id] = el;
+        }}
+        src={track.audio}
+        onEnded={() => {
+          setPlayingId(null);
+          setProgressById((prev) => ({ ...prev, [track.id]: 0 }));
+        }}
+        onTimeUpdate={(e) => {
+          const audio = e.currentTarget;
+          if (!audio.duration) return;
+
+          const progress = (audio.currentTime / audio.duration) * 100;
+
+          setProgressById((prev) => ({ ...prev, [track.id]: progress }));
+        }}
+      />
+
+      <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-5 md:gap-6">
+        <div className="flex-1 min-w-0">
+          <div className="flex items-baseline gap-3 flex-wrap">
+            <div className="text-lg tracking-[0.02em]">{track.title}</div>
+
+            {track.status && (
+              <div className="text-[0.63rem] uppercase tracking-[0.28em] text-[#7A8175]">
+                {track.status}
+              </div>
+            )}
+          </div>
+
+          <div className="text-[1rem] text-[#5F665C] mt-2 leading-[1.6] max-w-none whitespace-pre-line">
+            {track.desc || " "}
+          </div>
+
+          <div className="mt-3 flex items-center gap-4">
+            <div className="text-sm text-[#71786D]">{track.duration}</div>
+
+            <div className="flex-1 h-[1px] bg-[#D7DDD1] overflow-hidden">
+              <div
+                className="h-full bg-[#1A1A1A] transition-all duration-200 ease-out"
+                style={{ width: `${progressById[track.id] || 0}%` }}
+              />
+            </div>
+          </div>
+        </div>
+
+        <button
+          onClick={() => onClick(track)}
+          className="self-start md:self-auto shrink-0 text-[0.72rem] uppercase tracking-[0.24em] text-[#5F665C] hover:text-[#1A1A1A] transition-all duration-500 ease-out active:opacity-60"
+        >
+          {playingId === track.id ? "Pause" : "Play"}
+        </button>
+      </div>
+
+      {showInlineImage && mobileSelectedTrackId === track.id && (
+        <div
+          className={`mt-6 flex justify-center transition-opacity duration-[600ms] ease-out ${
+            mobileImageVisible ? "opacity-100" : "opacity-0"
+          }`}
+        >
+          <div className="w-full max-w-md flex items-center justify-center text-[#71786D] text-center">
+            {track.image}
+          </div>
+        </div>
+      )}
+    </div>
+  );
 
   return (
     <div className="min-h-screen bg-[#EFF4D6] text-[#1A1A1A] font-light">
@@ -162,16 +330,66 @@ export default function FilmComposerPortfolioSite() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-6 py-10 md:py-16">
+      <section className="hidden md:block mx-auto max-w-6xl px-6 py-16">
+        <div className="grid md:grid-cols-4 gap-6">
+          {COLLECTIONS.map((collection) => (
+            <button
+              key={collection.title}
+              onClick={() => handleDesktopCollectionClick(collection.title)}
+              className={`text-left border p-6 transition-all duration-500 ease-out ${
+                desktopActiveTitle === collection.title
+                  ? "border-[#1A1A1A] bg-[#F7F9F2]"
+                  : "border-[#C9D0C4] bg-[#F8FBF2] hover:border-[#1A1A1A] hover:bg-[#F7F9F2]"
+              }`}
+            >
+              <div className="text-sm uppercase tracking-[0.28em] text-[#71786D]">
+                {collection.type}
+              </div>
+
+              <div className="mt-4 text-[1.35rem]">
+                {collection.title}
+              </div>
+            </button>
+          ))}
+        </div>
+
+        {desktopActiveCollection && (
+          <div
+            className={`mt-12 grid md:grid-cols-12 gap-10 items-center transition-opacity duration-700 ${
+              desktopCollectionFading ? "opacity-0" : "opacity-100"
+            }`}
+          >
+            <div className="md:col-span-7 space-y-4">
+              {desktopActiveCollection.tracks.map((track) =>
+                renderTrackCard(track, handleDesktopTrackClick, false)
+              )}
+            </div>
+
+            <div className="md:col-span-5 flex justify-center">
+              <div
+                className={`w-full max-w-md flex items-center justify-center text-[#71786D] text-center transition-opacity duration-[600ms] ease-out ${
+                  desktopImageVisible ? "opacity-100" : "opacity-0"
+                }`}
+              >
+                {desktopSelectedTrack
+                  ? desktopSelectedTrack.image
+                  : "Track Image"}
+              </div>
+            </div>
+          </div>
+        )}
+      </section>
+
+      <section className="md:hidden mx-auto max-w-6xl px-6 py-10">
         <div className="space-y-6">
           {COLLECTIONS.map((collection) => (
             <div key={collection.title}>
               <button
-                onClick={() => handleCollectionClick(collection.title)}
+                onClick={() => handleMobileCollectionClick(collection.title)}
                 className={`w-full text-left border p-6 transition-all duration-500 ease-out active:opacity-70 ${
-                  activeTitle === collection.title
+                  mobileActiveTitle === collection.title
                     ? "border-[#1A1A1A] bg-[#F7F9F2]"
-                    : "border-[#C9D0C4] bg-[#F8FBF2] hover:border-[#1A1A1A] hover:bg-[#F7F9F2]"
+                    : "border-[#C9D0C4] bg-[#F8FBF2]"
                 }`}
               >
                 <div className="text-sm uppercase tracking-[0.28em] text-[#71786D]">
@@ -183,90 +401,11 @@ export default function FilmComposerPortfolioSite() {
                 </div>
               </button>
 
-              {activeTitle === collection.title && (
+              {mobileActiveTitle === collection.title && (
                 <div className="mt-5 space-y-4">
-                  {collection.tracks.map((t) => (
-                    <div
-                      key={t.id}
-                      className="border border-[#C9D0C4] p-5 bg-[#F8FBF2]"
-                    >
-                      <audio
-                        ref={(el) => {
-                          audioRefs.current[t.id] = el;
-                        }}
-                        src={t.audio}
-                        onEnded={() => {
-                          setPlayingId(null);
-                          setProgressById((prev) => ({
-                            ...prev,
-                            [t.id]: 0,
-                          }));
-                        }}
-                        onTimeUpdate={(e) => {
-                          const audio = e.currentTarget;
-                          if (!audio.duration) return;
-
-                          const progress =
-                            (audio.currentTime / audio.duration) * 100;
-
-                          setProgressById((prev) => ({
-                            ...prev,
-                            [t.id]: progress,
-                          }));
-                        }}
-                      />
-
-                      <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-5">
-                        <div className="flex-1 min-w-0">
-                          <div className="flex items-baseline gap-3 flex-wrap">
-                            <div className="text-lg tracking-[0.02em]">
-                              {t.title}
-                            </div>
-
-                            {t.status && (
-                              <div className="text-[0.63rem] uppercase tracking-[0.28em] text-[#7A8175]">
-                                {t.status}
-                              </div>
-                            )}
-                          </div>
-
-                          <div className="text-[1rem] text-[#5F665C] mt-2 leading-[1.6] max-w-none whitespace-pre-line">
-                            {t.desc || " "}
-                          </div>
-
-                          <div className="mt-3 flex items-center gap-4">
-                            <div className="text-sm text-[#71786D]">
-                              {t.duration}
-                            </div>
-
-                            <div className="flex-1 h-[1px] bg-[#D7DDD1] overflow-hidden">
-                              <div
-                                className="h-full bg-[#1A1A1A] transition-all duration-200 ease-out"
-                                style={{
-                                  width: `${progressById[t.id] || 0}%`,
-                                }}
-                              />
-                            </div>
-                          </div>
-                        </div>
-
-                        <button
-                          onClick={() => handleTrackClick(t)}
-                          className="self-start md:self-auto shrink-0 text-[0.72rem] uppercase tracking-[0.24em] text-[#5F665C] hover:text-[#1A1A1A] transition-all duration-500 ease-out active:opacity-60"
-                        >
-                          {playingId === t.id ? "Pause" : "Play"}
-                        </button>
-                      </div>
-
-                      {selectedTrackId === t.id && (
-                        <div className="mt-6 flex justify-center transition-opacity duration-700">
-                          <div className="w-full max-w-md flex items-center justify-center text-[#71786D] text-center">
-                            {t.image}
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  ))}
+                  {collection.tracks.map((track) =>
+                    renderTrackCard(track, handleMobileTrackClick, true)
+                  )}
                 </div>
               )}
             </div>
