@@ -2,15 +2,22 @@ import React, { useEffect, useRef, useState } from "react";
 
 const FADE_MS = 1200;
 
+const artworkStyle =
+  "max-w-full max-h-[26rem] h-auto object-contain opacity-[0.94] contrast-[0.96] transition-all duration-[1200ms]";
+
 const img = (src, alt) => (
-  <img src={src} alt={alt} className="max-w-full h-auto object-contain" />
+  <img
+    src={src}
+    alt={alt}
+    className={artworkStyle}
+  />
 );
 
 const smallImg = (src, alt) => (
   <img
     src={src}
     alt={alt}
-    className="max-w-full max-h-[28rem] h-auto object-contain"
+    className={`${artworkStyle} max-h-[23rem]`}
   />
 );
 
@@ -304,7 +311,7 @@ export default function FilmComposerPortfolioSite() {
             mobileImageVisible ? "opacity-100" : "opacity-0"
           }`}
         >
-          <div className="w-full max-w-md flex items-center justify-center text-[#71786D] text-center">
+          <div className="w-full max-w-[34rem] flex items-center justify-center text-[#71786D] text-center">
             {track.image}
           </div>
         </div>
