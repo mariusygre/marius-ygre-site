@@ -5,11 +5,7 @@ const img = (src, alt) => (
 );
 
 const smallImg = (src, alt) => (
-  <img
-    src={src}
-    alt={alt}
-    className="max-w-full max-h-[28rem] h-auto object-contain"
-  />
+  <img src={src} alt={alt} className="max-w-full max-h-[28rem] h-auto object-contain" />
 );
 
 const COLLECTIONS = [
@@ -62,26 +58,6 @@ const COLLECTIONS = [
   },
 ];
 
-const FADE_MS = 600;
-
-function useFadedValue(value) {
-  const [displayed, setDisplayed] = useState(value);
-  const [fading, setFading] = useState(false);
-  const timerRef = useRef(null);
-
-  useEffect(() => {
-    if (value === displayed) return;
-    setFading(true);
-    timerRef.current = setTimeout(() => {
-      setDisplayed(value);
-      setFading(false);
-    }, FADE_MS);
-    return () => clearTimeout(timerRef.current);
-  }, [value, displayed]);
-
-  return [displayed, fading];
-}
-
 function getImageSrc(track) {
   return track?.image?.props?.src || null;
 }
@@ -98,16 +74,11 @@ function preloadImage(src) {
 
 export default function FilmComposerPortfolioSite() {
   const [activeTitle, setActiveTitle] = useState(null);
-  const [displayedTrack, setDisplayedTrack] = useState(null);
-  const [trackFading, setTrackFading] = useState(false);
+  const [selectedTrackId, setSelectedTrackId] = useState(null);
   const [playingId, setPlayingId] = useState(null);
   const [progressById, setProgressById] = useState({});
 
   const audioRefs = useRef({});
-  const imageSwapTimerRef = useRef(null);
-
-  const [displayedTitle, collectionFading] = useFadedValue(activeTitle);
-  const activeData = COLLECTIONS.find((c) => c.title === displayedTitle) ?? null;
 
   useEffect(() => {
     COLLECTIONS.forEach((collection) => {
@@ -121,33 +92,25 @@ export default function FilmComposerPortfolioSite() {
     });
   }, []);
 
-  useEffect(() => {
-    return () => {
-      if (imageSwapTimerRef.current) clearTimeout(imageSwapTimerRef.current);
-    };
-  }, []);
-
   const handleCollectionClick = (title) => {
     if (title !== activeTitle) {
-      setDisplayedTrack(null);
-
+      setSelectedTrackId(null);
       Object.values(audioRefs.current).forEach((audio) => {
         if (audio) {
           audio.pause();
           audio.currentTime = 0;
         }
       });
-
       setPlayingId(null);
       setProgressById({});
+      setActiveTitle(title);
+    } else {
+      setActiveTitle(null);
+      setSelectedTrackId(null);
     }
-
-    setActiveTitle(title);
   };
 
   const handleTrackClick = async (track) => {
-    if (imageSwapTimerRef.current) clearTimeout(imageSwapTimerRef.current);
-
     const audio = audioRefs.current[track.id];
 
     Object.entries(audioRefs.current).forEach(([id, otherAudio]) => {
@@ -156,6 +119,11 @@ export default function FilmComposerPortfolioSite() {
         otherAudio.currentTime = 0;
       }
     });
+
+    const src = getImageSrc(track);
+    await preloadImage(src);
+
+    setSelectedTrackId(track.id);
 
     if (audio) {
       if (playingId === track.id) {
@@ -166,28 +134,20 @@ export default function FilmComposerPortfolioSite() {
         setPlayingId(track.id);
       }
     }
-
-    setTrackFading(true);
-
-    const src = getImageSrc(track);
-    await preloadImage(src);
-
-    imageSwapTimerRef.current = setTimeout(() => {
-      setDisplayedTrack(track);
-      setTrackFading(false);
-    }, FADE_MS);
   };
+
+  const activeCollection = COLLECTIONS.find((c) => c.title === activeTitle);
 
   return (
     <div className="min-h-screen bg-[#EFF4D6] text-[#1A1A1A] font-light">
-      <section className="mx-auto max-w-6xl px-6 py-24 grid md:grid-cols-2 gap-16 items-center">
+      <section className="mx-auto max-w-6xl px-6 pt-20 pb-16 md:py-24 grid md:grid-cols-2 gap-12 md:gap-16 items-center">
         <div className="space-y-8">
           <div>
-            <div className="text-[1.7rem] tracking-[0.32em] font-medium uppercase">
+            <div className="text-[1.35rem] md:text-[1.7rem] tracking-[0.32em] font-medium uppercase">
               MODERN COMPOSER
             </div>
 
-            <h1 className="mt-6 text-5xl md:text-[4.1rem] leading-[1.02] uppercase tracking-[0.08em]">
+            <h1 className="mt-6 text-4xl md:text-[4.1rem] leading-[1.05] uppercase tracking-[0.08em]">
               MARIUS YGRE
             </h1>
           </div>
@@ -202,120 +162,119 @@ export default function FilmComposerPortfolioSite() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-6 py-16">
-        <div className="grid md:grid-cols-4 gap-6">
-          {COLLECTIONS.map((c) => (
-            <button
-              key={c.title}
-              onClick={() => handleCollectionClick(c.title)}
-              className={`text-left border p-6 transition-all duration-500 ease-out ${
-                activeTitle === c.title
-                  ? "border-[#1A1A1A] bg-[#F7F9F2]"
-                  : "border-[#C9D0C4] bg-[#F8FBF2] hover:border-[#1A1A1A] hover:bg-[#F7F9F2] hover:text-[#1A1A1A]"
-              }`}
-            >
-              <div className="text-sm uppercase tracking-[0.28em] text-[#71786D]">
-                {c.type}
-              </div>
-
-              <div className="mt-4 text-[1.35rem]">{c.title}</div>
-            </button>
-          ))}
-        </div>
-
-        {activeData && (
-          <div
-            className={`mt-12 grid md:grid-cols-12 gap-10 items-center transition-opacity duration-700 ${
-              collectionFading ? "opacity-0" : "opacity-100"
-            }`}
-          >
-            <div className="md:col-span-7 space-y-4">
-              {activeData.tracks.map((t) => (
-                <div key={t.id} className="border border-[#C9D0C4] p-5 bg-[#F8FBF2]">
-                  <audio
-                    ref={(el) => {
-                      audioRefs.current[t.id] = el;
-                    }}
-                    src={t.audio}
-                    onEnded={() => {
-                      setPlayingId(null);
-                      setProgressById((prev) => ({
-                        ...prev,
-                        [t.id]: 0,
-                      }));
-                    }}
-                    onTimeUpdate={(e) => {
-                      const audio = e.currentTarget;
-                      if (!audio.duration) return;
-
-                      const progress = (audio.currentTime / audio.duration) * 100;
-
-                      setProgressById((prev) => ({
-                        ...prev,
-                        [t.id]: progress,
-                      }));
-                    }}
-                  />
-
-                  <div className="flex justify-between items-start gap-6">
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-baseline gap-3 flex-wrap">
-                        <div className="text-lg tracking-[0.02em]">
-                          {t.title}
-                        </div>
-
-                        {t.status && (
-                          <div className="text-[0.63rem] uppercase tracking-[0.28em] text-[#7A8175]">
-                            {t.status}
-                          </div>
-                        )}
-                      </div>
-
-                      <div className="text-[1rem] text-[#5F665C] mt-2 leading-[1.6] max-w-none whitespace-pre-line">
-                        {t.desc || " "}
-                      </div>
-
-                      <div className="mt-3 flex items-center gap-4">
-                        <div className="text-sm text-[#71786D]">
-                          {t.duration}
-                        </div>
-
-                        <div className="flex-1 h-[1px] bg-[#D7DDD1] overflow-hidden">
-                          <div
-                            className="h-full bg-[#1A1A1A] transition-all duration-200 ease-out"
-                            style={{
-                              width: `${progressById[t.id] || 0}%`,
-                            }}
-                          />
-                        </div>
-                      </div>
-                    </div>
-
-                    <button
-                      onClick={() => handleTrackClick(t)}
-                      className="shrink-0 text-[0.72rem] uppercase tracking-[0.24em] text-[#5F665C] hover:text-[#1A1A1A] transition-all duration-500 ease-out"
-                    >
-                      {playingId === t.id ? "Pause" : "Play"}
-                    </button>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <div className="md:col-span-5 flex justify-center">
-              <div
-                className={`w-full max-w-md flex items-center justify-center text-[#71786D] text-center transition-opacity duration-700 ${
-                  trackFading ? "opacity-0" : "opacity-100"
+      <section className="mx-auto max-w-6xl px-6 py-10 md:py-16">
+        <div className="space-y-6">
+          {COLLECTIONS.map((collection) => (
+            <div key={collection.title}>
+              <button
+                onClick={() => handleCollectionClick(collection.title)}
+                className={`w-full text-left border p-6 transition-all duration-500 ease-out active:opacity-70 ${
+                  activeTitle === collection.title
+                    ? "border-[#1A1A1A] bg-[#F7F9F2]"
+                    : "border-[#C9D0C4] bg-[#F8FBF2] hover:border-[#1A1A1A] hover:bg-[#F7F9F2]"
                 }`}
               >
-                {displayedTrack ? displayedTrack.image : "Track Image"}
-              </div>
+                <div className="text-sm uppercase tracking-[0.28em] text-[#71786D]">
+                  {collection.type}
+                </div>
+
+                <div className="mt-4 text-[1.35rem]">
+                  {collection.title}
+                </div>
+              </button>
+
+              {activeTitle === collection.title && (
+                <div className="mt-5 space-y-4">
+                  {collection.tracks.map((t) => (
+                    <div
+                      key={t.id}
+                      className="border border-[#C9D0C4] p-5 bg-[#F8FBF2]"
+                    >
+                      <audio
+                        ref={(el) => {
+                          audioRefs.current[t.id] = el;
+                        }}
+                        src={t.audio}
+                        onEnded={() => {
+                          setPlayingId(null);
+                          setProgressById((prev) => ({
+                            ...prev,
+                            [t.id]: 0,
+                          }));
+                        }}
+                        onTimeUpdate={(e) => {
+                          const audio = e.currentTarget;
+                          if (!audio.duration) return;
+
+                          const progress =
+                            (audio.currentTime / audio.duration) * 100;
+
+                          setProgressById((prev) => ({
+                            ...prev,
+                            [t.id]: progress,
+                          }));
+                        }}
+                      />
+
+                      <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-5">
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-baseline gap-3 flex-wrap">
+                            <div className="text-lg tracking-[0.02em]">
+                              {t.title}
+                            </div>
+
+                            {t.status && (
+                              <div className="text-[0.63rem] uppercase tracking-[0.28em] text-[#7A8175]">
+                                {t.status}
+                              </div>
+                            )}
+                          </div>
+
+                          <div className="text-[1rem] text-[#5F665C] mt-2 leading-[1.6] max-w-none whitespace-pre-line">
+                            {t.desc || " "}
+                          </div>
+
+                          <div className="mt-3 flex items-center gap-4">
+                            <div className="text-sm text-[#71786D]">
+                              {t.duration}
+                            </div>
+
+                            <div className="flex-1 h-[1px] bg-[#D7DDD1] overflow-hidden">
+                              <div
+                                className="h-full bg-[#1A1A1A] transition-all duration-200 ease-out"
+                                style={{
+                                  width: `${progressById[t.id] || 0}%`,
+                                }}
+                              />
+                            </div>
+                          </div>
+                        </div>
+
+                        <button
+                          onClick={() => handleTrackClick(t)}
+                          className="self-start md:self-auto shrink-0 text-[0.72rem] uppercase tracking-[0.24em] text-[#5F665C] hover:text-[#1A1A1A] transition-all duration-500 ease-out active:opacity-60"
+                        >
+                          {playingId === t.id ? "Pause" : "Play"}
+                        </button>
+                      </div>
+
+                      {selectedTrackId === t.id && (
+                        <div className="mt-6 flex justify-center transition-opacity duration-700">
+                          <div className="w-full max-w-md flex items-center justify-center text-[#71786D] text-center">
+                            {t.image}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
-          </div>
-        )}
+          ))}
+        </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-6 py-20 grid md:grid-cols-2 gap-16">
+      <section className="mx-auto max-w-6xl px-6 py-20 grid md:grid-cols-2 gap-12 md:gap-16">
         <div>
           <h2 className="text-[#1A1A1A] text-[2.1rem]">About</h2>
           <p className="mt-6 text-[#5F665C] text-[1.15rem] leading-[1.8]">
@@ -332,12 +291,12 @@ export default function FilmComposerPortfolioSite() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-6 pb-32 grid md:grid-cols-2 gap-16">
+      <section className="mx-auto max-w-6xl px-6 pb-32 grid md:grid-cols-2 gap-12 md:gap-16">
         <div>
           <h2 className="text-[#1A1A1A] text-[2.1rem]">Contact</h2>
         </div>
 
-        <div className="border border-[#C9D0C4] p-8 bg-[#F8FBF2]">
+        <div className="border border-[#C9D0C4] p-6 md:p-8 bg-[#F8FBF2]">
           <form
             action="https://formspree.io/f/xykvezbg"
             method="POST"
@@ -348,7 +307,7 @@ export default function FilmComposerPortfolioSite() {
               type="text"
               name="name"
               placeholder="Name *"
-              className="w-full border border-[#C9D0C4] bg-[#F8FAF4] px-4 py-3 text-[0.98rem]"
+              className="w-full border border-[#C9D0C4] bg-[#F8FAF4] px-4 py-4 text-[1rem]"
             />
 
             <input
@@ -356,14 +315,14 @@ export default function FilmComposerPortfolioSite() {
               type="email"
               name="email"
               placeholder="E-mail *"
-              className="w-full border border-[#C9D0C4] bg-[#F8FAF4] px-4 py-3 text-[0.98rem]"
+              className="w-full border border-[#C9D0C4] bg-[#F8FAF4] px-4 py-4 text-[1rem]"
             />
 
             <input
               type="tel"
               name="phone"
               placeholder="Phone"
-              className="w-full border border-[#C9D0C4] bg-[#F8FAF4] px-4 py-3 text-[0.98rem]"
+              className="w-full border border-[#C9D0C4] bg-[#F8FAF4] px-4 py-4 text-[1rem]"
             />
 
             <textarea
@@ -371,10 +330,10 @@ export default function FilmComposerPortfolioSite() {
               rows={5}
               name="message"
               placeholder="Message"
-              className="w-full border border-[#C9D0C4] bg-[#F8FAF4] px-4 py-3 text-[0.98rem]"
+              className="w-full border border-[#C9D0C4] bg-[#F8FAF4] px-4 py-4 text-[1rem]"
             />
 
-            <button className="w-full bg-[#1A1A1A] text-white py-3">
+            <button className="w-full bg-[#1A1A1A] text-white py-4 active:opacity-70">
               Send Message
             </button>
           </form>
