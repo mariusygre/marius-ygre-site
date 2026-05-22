@@ -366,29 +366,23 @@ export default function FilmComposerPortfolioSite() {
               desktopCollectionFading ? "opacity-0" : "opacity-100"
             }`}
           >
-            <div
-              className={
-                desktopSelectedTrack
-                  ? "md:col-span-7 space-y-4"
-                  : "md:col-span-12 space-y-4"
-              }
-            >
+            <div className="md:col-span-7 space-y-4">
               {desktopActiveCollection.tracks.map((track) =>
                 renderTrackCard(track, handleDesktopTrackClick, false)
               )}
             </div>
 
-            {desktopSelectedTrack && (
-              <div className="md:col-span-5 flex justify-center">
-                <div
-                  className={`w-full max-w-md flex items-center justify-center text-[#71786D] text-center transition-opacity duration-[1200ms] ease-out ${
-                    desktopImageVisible ? "opacity-100" : "opacity-0"
-                  }`}
-                >
-                  {desktopSelectedTrack.image}
-                </div>
+            <div className="md:col-span-5 flex justify-center">
+              <div
+                className={`w-full max-w-md flex items-center justify-center text-[#71786D] text-center transition-opacity duration-[1200ms] ease-out ${
+                  desktopImageVisible && desktopSelectedTrack
+                    ? "opacity-100"
+                    : "opacity-0"
+                }`}
+              >
+                {desktopSelectedTrack ? desktopSelectedTrack.image : null}
               </div>
-            )}
+            </div>
           </div>
         )}
       </section>
