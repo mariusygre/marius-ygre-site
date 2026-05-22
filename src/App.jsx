@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 
-const FADE_MS = 600;
+const FADE_MS = 1200;
 
 const img = (src, alt) => (
   <img src={src} alt={alt} className="max-w-full h-auto object-contain" />
@@ -107,7 +107,7 @@ export default function FilmComposerPortfolioSite() {
   const [mobileSelectedTrackId, setMobileSelectedTrackId] = useState(null);
 
   const [desktopImageVisible, setDesktopImageVisible] = useState(true);
-  const [mobileImageVisible, setMobileImageVisible] = useState(true);
+  const [mobileImageVisible, setMobileImageVisible] = useState(false);
 
   const [playingId, setPlayingId] = useState(null);
   const [progressById, setProgressById] = useState({});
@@ -174,10 +174,12 @@ export default function FilmComposerPortfolioSite() {
   const handleMobileCollectionClick = (title) => {
     if (title !== mobileActiveTitle) {
       setMobileSelectedTrackId(null);
+      setMobileImageVisible(false);
       stopAllAudio();
       setMobileActiveTitle(title);
     } else {
       setMobileSelectedTrackId(null);
+      setMobileImageVisible(false);
       stopAllAudio();
       setMobileActiveTitle(null);
     }
@@ -228,13 +230,13 @@ export default function FilmComposerPortfolioSite() {
     const src = getImageSrc(track);
     await preloadImage(src);
 
-    mobileImageTimerRef.current = setTimeout(() => {
-      setMobileSelectedTrackId(track.id);
+    setMobileSelectedTrackId(track.id);
 
+    requestAnimationFrame(() => {
       requestAnimationFrame(() => {
         setMobileImageVisible(true);
       });
-    }, 20);
+    });
 
     playOrPauseTrack(track);
   };
@@ -298,7 +300,7 @@ export default function FilmComposerPortfolioSite() {
 
       {showInlineImage && mobileSelectedTrackId === track.id && (
         <div
-          className={`mt-6 flex justify-center transition-opacity duration-[600ms] ease-out ${
+          className={`mt-6 flex justify-center transition-opacity duration-[1200ms] ease-out ${
             mobileImageVisible ? "opacity-100" : "opacity-0"
           }`}
         >
@@ -359,7 +361,7 @@ export default function FilmComposerPortfolioSite() {
 
         {desktopActiveCollection && (
           <div
-            className={`mt-12 grid md:grid-cols-12 gap-10 items-center transition-opacity duration-700 ${
+            className={`mt-12 grid md:grid-cols-12 gap-10 items-center transition-opacity duration-[1200ms] ${
               desktopCollectionFading ? "opacity-0" : "opacity-100"
             }`}
           >
@@ -371,7 +373,7 @@ export default function FilmComposerPortfolioSite() {
 
             <div className="md:col-span-5 flex justify-center">
               <div
-                className={`w-full max-w-md flex items-center justify-center text-[#71786D] text-center transition-opacity duration-[600ms] ease-out ${
+                className={`w-full max-w-md flex items-center justify-center text-[#71786D] text-center transition-opacity duration-[1200ms] ease-out ${
                   desktopImageVisible ? "opacity-100" : "opacity-0"
                 }`}
               >
