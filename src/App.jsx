@@ -5,11 +5,19 @@ const BORDER_SOFT = "border-[#D9DED4]";
 const IMAGE_FRAME = "border-[0.17px] border-[#5F665C] p-[1.25px]";
 
 const img = (src, alt) => (
-  <img src={src} alt={alt} className={`max-w-full h-auto object-contain ${IMAGE_FRAME}`} />
+  <img
+    src={src}
+    alt={alt}
+    className={`max-w-full h-auto object-contain ${IMAGE_FRAME}`}
+  />
 );
 
 const smallImg = (src, alt) => (
-  <img src={src} alt={alt} className={`max-w-full max-h-[28rem] h-auto object-contain ${IMAGE_FRAME}`} />
+  <img
+    src={src}
+    alt={alt}
+    className={`max-w-full max-h-[28rem] h-auto object-contain ${IMAGE_FRAME}`}
+  />
 );
 
 const COLLECTIONS = [
@@ -24,9 +32,9 @@ const COLLECTIONS = [
       { id: "5", title: "Iben's Dance", status: "", desc: "", duration: "02.31", audio: "/audio/ibens-dance.wav", image: img("/images/ibens-dance.png", "Iben's Dance") },
       { id: "6", title: "Nival", status: "", desc: "", duration: "02.36", audio: "/audio/nival.wav", image: img("/images/nival.png", "Nival") },
       { id: "7", title: "Suite", status: "", desc: "", duration: "03.36", audio: "/audio/suite.mp3", image: img("/images/suite.png", "Suite") },
-      { id: "8", title: "Auralis", status: "UPCOMING", desc: "", duration: "03.23", audio: "/audio/auralis.wav", image: img("/images/auralis.png", "Auralis") },
+      { id: "8", title: "Auralis", status: "", desc: "", duration: "03.23", audio: "/audio/auralis.wav", image: img("/images/auralis.png", "Auralis") },
       { id: "9", title: "Malinconia", status: "UPCOMING", desc: "", duration: "03.08", audio: "/audio/malinconia.wav", image: smallImg("/images/malinconia.png", "Malinconia") },
-      { id: "10", title: "Hrim", status: "UPCOMING", desc: "", duration: "03.45", audio: "/audio/hrim.wav", image: img("/images/hrim.png", "Hrim") },
+      { id: "10", title: "Hrim", status: "", desc: "", duration: "03.45", audio: "/audio/hrim.wav", image: img("/images/hrim.png", "Hrim") },
     ],
   },
   {
@@ -304,7 +312,11 @@ export default function FilmComposerPortfolioSite() {
         </div>
 
         <div className="w-full flex justify-center">
-          <img src="/images/profile-image-3.jpg" alt="Profile" className={`w-full h-auto object-contain ${IMAGE_FRAME}`} />
+          <img
+            src="/images/profile-image-3.jpg"
+            alt="Profile"
+            className={`w-full h-auto object-contain ${IMAGE_FRAME}`}
+          />
         </div>
       </section>
 
@@ -384,7 +396,11 @@ export default function FilmComposerPortfolioSite() {
         </div>
 
         <div className="flex justify-center items-center h-full">
-          <img src="/images/marius-ygre.jpg" alt="Marius Ygre" className={`max-w-[17rem] h-auto object-contain ${IMAGE_FRAME}`} />
+          <img
+            src="/images/marius-ygre.jpg"
+            alt="Marius Ygre"
+            className={`max-w-[17rem] h-auto object-contain ${IMAGE_FRAME}`}
+          />
         </div>
       </section>
 
