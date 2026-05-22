@@ -71,6 +71,7 @@ function getImageSrc(track) {
 function preloadImage(src) {
   return new Promise((resolve) => {
     if (!src) return resolve();
+
     const image = new Image();
     image.onload = resolve;
     image.onerror = resolve;
@@ -125,6 +126,7 @@ export default function FilmComposerPortfolioSite() {
     COLLECTIONS.forEach((collection) => {
       collection.tracks.forEach((track) => {
         const src = getImageSrc(track);
+
         if (src) {
           const preloadImg = new Image();
           preloadImg.src = src;
@@ -135,7 +137,9 @@ export default function FilmComposerPortfolioSite() {
 
   useEffect(() => {
     return () => {
-      if (desktopImageTimerRef.current) clearTimeout(desktopImageTimerRef.current);
+      if (desktopImageTimerRef.current) {
+        clearTimeout(desktopImageTimerRef.current);
+      }
     };
   }, []);
 
@@ -343,15 +347,15 @@ export default function FilmComposerPortfolioSite() {
             <button
               key={collection.title}
               onClick={() => handleDesktopCollectionClick(collection.title)}
-              className={playlistButtonClass(desktopActiveTitle === collection.title)}
+              className={playlistButtonClass(
+                desktopActiveTitle === collection.title
+              )}
             >
               <div className="text-sm uppercase tracking-[0.28em] text-[#71786D]">
                 {collection.type}
               </div>
 
-              <div className="mt-4 text-[1.35rem]">
-                {collection.title}
-              </div>
+              <div className="mt-4 text-[1.35rem]">{collection.title}</div>
             </button>
           ))}
         </div>
@@ -362,30 +366,29 @@ export default function FilmComposerPortfolioSite() {
               desktopCollectionFading ? "opacity-0" : "opacity-100"
             }`}
           >
-            <div className="md:col-span-7 space-y-4">
+            <div
+              className={
+                desktopSelectedTrack
+                  ? "md:col-span-7 space-y-4"
+                  : "md:col-span-12 space-y-4"
+              }
+            >
               {desktopActiveCollection.tracks.map((track) =>
                 renderTrackCard(track, handleDesktopTrackClick, false)
               )}
             </div>
 
             {desktopSelectedTrack && (
-  <div className="md:col-span-5 flex justify-center">
-    <div
-      className={`w-full max-w-md flex items-center justify-center text-[#71786D] text-center transition-opacity duration-[1200ms] ease-out ${
-        desktopImageVisible ? "opacity-100" : "opacity-0"
-      }`}
-    >
-      {desktopSelectedTrack.image}
-    </div>
-  </div>
-)}
-                }`}
-              >
-                {desktopSelectedTrack
-                  ? desktopSelectedTrack.image
-                  : null}
+              <div className="md:col-span-5 flex justify-center">
+                <div
+                  className={`w-full max-w-md flex items-center justify-center text-[#71786D] text-center transition-opacity duration-[1200ms] ease-out ${
+                    desktopImageVisible ? "opacity-100" : "opacity-0"
+                  }`}
+                >
+                  {desktopSelectedTrack.image}
+                </div>
               </div>
-            </div>
+            )}
           </div>
         )}
       </section>
@@ -396,15 +399,15 @@ export default function FilmComposerPortfolioSite() {
             <div key={collection.title}>
               <button
                 onClick={() => handleMobileCollectionClick(collection.title)}
-                className={playlistButtonClass(mobileActiveTitle === collection.title)}
+                className={playlistButtonClass(
+                  mobileActiveTitle === collection.title
+                )}
               >
                 <div className="text-sm uppercase tracking-[0.28em] text-[#71786D]">
                   {collection.type}
                 </div>
 
-                <div className="mt-4 text-[1.35rem]">
-                  {collection.title}
-                </div>
+                <div className="mt-4 text-[1.35rem]">{collection.title}</div>
               </button>
 
               {mobileActiveTitle === collection.title && (
