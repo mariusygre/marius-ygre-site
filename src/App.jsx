@@ -2,22 +2,15 @@ import React, { useEffect, useRef, useState } from "react";
 
 const FADE_MS = 1200;
 
-const artworkStyle =
-  "max-w-full max-h-[26rem] h-auto object-contain opacity-[0.94] contrast-[0.96] transition-all duration-[1200ms]";
-
 const img = (src, alt) => (
-  <img
-    src={src}
-    alt={alt}
-    className={artworkStyle}
-  />
+  <img src={src} alt={alt} className="max-w-full h-auto object-contain" />
 );
 
 const smallImg = (src, alt) => (
   <img
     src={src}
     alt={alt}
-    className={`${artworkStyle} max-h-[23rem]`}
+    className="max-w-full max-h-[28rem] h-auto object-contain"
   />
 );
 
@@ -32,7 +25,7 @@ const COLLECTIONS = [
       { id: "4", title: "The Quiet Between", status: "", desc: "", duration: "03.28", audio: "/audio/the-quiet-between.wav", image: smallImg("/images/the-quiet-between.png", "The Quiet Between") },
       { id: "5", title: "Iben's Dance", status: "", desc: "", duration: "02.31", audio: "/audio/ibens-dance.wav", image: img("/images/ibens-dance.png", "Iben's Dance") },
       { id: "6", title: "Nival", status: "", desc: "", duration: "02.36", audio: "/audio/nival.wav", image: img("/images/nival.png", "Nival") },
-      { { id: "7", title: "Suite", status: "", desc: "", duration: "03.36", audio: "/audio/suite.mp3", image: img("/images/suite.png", "Suite") },
+      { id: "7", title: "Suite", status: "", desc: "", duration: "03.36", audio: "/audio/suite.mp3", image: img("/images/suite.png", "Suite") },
       { id: "8", title: "Auralis", status: "UPCOMING", desc: "", duration: "03.23", audio: "/audio/auralis.wav", image: img("/images/auralis.png", "Auralis") },
       { id: "9", title: "Malinconia", status: "UPCOMING", desc: "", duration: "03.08", audio: "/audio/malinconia.wav", image: smallImg("/images/malinconia.png", "Malinconia") },
       { id: "10", title: "Hrim", status: "UPCOMING", desc: "", duration: "03.45", audio: "/audio/hrim.wav", image: img("/images/hrim.png", "Hrim") },
@@ -121,7 +114,6 @@ export default function FilmComposerPortfolioSite() {
 
   const audioRefs = useRef({});
   const desktopImageTimerRef = useRef(null);
-  const mobileImageTimerRef = useRef(null);
 
   const [desktopDisplayedTitle, desktopCollectionFading] =
     useFadedValue(desktopActiveTitle);
@@ -144,7 +136,6 @@ export default function FilmComposerPortfolioSite() {
   useEffect(() => {
     return () => {
       if (desktopImageTimerRef.current) clearTimeout(desktopImageTimerRef.current);
-      if (mobileImageTimerRef.current) clearTimeout(mobileImageTimerRef.current);
     };
   }, []);
 
@@ -227,10 +218,6 @@ export default function FilmComposerPortfolioSite() {
   };
 
   const handleMobileTrackClick = async (track) => {
-    if (mobileImageTimerRef.current) {
-      clearTimeout(mobileImageTimerRef.current);
-    }
-
     setMobileSelectedTrackId(null);
     setMobileImageVisible(false);
 
@@ -311,13 +298,20 @@ export default function FilmComposerPortfolioSite() {
             mobileImageVisible ? "opacity-100" : "opacity-0"
           }`}
         >
-          <div className="w-full max-w-[34rem] flex items-center justify-center text-[#71786D] text-center">
+          <div className="w-full max-w-md flex items-center justify-center text-[#71786D] text-center">
             {track.image}
           </div>
         </div>
       )}
     </div>
   );
+
+  const playlistButtonClass = (isActive) =>
+    `w-full text-left border-b py-6 transition-all duration-500 ease-out active:opacity-70 ${
+      isActive
+        ? "border-[#1A1A1A]"
+        : "border-[#C9D0C4] hover:border-[#1A1A1A]"
+    }`;
 
   return (
     <div className="min-h-screen bg-[#EFF4D6] text-[#1A1A1A] font-light">
@@ -344,16 +338,12 @@ export default function FilmComposerPortfolioSite() {
       </section>
 
       <section className="hidden md:block mx-auto max-w-6xl px-6 py-16">
-        <div className="grid md:grid-cols-4 gap-6">
+        <div className="grid md:grid-cols-4 gap-8">
           {COLLECTIONS.map((collection) => (
             <button
               key={collection.title}
               onClick={() => handleDesktopCollectionClick(collection.title)}
-              className={`text-left border p-6 transition-all duration-500 ease-out ${
-                desktopActiveTitle === collection.title
-                  ? "border-[#1A1A1A] bg-[#F7F9F2]"
-                  : "border-[#C9D0C4] bg-[#F8FBF2] hover:border-[#1A1A1A] hover:bg-[#F7F9F2]"
-              }`}
+              className={playlistButtonClass(desktopActiveTitle === collection.title)}
             >
               <div className="text-sm uppercase tracking-[0.28em] text-[#71786D]">
                 {collection.type}
@@ -399,11 +389,7 @@ export default function FilmComposerPortfolioSite() {
             <div key={collection.title}>
               <button
                 onClick={() => handleMobileCollectionClick(collection.title)}
-                className={`w-full text-left border p-6 transition-all duration-500 ease-out active:opacity-70 ${
-                  mobileActiveTitle === collection.title
-                    ? "border-[#1A1A1A] bg-[#F7F9F2]"
-                    : "border-[#C9D0C4] bg-[#F8FBF2]"
-                }`}
+                className={playlistButtonClass(mobileActiveTitle === collection.title)}
               >
                 <div className="text-sm uppercase tracking-[0.28em] text-[#71786D]">
                   {collection.type}
@@ -443,7 +429,7 @@ export default function FilmComposerPortfolioSite() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-6 pb-32 grid md:grid-cols-2 gap-12 md:gap-16">
+      <section className="mx-auto max-w-6xl px-6 pb-24 grid md:grid-cols-2 gap-12 md:gap-16">
         <div>
           <h2 className="text-[#1A1A1A] text-[2.1rem]">Contact</h2>
         </div>
@@ -485,7 +471,7 @@ export default function FilmComposerPortfolioSite() {
               className="w-full border border-[#C9D0C4] bg-[#F8FAF4] px-4 py-4 text-[1rem]"
             />
 
-            <button className="w-full bg-[#1A1A1A] text-white py-4 active:opacity-70">
+            <button className="w-full border border-[#1A1A1A] py-4 text-[0.72rem] uppercase tracking-[0.24em] text-[#1A1A1A] hover:bg-[#1A1A1A] hover:text-white transition-all duration-500 ease-out active:opacity-70">
               Send Message
             </button>
           </form>
@@ -495,6 +481,10 @@ export default function FilmComposerPortfolioSite() {
           </div>
         </div>
       </section>
+
+      <footer className="mx-auto max-w-6xl px-6 pb-10 text-[0.75rem] uppercase tracking-[0.28em] text-[#71786D]">
+        © Marius Ygre
+      </footer>
     </div>
   );
 }
