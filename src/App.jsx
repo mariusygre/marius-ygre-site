@@ -368,10 +368,17 @@ export default function FilmComposerPortfolioSite() {
               )}
             </div>
 
-            <div className="md:col-span-5 flex justify-center">
-              <div
-                className={`w-full max-w-md flex items-center justify-center text-[#71786D] text-center transition-opacity duration-[1200ms] ease-out ${
-                  desktopImageVisible ? "opacity-100" : "opacity-0"
+            {desktopSelectedTrack && (
+  <div className="md:col-span-5 flex justify-center">
+    <div
+      className={`w-full max-w-md flex items-center justify-center text-[#71786D] text-center transition-opacity duration-[1200ms] ease-out ${
+        desktopImageVisible ? "opacity-100" : "opacity-0"
+      }`}
+    >
+      {desktopSelectedTrack.image}
+    </div>
+  </div>
+)}
                 }`}
               >
                 {desktopSelectedTrack
