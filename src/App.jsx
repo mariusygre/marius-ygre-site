@@ -1,17 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
 
 const FADE_MS = 1200;
+const BORDER_SOFT = "border-[#D9DED4]";
 
 const img = (src, alt) => (
   <img src={src} alt={alt} className="max-w-full h-auto object-contain" />
 );
 
 const smallImg = (src, alt) => (
-  <img
-    src={src}
-    alt={alt}
-    className="max-w-full max-h-[28rem] h-auto object-contain"
-  />
+  <img src={src} alt={alt} className="max-w-full max-h-[28rem] h-auto object-contain" />
 );
 
 const COLLECTIONS = [
@@ -71,7 +68,6 @@ function getImageSrc(track) {
 function preloadImage(src) {
   return new Promise((resolve) => {
     if (!src) return resolve();
-
     const image = new Image();
     image.onload = resolve;
     image.onerror = resolve;
@@ -86,14 +82,11 @@ function useFadedValue(value) {
 
   useEffect(() => {
     if (value === displayed) return;
-
     setFading(true);
-
     timerRef.current = setTimeout(() => {
       setDisplayed(value);
       setFading(false);
     }, FADE_MS);
-
     return () => clearTimeout(timerRef.current);
   }, [value, displayed]);
 
@@ -103,30 +96,23 @@ function useFadedValue(value) {
 export default function FilmComposerPortfolioSite() {
   const [desktopActiveTitle, setDesktopActiveTitle] = useState(null);
   const [mobileActiveTitle, setMobileActiveTitle] = useState(null);
-
   const [desktopSelectedTrack, setDesktopSelectedTrack] = useState(null);
   const [mobileSelectedTrackId, setMobileSelectedTrackId] = useState(null);
-
   const [desktopImageVisible, setDesktopImageVisible] = useState(true);
   const [mobileImageVisible, setMobileImageVisible] = useState(false);
-
   const [playingId, setPlayingId] = useState(null);
   const [progressById, setProgressById] = useState({});
 
   const audioRefs = useRef({});
   const desktopImageTimerRef = useRef(null);
 
-  const [desktopDisplayedTitle, desktopCollectionFading] =
-    useFadedValue(desktopActiveTitle);
-
-  const desktopActiveCollection =
-    COLLECTIONS.find((c) => c.title === desktopDisplayedTitle) ?? null;
+  const [desktopDisplayedTitle, desktopCollectionFading] = useFadedValue(desktopActiveTitle);
+  const desktopActiveCollection = COLLECTIONS.find((c) => c.title === desktopDisplayedTitle) ?? null;
 
   useEffect(() => {
     COLLECTIONS.forEach((collection) => {
       collection.tracks.forEach((track) => {
         const src = getImageSrc(track);
-
         if (src) {
           const preloadImg = new Image();
           preloadImg.src = src;
@@ -137,9 +123,7 @@ export default function FilmComposerPortfolioSite() {
 
   useEffect(() => {
     return () => {
-      if (desktopImageTimerRef.current) {
-        clearTimeout(desktopImageTimerRef.current);
-      }
+      if (desktopImageTimerRef.current) clearTimeout(desktopImageTimerRef.current);
     };
   }, []);
 
@@ -159,7 +143,6 @@ export default function FilmComposerPortfolioSite() {
         audio.currentTime = 0;
       }
     });
-
     setPlayingId(null);
     setProgressById({});
   };
@@ -169,7 +152,6 @@ export default function FilmComposerPortfolioSite() {
       setDesktopSelectedTrack(null);
       stopAllAudio();
     }
-
     setDesktopActiveTitle(title);
   };
 
@@ -189,7 +171,6 @@ export default function FilmComposerPortfolioSite() {
 
   const playOrPauseTrack = (track) => {
     const audio = audioRefs.current[track.id];
-
     pauseAllExcept(track.id);
 
     if (audio) {
@@ -204,12 +185,8 @@ export default function FilmComposerPortfolioSite() {
   };
 
   const handleDesktopTrackClick = async (track) => {
-    if (desktopImageTimerRef.current) {
-      clearTimeout(desktopImageTimerRef.current);
-    }
-
+    if (desktopImageTimerRef.current) clearTimeout(desktopImageTimerRef.current);
     setDesktopImageVisible(false);
-
     const src = getImageSrc(track);
     await preloadImage(src);
 
@@ -224,10 +201,8 @@ export default function FilmComposerPortfolioSite() {
   const handleMobileTrackClick = async (track) => {
     setMobileSelectedTrackId(null);
     setMobileImageVisible(false);
-
     const src = getImageSrc(track);
     await preloadImage(src);
-
     setMobileSelectedTrackId(track.id);
 
     requestAnimationFrame(() => {
@@ -240,7 +215,7 @@ export default function FilmComposerPortfolioSite() {
   };
 
   const renderTrackCard = (track, onClick, showInlineImage = false) => (
-    <div key={track.id} className="border border-[#C9D0C4] p-5 bg-[#F8FBF2]">
+    <div key={track.id} className={`border ${BORDER_SOFT} p-5 bg-[#F8FBF2]`}>
       <audio
         ref={(el) => {
           audioRefs.current[track.id] = el;
@@ -253,9 +228,7 @@ export default function FilmComposerPortfolioSite() {
         onTimeUpdate={(e) => {
           const audio = e.currentTarget;
           if (!audio.duration) return;
-
           const progress = (audio.currentTime / audio.duration) * 100;
-
           setProgressById((prev) => ({ ...prev, [track.id]: progress }));
         }}
       />
@@ -264,7 +237,6 @@ export default function FilmComposerPortfolioSite() {
         <div className="flex-1 min-w-0">
           <div className="flex items-baseline gap-3 flex-wrap">
             <div className="text-lg tracking-[0.02em]">{track.title}</div>
-
             {track.status && (
               <div className="text-[0.63rem] uppercase tracking-[0.28em] text-[#7A8175]">
                 {track.status}
@@ -278,7 +250,6 @@ export default function FilmComposerPortfolioSite() {
 
           <div className="mt-3 flex items-center gap-4">
             <div className="text-sm text-[#71786D]">{track.duration}</div>
-
             <div className="flex-1 h-[1px] bg-[#D7DDD1] overflow-hidden">
               <div
                 className="h-full bg-[#1A1A1A] transition-all duration-200 ease-out"
@@ -313,8 +284,8 @@ export default function FilmComposerPortfolioSite() {
   const playlistButtonClass = (isActive) =>
     `w-full text-left border-b py-6 transition-all duration-500 ease-out active:opacity-70 ${
       isActive
-        ? "border-[#1A1A1A]"
-        : "border-[#C9D0C4] hover:border-[#1A1A1A]"
+        ? "border-[#1A1A1A] text-[#1A1A1A]"
+        : `${BORDER_SOFT} text-[#5F665C] hover:border-[#1A1A1A] hover:text-[#1A1A1A]`
     }`;
 
   return (
@@ -325,7 +296,6 @@ export default function FilmComposerPortfolioSite() {
             <div className="text-[1.35rem] md:text-[1.7rem] tracking-[0.32em] font-medium uppercase">
               MODERN COMPOSER
             </div>
-
             <h1 className="mt-6 text-4xl md:text-[4.1rem] leading-[1.05] uppercase tracking-[0.08em]">
               MARIUS YGRE
             </h1>
@@ -333,11 +303,7 @@ export default function FilmComposerPortfolioSite() {
         </div>
 
         <div className="w-full flex justify-center">
-          <img
-            src="/images/profile-image-3.jpg"
-            alt="Profile"
-            className="w-full h-auto object-contain"
-          />
+          <img src="/images/profile-image-3.jpg" alt="Profile" className="w-full h-auto object-contain" />
         </div>
       </section>
 
@@ -347,14 +313,11 @@ export default function FilmComposerPortfolioSite() {
             <button
               key={collection.title}
               onClick={() => handleDesktopCollectionClick(collection.title)}
-              className={playlistButtonClass(
-                desktopActiveTitle === collection.title
-              )}
+              className={playlistButtonClass(desktopActiveTitle === collection.title)}
             >
               <div className="text-sm uppercase tracking-[0.28em] text-[#71786D]">
                 {collection.type}
               </div>
-
               <div className="mt-4 text-[1.35rem]">{collection.title}</div>
             </button>
           ))}
@@ -362,7 +325,7 @@ export default function FilmComposerPortfolioSite() {
 
         {desktopActiveCollection && (
           <div
-            className={`mt-12 grid md:grid-cols-12 gap-10 items-center transition-opacity duration-[1200ms] ${
+            className={`mt-16 grid md:grid-cols-12 gap-10 items-center transition-opacity duration-[1200ms] ${
               desktopCollectionFading ? "opacity-0" : "opacity-100"
             }`}
           >
@@ -375,9 +338,7 @@ export default function FilmComposerPortfolioSite() {
             <div className="md:col-span-5 flex justify-center">
               <div
                 className={`w-full max-w-md flex items-center justify-center text-[#71786D] text-center transition-opacity duration-[1200ms] ease-out ${
-                  desktopImageVisible && desktopSelectedTrack
-                    ? "opacity-100"
-                    : "opacity-0"
+                  desktopImageVisible && desktopSelectedTrack ? "opacity-100" : "opacity-0"
                 }`}
               >
                 {desktopSelectedTrack ? desktopSelectedTrack.image : null}
@@ -393,19 +354,16 @@ export default function FilmComposerPortfolioSite() {
             <div key={collection.title}>
               <button
                 onClick={() => handleMobileCollectionClick(collection.title)}
-                className={playlistButtonClass(
-                  mobileActiveTitle === collection.title
-                )}
+                className={playlistButtonClass(mobileActiveTitle === collection.title)}
               >
                 <div className="text-sm uppercase tracking-[0.28em] text-[#71786D]">
                   {collection.type}
                 </div>
-
                 <div className="mt-4 text-[1.35rem]">{collection.title}</div>
               </button>
 
               {mobileActiveTitle === collection.title && (
-                <div className="mt-5 space-y-4">
+                <div className="mt-8 space-y-4">
                   {collection.tracks.map((track) =>
                     renderTrackCard(track, handleMobileTrackClick, true)
                   )}
@@ -425,11 +383,7 @@ export default function FilmComposerPortfolioSite() {
         </div>
 
         <div className="flex justify-center items-center h-full">
-          <img
-            src="/images/marius-ygre-2.jpg"
-            alt="Marius Ygre"
-            className="max-w-[17rem] h-auto object-contain"
-          />
+          <img src="/images/marius-ygre-2.jpg" alt="Marius Ygre" className="max-w-[17rem] h-auto object-contain" />
         </div>
       </section>
 
@@ -438,42 +392,12 @@ export default function FilmComposerPortfolioSite() {
           <h2 className="text-[#1A1A1A] text-[2.1rem]">Contact</h2>
         </div>
 
-        <div className="border border-[#C9D0C4] p-6 md:p-8 bg-[#F8FBF2]">
-          <form
-            action="https://formspree.io/f/xykvezbg"
-            method="POST"
-            className="space-y-4"
-          >
-            <input
-              required
-              type="text"
-              name="name"
-              placeholder="Name *"
-              className="w-full border border-[#C9D0C4] bg-[#F8FAF4] px-4 py-4 text-[1rem]"
-            />
-
-            <input
-              required
-              type="email"
-              name="email"
-              placeholder="E-mail *"
-              className="w-full border border-[#C9D0C4] bg-[#F8FAF4] px-4 py-4 text-[1rem]"
-            />
-
-            <input
-              type="tel"
-              name="phone"
-              placeholder="Phone"
-              className="w-full border border-[#C9D0C4] bg-[#F8FAF4] px-4 py-4 text-[1rem]"
-            />
-
-            <textarea
-              required
-              rows={5}
-              name="message"
-              placeholder="Message"
-              className="w-full border border-[#C9D0C4] bg-[#F8FAF4] px-4 py-4 text-[1rem]"
-            />
+        <div className={`border ${BORDER_SOFT} p-6 md:p-8 bg-[#F8FBF2]`}>
+          <form action="https://formspree.io/f/xykvezbg" method="POST" className="space-y-4">
+            <input required type="text" name="name" placeholder="Name *" className={`w-full border ${BORDER_SOFT} bg-[#F8FAF4] px-4 py-4 text-[1rem]`} />
+            <input required type="email" name="email" placeholder="E-mail *" className={`w-full border ${BORDER_SOFT} bg-[#F8FAF4] px-4 py-4 text-[1rem]`} />
+            <input type="tel" name="phone" placeholder="Phone" className={`w-full border ${BORDER_SOFT} bg-[#F8FAF4] px-4 py-4 text-[1rem]`} />
+            <textarea required rows={5} name="message" placeholder="Message" className={`w-full border ${BORDER_SOFT} bg-[#F8FAF4] px-4 py-4 text-[1rem]`} />
 
             <button className="w-full border border-[#1A1A1A] py-4 text-[0.72rem] uppercase tracking-[0.24em] text-[#1A1A1A] hover:bg-[#1A1A1A] hover:text-white transition-all duration-500 ease-out active:opacity-70">
               Send Message
