@@ -99,15 +99,6 @@ const COLLECTIONS = [
       },
       {
         id: "9",
-        title: "The Wave Is Already Water",
-        status: "UPCOMING",
-        desc: "",
-        duration: "03.22",
-        audio: "/audio/the-wave-is-already-water.wav",
-        image: img("/images/the-wave-is-already-water.png", "The Wave Is Already Water"),
-      },
-      {
-        id: "10",
         title: "Suite",
         status: "",
         desc: "",
@@ -116,7 +107,7 @@ const COLLECTIONS = [
         image: img("/images/suite.png", "Suite"),
       },
       {
-        id: "11",
+        id: "10",
         title: "Watch the Voltage",
         status: "UPCOMING",
         desc: 'inspired by "Revival" by Stephen King',
@@ -131,7 +122,7 @@ const COLLECTIONS = [
     type: "Showcase",
     tracks: [
       {
-        id: "12",
+        id: "11",
         title: "Asura Rising",
         status: "UPCOMING",
         desc: "",
@@ -140,7 +131,7 @@ const COLLECTIONS = [
         image: img("/images/asura-rising 8.png", "Asura Rising"),
       },
       {
-        id: "13",
+        id: "12",
         title: "Shock Protocol",
         status: "UPCOMING",
         desc: "",
@@ -149,7 +140,7 @@ const COLLECTIONS = [
         image: smallImg("/images/shock-protocol-2.png", "Shock Protocol"),
       },
       {
-        id: "14",
+        id: "13",
         title: "Every Shadow Hides",
         status: "UPCOMING",
         desc: "",
@@ -158,7 +149,7 @@ const COLLECTIONS = [
         image: smallImg("/images/every-shadow-hides.png", "Every Shadow Hides"),
       },
       {
-        id: "15",
+        id: "14",
         title: "Velocidad",
         status: "UPCOMING",
         desc: "",
@@ -173,7 +164,7 @@ const COLLECTIONS = [
     type: "Modern",
     tracks: [
       {
-        id: "16",
+        id: "15",
         title: "Auralis",
         status: "",
         desc: "",
@@ -182,7 +173,7 @@ const COLLECTIONS = [
         image: img("/images/auralis.png", "Auralis"),
       },
       {
-        id: "17",
+        id: "16",
         title: "Hrim",
         status: "",
         desc: "",
@@ -191,13 +182,22 @@ const COLLECTIONS = [
         image: img("/images/hrim.png", "Hrim"),
       },
       {
-        id: "18",
+        id: "17",
         title: "Malinconia",
         status: "UPCOMING",
         desc: "",
         duration: "03.08",
         audio: "/audio/malinconia.wav",
         image: smallImg("/images/malinconia.png", "Malinconia"),
+      },
+      {
+        id: "18",
+        title: "The Wave Is Already Water",
+        status: "UPCOMING",
+        desc: "",
+        duration: "03.22",
+        audio: "/audio/the-wave-is-already-water.wav",
+        image: img("/images/the-wave-is-already-water.png", "The Wave Is Already Water"),
       },
       {
         id: "19",
@@ -270,11 +270,14 @@ function useFadedValue(value) {
 
   useEffect(() => {
     if (value === displayed) return;
+
     setFading(true);
+
     timerRef.current = setTimeout(() => {
       setDisplayed(value);
       setFading(false);
     }, FADE_MS);
+
     return () => clearTimeout(timerRef.current);
   }, [value, displayed]);
 
@@ -305,6 +308,7 @@ export default function FilmComposerPortfolioSite() {
     COLLECTIONS.forEach((collection) => {
       collection.tracks.forEach((track) => {
         const src = getImageSrc(track);
+
         if (src) {
           const preloadImg = new Image();
           preloadImg.src = src;
