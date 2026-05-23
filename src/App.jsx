@@ -22,7 +22,7 @@ const smallImg = (src, alt) => (
 
 const COLLECTIONS = [
   {
-    title: "EMOTIONAL Minimalism",
+    title: "Minimalism",
     type: "Emotional",
     tracks: [
       {
@@ -127,8 +127,8 @@ const COLLECTIONS = [
     ],
   },
   {
-    title: "SHOWCASE Trailer Music",
-    type: "Trailer",
+    title: "Trailer Music",
+    type: "Showcase",
     tracks: [
       {
         id: "12",
@@ -169,8 +169,8 @@ const COLLECTIONS = [
     ],
   },
   {
-    title: "MODERN Orchestral",
-    type: "Orchestral",
+    title: "Orchestral",
+    type: "Modern",
     tracks: [
       {
         id: "16",
@@ -257,7 +257,6 @@ function preloadImage(src) {
     if (!src) return resolve();
 
     const image = new Image();
-
     image.onload = resolve;
     image.onerror = resolve;
     image.src = src;
@@ -271,14 +270,11 @@ function useFadedValue(value) {
 
   useEffect(() => {
     if (value === displayed) return;
-
     setFading(true);
-
     timerRef.current = setTimeout(() => {
       setDisplayed(value);
       setFading(false);
     }, FADE_MS);
-
     return () => clearTimeout(timerRef.current);
   }, [value, displayed]);
 
@@ -309,7 +305,6 @@ export default function FilmComposerPortfolioSite() {
     COLLECTIONS.forEach((collection) => {
       collection.tracks.forEach((track) => {
         const src = getImageSrc(track);
-
         if (src) {
           const preloadImg = new Image();
           preloadImg.src = src;
@@ -507,7 +502,7 @@ export default function FilmComposerPortfolioSite() {
         <div className="space-y-8">
           <div>
             <div className="text-[1.35rem] md:text-[1.7rem] tracking-[0.32em] font-medium uppercase">
-              MODERN COMPOSER
+              COMPOSER
             </div>
 
             <h1 className="mt-6 text-4xl md:text-[4.1rem] leading-[1.05] uppercase tracking-[0.08em]">
