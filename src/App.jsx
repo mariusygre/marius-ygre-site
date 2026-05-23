@@ -31,7 +31,7 @@ const COLLECTIONS = [
         status: "",
         desc: "",
         duration: "02.44",
-        audio: "/audio/this-weight-of-open-sky.wav",
+        audio: "/audio/this-weight-of-open-sky.mp3",
         image: img("/images/this-weight-of-open-sky.png", "This Weight of Open Sky"),
       },
       {
@@ -40,7 +40,7 @@ const COLLECTIONS = [
         status: "",
         desc: "",
         duration: "03.12",
-        audio: "/audio/room-in-monterey.wav",
+        audio: "/audio/room-in-monterey.mp3",
         image: img("/images/room-in-monterey.png", "Room in Monterey"),
       },
       {
@@ -49,7 +49,7 @@ const COLLECTIONS = [
         status: "",
         desc: 'inspired by "A Constellation of Vital Phenomena" by Anthony Marra',
         duration: "04.39",
-        audio: "/audio/the-liminal-passage.wav",
+        audio: "/audio/the-liminal-passage.mp3",
         image: img("/images/the-liminal-passage.png", "The Liminal Passage"),
       },
       {
@@ -58,7 +58,7 @@ const COLLECTIONS = [
         status: "",
         desc: "",
         duration: "02.42",
-        audio: "/audio/ridge-of-desolation.wav",
+        audio: "/audio/ridge-of-desolation.mp3",
         image: img("/images/ridge-of-desolation.png", "Ridge of Desolation"),
       },
       {
@@ -67,7 +67,7 @@ const COLLECTIONS = [
         status: "",
         desc: "",
         duration: "03.28",
-        audio: "/audio/the-quiet-between.wav",
+        audio: "/audio/the-quiet-between.mp3",
         image: smallImg("/images/the-quiet-between.png", "The Quiet Between"),
       },
       {
@@ -76,7 +76,7 @@ const COLLECTIONS = [
         status: "",
         desc: "",
         duration: "02.31",
-        audio: "/audio/ibens-dance.wav",
+        audio: "/audio/ibens-dance.mp3",
         image: img("/images/ibens-dance.png", "Iben's Dance"),
       },
       {
@@ -85,7 +85,7 @@ const COLLECTIONS = [
         status: "",
         desc: 'a character study on Arab from "Moby Dick" by Herman Melville',
         duration: "02.46",
-        audio: "/audio/under-currents.wav",
+        audio: "/audio/under-currents.mp3",
         image: smallImg("/images/arab.png", "Under Currents"),
       },
       {
@@ -94,7 +94,7 @@ const COLLECTIONS = [
         status: "",
         desc: "",
         duration: "02.36",
-        audio: "/audio/nival.wav",
+        audio: "/audio/nival.mp3",
         image: img("/images/nival.png", "Nival"),
       },
       {
@@ -112,7 +112,7 @@ const COLLECTIONS = [
         status: "UPCOMING",
         desc: 'inspired by "Revival" by Stephen King',
         duration: "03.05",
-        audio: "/audio/watch-the-voltage.wav",
+        audio: "/audio/watch-the-voltage.mp3",
         image: img("/images/watch-the-voltage.png", "Watch the Voltage"),
       },
     ],
@@ -127,7 +127,7 @@ const COLLECTIONS = [
         status: "UPCOMING",
         desc: "",
         duration: "02.36",
-        audio: "/audio/asura-rising.wav",
+        audio: "/audio/asura-rising.mp3",
         image: img("/images/asura-rising 8.png", "Asura Rising"),
       },
       {
@@ -136,7 +136,7 @@ const COLLECTIONS = [
         status: "UPCOMING",
         desc: "",
         duration: "02.02",
-        audio: "/audio/shock-protocol.wav",
+        audio: "/audio/shock-protocol.mp3",
         image: smallImg("/images/shock-protocol-2.png", "Shock Protocol"),
       },
       {
@@ -145,7 +145,7 @@ const COLLECTIONS = [
         status: "UPCOMING",
         desc: "",
         duration: "02.06",
-        audio: "/audio/every-shadow-hides.wav",
+        audio: "/audio/every-shadow-hides.mp3",
         image: smallImg("/images/every-shadow-hides.png", "Every Shadow Hides"),
       },
       {
@@ -154,7 +154,7 @@ const COLLECTIONS = [
         status: "UPCOMING",
         desc: "",
         duration: "02.07",
-        audio: "/audio/velocidad.wav",
+        audio: "/audio/velocidad.mp3",
         image: img("/images/velocidad.png", "Velocidad"),
       },
     ],
@@ -169,7 +169,7 @@ const COLLECTIONS = [
         status: "",
         desc: "",
         duration: "03.23",
-        audio: "/audio/auralis.wav",
+        audio: "/audio/auralis.mp3",
         image: img("/images/auralis.png", "Auralis"),
       },
       {
@@ -178,7 +178,7 @@ const COLLECTIONS = [
         status: "",
         desc: "",
         duration: "03.45",
-        audio: "/audio/hrim.wav",
+        audio: "/audio/hrim.mp3",
         image: img("/images/hrim.png", "Hrim"),
       },
       {
@@ -187,7 +187,7 @@ const COLLECTIONS = [
         status: "UPCOMING",
         desc: "",
         duration: "03.08",
-        audio: "/audio/malinconia.wav",
+        audio: "/audio/malinconia.mp3",
         image: smallImg("/images/malinconia.png", "Malinconia"),
       },
       {
@@ -196,7 +196,7 @@ const COLLECTIONS = [
         status: "UPCOMING",
         desc: "",
         duration: "03.22",
-        audio: "/audio/the-wave-is-already-water.wav",
+        audio: "/audio/the-wave-is-already-water.mp3",
         image: img("/images/the-wave-is-already-water.png", "The Wave Is Already Water"),
       },
       {
@@ -205,7 +205,7 @@ const COLLECTIONS = [
         status: "",
         desc: "",
         duration: "03.23",
-        audio: "/audio/chasing-horizons.wav",
+        audio: "/audio/chasing-horizons.mp3",
         image: smallImg("/images/chasing-horizons.png", "Chasing Horizons"),
       },
       {
@@ -214,7 +214,7 @@ const COLLECTIONS = [
         status: "UPCOMING",
         desc: `inspired by "She Who Became The Sun"\nby Shelley Parker-Chan`,
         duration: "02.41",
-        audio: "/audio/flight-of-hearts.wav",
+        audio: "/audio/flight-of-hearts.mp3",
         image: img("/images/flight-of-hearts.png", "Flight of Hearts"),
       },
       {
@@ -223,7 +223,7 @@ const COLLECTIONS = [
         status: "UPCOMING",
         desc: "",
         duration: "02.15",
-        audio: "/audio/a-little-braver-now.wav",
+        audio: "/audio/a-little-braver-now.mp3",
         image: smallImg("/images/a-little-braver-now.png", "A Little Braver Now"),
       },
       {
@@ -232,7 +232,7 @@ const COLLECTIONS = [
         status: "UPCOMING",
         desc: "",
         duration: "01.58",
-        audio: "/audio/life-is-a-daisy-wish.wav",
+        audio: "/audio/life-is-a-daisy-wish.mp3",
         image: smallImg("/images/life-is-a-daisy-wish.png", "Life Is a Daisy Wish"),
       },
       {
@@ -241,7 +241,7 @@ const COLLECTIONS = [
         status: "UPCOMING",
         desc: 'inspired by "The Night Circus" by Erin Morgenstein',
         duration: "02.24",
-        audio: "/audio/through-smoke-and-starlight.wav",
+        audio: "/audio/through-smoke-and-starlight.mp3",
         image: img("/images/through-smoke-and-starlight.png", "Through Smoke and Starlight"),
       },
     ],
