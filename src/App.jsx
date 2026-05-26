@@ -36,7 +36,7 @@ const COLLECTIONS = [
     tracks: [
       { id: "12", title: "Auralis", status: "", desc: "", duration: "03.23", audio: "/audio/auralis.wav", image: img("/images/auralis.png", "Auralis") },
       { id: "13", title: "Hrim", status: "", desc: "", duration: "03.45", audio: "/audio/hrim.wav", image: img("/images/hrim.png", "Hrim") },
-      { id: "14", title: "Malinconia", status: "", desc: "", duration: "03.08", audio: "/audio/malinconia.mp3", image: smallImg("/images/malinconia.png", "Malinconia") },
+      { id: "14", title: "Malinconia", status: "", desc: "", duration: "03.08", audio: "/audio/malinconia.mp3", image: smallImg("/images/malinconia-2.png", "Malinconia") },
       { id: "15", title: "Chasing Horizons", status: "", desc: "", duration: "03.23", audio: "/audio/chasing-horizons.wav", image: smallImg("/images/chasing-horizons.png", "Chasing Horizons") },
       { id: "16", title: "Flight of Hearts", status: "UPCOMING", desc: `inspired by "She Who Became The Sun"\nby Shelley Parker-Chan`, duration: "02.41", audio: "/audio/flight-of-hearts.wav", image: img("/images/flight-of-hearts.png", "Flight of Hearts") },
       { id: "17", title: "A Little Braver Now", status: "UPCOMING", desc: "", duration: "02.15", audio: "/audio/a-little-braver-now.wav", image: smallImg("/images/a-little-braver-now.png", "A Little Braver Now") },
