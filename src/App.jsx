@@ -32,10 +32,7 @@ const COLLECTIONS = [
         desc: "",
         duration: "02.44",
         audio: "/audio/this-weight-of-open-sky.mp3",
-        image: img(
-          "/images/this-weight-of-open-sky.png",
-          "This Weight of Open Sky"
-        ),
+        image: img("/images/this-weight-of-open-sky.png", "This Weight of Open Sky"),
       },
       {
         id: "2",
@@ -178,14 +175,11 @@ const COLLECTIONS = [
       {
         id: "16",
         title: "The Wave Is Already Water",
-        status: "UPCOMING",
+        status: "",
         desc: "",
         duration: "03.22",
-        audio: "/audio/the-wave-is-already-water.wav",
-        image: img(
-          "/images/the-wave-is-already-water.png",
-          "The Wave Is Already Water"
-        ),
+        audio: "/audio/the-wave-is-already-water.mp3",
+        image: img("/images/the-wave-is-already-water.png", "The Wave Is Already Water"),
       },
       {
         id: "17",
@@ -230,10 +224,7 @@ const COLLECTIONS = [
         desc: "",
         duration: "02.15",
         audio: "/audio/a-little-braver-now.wav",
-        image: smallImg(
-          "/images/a-little-braver-now.png",
-          "A Little Braver Now"
-        ),
+        image: smallImg("/images/a-little-braver-now.png", "A Little Braver Now"),
       },
       {
         id: "22",
@@ -242,10 +233,7 @@ const COLLECTIONS = [
         desc: "",
         duration: "01.58",
         audio: "/audio/life-is-a-daisy-wish.wav",
-        image: smallImg(
-          "/images/life-is-a-daisy-wish.png",
-          "Life Is a Daisy Wish"
-        ),
+        image: smallImg("/images/life-is-a-daisy-wish.png", "Life Is a Daisy Wish"),
       },
       {
         id: "23",
@@ -254,10 +242,7 @@ const COLLECTIONS = [
         desc: 'after "The Night Circus" by Erin Morgenstein',
         duration: "02.24",
         audio: "/audio/through-smoke-and-starlight.wav",
-        image: img(
-          "/images/through-smoke-and-starlight.png",
-          "Through Smoke and Starlight"
-        ),
+        image: img("/images/through-smoke-and-starlight.png", "Through Smoke and Starlight"),
       },
     ],
   },
@@ -316,9 +301,8 @@ export default function FilmComposerPortfolioSite() {
     useFadedValue(desktopActiveTitle);
 
   const desktopActiveCollection =
-    COLLECTIONS.find(
-      (collection) => collection.title === desktopDisplayedTitle
-    ) ?? null;
+    COLLECTIONS.find((collection) => collection.title === desktopDisplayedTitle) ??
+    null;
 
   useEffect(() => {
     COLLECTIONS.forEach((collection) => {
