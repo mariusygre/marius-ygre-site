@@ -151,10 +151,10 @@ const COLLECTIONS = [
       {
         id: "18",
         title: "Malinconia",
-        status: "",
+        status: "UPCOMING",
         desc: "",
         duration: "03.08",
-        audio: "/audio/malinconia.mp3",
+        audio: "",
         image: smallImg("/images/malinconia.png", "Malinconia"),
       },
       {
@@ -370,6 +370,12 @@ export default function FilmComposerPortfolioSite() {
   };
 
   const playOrPauseTrack = (track) => {
+    if (!track.audio) {
+      pauseAllExcept(track.id);
+      setPlayingId(null);
+      return;
+    }
+
     const audio = audioRefs.current[track.id];
 
     pauseAllExcept(track.id);
