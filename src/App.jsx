@@ -112,14 +112,14 @@ const COLLECTIONS = [
         status: "UPCOMING",
         desc: 'after "Revival" by Stephen King',
         duration: "03.05",
-        audio: "/audio/watch-the-voltage.wav",
+        audio: "",
         image: img("/images/watch-the-voltage.png", "Watch the Voltage"),
       },
     ],
   },
   {
     title: "Orchestral",
-    type: "Modern",
+    type: "Arrangements",
     tracks: [
       {
         id: "15",
@@ -151,10 +151,10 @@ const COLLECTIONS = [
       {
         id: "18",
         title: "Malinconia",
-        status: "UPCOMING",
+        status: "",
         desc: "",
         duration: "03.08",
-        audio: "",
+        audio: "/audio/malinconia.mp3",
         image: smallImg("/images/malinconia.png", "Malinconia"),
       },
       {
@@ -172,7 +172,7 @@ const COLLECTIONS = [
         status: "UPCOMING",
         desc: `after "She Who Became The Sun"\nby Shelley Parker-Chan`,
         duration: "02.41",
-        audio: "/audio/flight-of-hearts.wav",
+        audio: "",
         image: img("/images/flight-of-hearts.png", "Flight of Hearts"),
       },
       {
@@ -181,7 +181,7 @@ const COLLECTIONS = [
         status: "UPCOMING",
         desc: "",
         duration: "02.15",
-        audio: "/audio/a-little-braver-now.wav",
+        audio: "",
         image: smallImg("/images/a-little-braver-now.png", "A Little Braver Now"),
       },
       {
@@ -199,7 +199,7 @@ const COLLECTIONS = [
         status: "UPCOMING",
         desc: 'after "The Night Circus" by Erin Morgenstein',
         duration: "02.24",
-        audio: "/audio/through-smoke-and-starlight.wav",
+        audio: "",
         image: img("/images/through-smoke-and-starlight.png", "Through Smoke and Starlight"),
       },
     ],
@@ -214,7 +214,7 @@ const COLLECTIONS = [
         status: "UPCOMING",
         desc: "",
         duration: "02.36",
-        audio: "/audio/asura-rising.wav",
+        audio: "",
         image: img("/images/asura-rising 8.png", "Asura Rising"),
       },
       {
@@ -223,7 +223,7 @@ const COLLECTIONS = [
         status: "UPCOMING",
         desc: "",
         duration: "02.02",
-        audio: "/audio/shock-protocol.wav",
+        audio: "",
         image: smallImg("/images/shock-protocol-2.png", "Shock Protocol"),
       },
       {
@@ -232,7 +232,7 @@ const COLLECTIONS = [
         status: "UPCOMING",
         desc: "",
         duration: "02.06",
-        audio: "/audio/every-shadow-hides.wav",
+        audio: "",
         image: smallImg("/images/every-shadow-hides.png", "Every Shadow Hides"),
       },
       {
@@ -241,7 +241,7 @@ const COLLECTIONS = [
         status: "UPCOMING",
         desc: "",
         duration: "02.07",
-        audio: "/audio/velocidad.wav",
+        audio: "",
         image: img("/images/velocidad.png", "Velocidad"),
       },
     ],
@@ -325,6 +325,8 @@ export default function FilmComposerPortfolioSite() {
     };
   }, []);
 
+  const hasPlayableAudio = (track) => Boolean(track.audio && !track.status);
+
   const pauseAllExcept = (trackId) => {
     Object.entries(audioRefs.current).forEach(([id, audio]) => {
       if (audio && id !== trackId) {
@@ -370,7 +372,7 @@ export default function FilmComposerPortfolioSite() {
   };
 
   const playOrPauseTrack = (track) => {
-    if (!track.audio) {
+    if (!hasPlayableAudio(track)) {
       pauseAllExcept(track.id);
       setPlayingId(null);
       return;
@@ -389,6 +391,28 @@ export default function FilmComposerPortfolioSite() {
         setPlayingId(track.id);
       }
     }
+  };
+
+  const seekTrack = (event, track) => {
+    if (!hasPlayableAudio(track)) return;
+
+    const audio = audioRefs.current[track.id];
+    if (!audio || !audio.duration) return;
+
+    const rect = event.currentTarget.getBoundingClientRect();
+    const clickX = event.clientX - rect.left;
+    const ratio = Math.min(Math.max(clickX / rect.width, 0), 1);
+
+    pauseAllExcept(track.id);
+
+    audio.currentTime = audio.duration * ratio;
+    audio.play();
+    setPlayingId(track.id);
+
+    setProgressById((prev) => ({
+      ...prev,
+      [track.id]: ratio * 100,
+    }));
   };
 
   const handleDesktopTrackClick = async (track) => {
@@ -427,77 +451,94 @@ export default function FilmComposerPortfolioSite() {
     playOrPauseTrack(track);
   };
 
-  const renderTrackCard = (track, onClick, showInlineImage = false) => (
-    <div key={track.id} className={`border ${BORDER_SOFT} p-5 bg-[#F8FBF2]`}>
-      <audio
-        ref={(el) => {
-          audioRefs.current[track.id] = el;
-        }}
-        src={track.audio}
-        onEnded={() => {
-          setPlayingId(null);
-          setProgressById((prev) => ({ ...prev, [track.id]: 0 }));
-        }}
-        onTimeUpdate={(event) => {
-          const audio = event.currentTarget;
+  const renderTrackCard = (track, onClick, showInlineImage = false) => {
+    const playable = hasPlayableAudio(track);
 
-          if (!audio.duration) return;
+    return (
+      <div key={track.id} className={`border ${BORDER_SOFT} p-5 bg-[#F8FBF2]`}>
+        {playable && (
+          <audio
+            ref={(el) => {
+              audioRefs.current[track.id] = el;
+            }}
+            src={track.audio}
+            onEnded={() => {
+              setPlayingId(null);
+              setProgressById((prev) => ({ ...prev, [track.id]: 0 }));
+            }}
+            onTimeUpdate={(event) => {
+              const audio = event.currentTarget;
 
-          const progress = (audio.currentTime / audio.duration) * 100;
+              if (!audio.duration) return;
 
-          setProgressById((prev) => ({ ...prev, [track.id]: progress }));
-        }}
-      />
+              const progress = (audio.currentTime / audio.duration) * 100;
 
-      <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-5 md:gap-6">
-        <div className="flex-1 min-w-0">
-          <div className="flex items-baseline gap-3 flex-wrap">
-            <div className="text-lg tracking-[0.02em]">{track.title}</div>
+              setProgressById((prev) => ({ ...prev, [track.id]: progress }));
+            }}
+          />
+        )}
 
-            {track.status && (
-              <div className="text-[0.63rem] uppercase tracking-[0.28em] text-[#7A8175]">
-                {track.status}
-              </div>
-            )}
-          </div>
+        <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-5 md:gap-6">
+          <div className="flex-1 min-w-0">
+            <div className="flex items-baseline gap-3 flex-wrap">
+              <div className="text-lg tracking-[0.02em]">{track.title}</div>
 
-          <div className="text-[1rem] text-[#5F665C] mt-2 leading-[1.6] max-w-none whitespace-pre-line">
-            {track.desc || " "}
-          </div>
+              {track.status && (
+                <div className="text-[0.68rem] uppercase tracking-[0.28em] text-[#1A1A1A] font-semibold">
+                  {track.status}
+                </div>
+              )}
+            </div>
 
-          <div className="mt-3 flex items-center gap-4">
-            <div className="text-sm text-[#71786D]">{track.duration}</div>
+            <div className="text-[1rem] text-[#5F665C] mt-2 leading-[1.6] max-w-none whitespace-pre-line">
+              {track.desc || " "}
+            </div>
 
-            <div className="flex-1 h-[1px] bg-[#D7DDD1] overflow-hidden">
-              <div
-                className="h-full bg-[#1A1A1A] transition-all duration-200 ease-out"
-                style={{ width: `${progressById[track.id] || 0}%` }}
-              />
+            <div className="mt-3 flex items-center gap-4">
+              <div className="text-sm text-[#71786D]">{track.duration}</div>
+
+              {playable && (
+                <button
+                  type="button"
+                  aria-label={`Seek ${track.title}`}
+                  onClick={(event) => seekTrack(event, track)}
+                  className="flex-1 h-[9px] flex items-center cursor-pointer group"
+                >
+                  <div className="w-full h-[1px] bg-[#D7DDD1] overflow-hidden group-hover:h-[2px] transition-all duration-200">
+                    <div
+                      className="h-full bg-[#1A1A1A] transition-all duration-200 ease-out"
+                      style={{ width: `${progressById[track.id] || 0}%` }}
+                    />
+                  </div>
+                </button>
+              )}
             </div>
           </div>
+
+          {playable && (
+            <button
+              onClick={() => onClick(track)}
+              className="self-start md:self-auto shrink-0 text-[0.72rem] uppercase tracking-[0.24em] text-[#5F665C] hover:text-[#1A1A1A] transition-all duration-500 ease-out active:opacity-60"
+            >
+              {playingId === track.id ? "Pause" : "Play"}
+            </button>
+          )}
         </div>
 
-        <button
-          onClick={() => onClick(track)}
-          className="self-start md:self-auto shrink-0 text-[0.72rem] uppercase tracking-[0.24em] text-[#5F665C] hover:text-[#1A1A1A] transition-all duration-500 ease-out active:opacity-60"
-        >
-          {playingId === track.id ? "Pause" : "Play"}
-        </button>
-      </div>
-
-      {showInlineImage && mobileSelectedTrackId === track.id && (
-        <div
-          className={`mt-6 flex justify-center transition-opacity duration-[1200ms] ease-out ${
-            mobileImageVisible ? "opacity-100" : "opacity-0"
-          }`}
-        >
-          <div className="w-full max-w-md flex items-center justify-center text-[#71786D] text-center">
-            {track.image}
+        {showInlineImage && mobileSelectedTrackId === track.id && (
+          <div
+            className={`mt-6 flex justify-center transition-opacity duration-[1200ms] ease-out ${
+              mobileImageVisible ? "opacity-100" : "opacity-0"
+            }`}
+          >
+            <div className="w-full max-w-md flex items-center justify-center text-[#71786D] text-center">
+              {track.image}
+            </div>
           </div>
-        </div>
-      )}
-    </div>
-  );
+        )}
+      </div>
+    );
+  };
 
   const playlistButtonClass = (isActive) =>
     `w-full text-left border-b py-6 transition-all duration-500 ease-out active:opacity-70 ${
