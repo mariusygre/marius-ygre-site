@@ -5,19 +5,11 @@ const BORDER_SOFT = "border-[#D9DED4]";
 const IMAGE_FRAME = "border-[0.17px] border-[#5F665C] p-[1.25px]";
 
 const img = (src, alt) => (
-  <img
-    src={src}
-    alt={alt}
-    className={`max-w-full h-auto object-contain ${IMAGE_FRAME}`}
-  />
+  <img src={src} alt={alt} className={`max-w-full h-auto object-contain ${IMAGE_FRAME}`} />
 );
 
 const smallImg = (src, alt) => (
-  <img
-    src={src}
-    alt={alt}
-    className={`max-w-full max-h-[28rem] h-auto object-contain ${IMAGE_FRAME}`}
-  />
+  <img src={src} alt={alt} className={`max-w-full max-h-[28rem] h-auto object-contain ${IMAGE_FRAME}`} />
 );
 
 const COLLECTIONS = [
@@ -25,225 +17,41 @@ const COLLECTIONS = [
     title: "Minimalism",
     type: "Emotional",
     tracks: [
-      {
-        id: "1",
-        title: "This Weight of Open Sky",
-        status: "",
-        desc: "",
-        duration: "02.44",
-        audio: "/audio/this-weight-of-open-sky.mp3",
-        image: img("/images/this-weight-of-open-sky.png", "This Weight of Open Sky"),
-      },
-      {
-        id: "2",
-        title: "Room in Monterey",
-        status: "",
-        desc: "",
-        duration: "03.12",
-        audio: "/audio/room-in-monterey.mp3",
-        image: img("/images/room-in-monterey.png", "Room in Monterey"),
-      },
-      {
-        id: "3",
-        title: "The Liminal Passage",
-        status: "",
-        desc: 'after "A Constellation of Vital Phenomena" by Anthony Marra',
-        duration: "04.39",
-        audio: "/audio/the-liminal-passage.mp3",
-        image: img("/images/the-liminal-passage.png", "The Liminal Passage"),
-      },
-      {
-        id: "4",
-        title: "Ridge of Desolation",
-        status: "",
-        desc: "",
-        duration: "02.42",
-        audio: "/audio/ridge-of-desolation.mp3",
-        image: img("/images/ridge-of-desolation.png", "Ridge of Desolation"),
-      },
-      {
-        id: "5",
-        title: "The Quiet Between",
-        status: "",
-        desc: "",
-        duration: "03.28",
-        audio: "/audio/the-quiet-between.mp3",
-        image: smallImg("/images/the-quiet-between.png", "The Quiet Between"),
-      },
-      {
-        id: "6",
-        title: "Iben's Dance",
-        status: "",
-        desc: "",
-        duration: "02.31",
-        audio: "/audio/ibens-dance.mp3",
-        image: img("/images/ibens-dance.png", "Iben's Dance"),
-      },
-      {
-        id: "7",
-        title: "Under Currents",
-        status: "",
-        desc: 'a character study on Arab from "Moby Dick" by Herman Melville',
-        duration: "02.46",
-        audio: "/audio/under-currents.mp3",
-        image: smallImg("/images/arab.png", "Under Currents"),
-      },
-      {
-        id: "8",
-        title: "Nival",
-        status: "",
-        desc: "",
-        duration: "02.36",
-        audio: "/audio/nival.mp3",
-        image: img("/images/nival.png", "Nival"),
-      },
-      {
-        id: "9",
-        title: "Suite",
-        status: "",
-        desc: "",
-        duration: "03.36",
-        audio: "/audio/suite.mp3",
-        image: img("/images/suite.png", "Suite"),
-      },
-      {
-        id: "10",
-        title: "Watch the Voltage",
-        status: "UPCOMING",
-        desc: 'after "Revival" by Stephen King',
-        duration: "03.05",
-        audio: "",
-        image: img("/images/watch-the-voltage.png", "Watch the Voltage"),
-      },
+      { id: "1", title: "This Weight of Open Sky", status: "", desc: "", duration: "02.44", audio: "/audio/this-weight-of-open-sky.mp3", image: img("/images/this-weight-of-open-sky.png", "This Weight of Open Sky") },
+      { id: "2", title: "Room in Monterey", status: "", desc: "", duration: "03.12", audio: "/audio/room-in-monterey.mp3", image: img("/images/room-in-monterey.png", "Room in Monterey") },
+      { id: "3", title: "The Liminal Passage", status: "", desc: 'inspired by "A Constellation of Vital Phenomena" by Anthony Marra', duration: "04.39", audio: "/audio/the-liminal-passage.mp3", image: img("/images/the-liminal-passage.png", "The Liminal Passage") },
+      { id: "4", title: "Ridge of Desolation", status: "", desc: "", duration: "02.42", audio: "/audio/ridge-of-desolation.mp3", image: img("/images/ridge-of-desolation.png", "Ridge of Desolation") },
+      { id: "5", title: "The Quiet Between", status: "", desc: "", duration: "03.28", audio: "/audio/the-quiet-between.mp3", image: smallImg("/images/the-quiet-between.png", "The Quiet Between") },
+      { id: "6", title: "Iben's Dance", status: "", desc: "", duration: "02.31", audio: "/audio/ibens-dance.mp3", image: img("/images/ibens-dance.png", "Iben's Dance") },
+      { id: "7", title: "Under Currents", status: "", desc: 'a character study on Arab from "Moby Dick" by Herman Melville', duration: "02.46", audio: "/audio/under-currents.mp3", image: smallImg("/images/arab.png", "Under Currents") },
+      { id: "8", title: "Nival", status: "", desc: "", duration: "02.36", audio: "/audio/nival.mp3", image: img("/images/nival.png", "Nival") },
+      { id: "9", title: "Suite", status: "", desc: "", duration: "03.36", audio: "/audio/suite.mp3", image: img("/images/suite.png", "Suite") },
+      { id: "10", title: "Watch the Voltage", status: "UPCOMING", desc: 'inspired by "Revival" by Stephen King', duration: "03.05", audio: "", image: img("/images/watch-the-voltage.png", "Watch the Voltage") },
     ],
   },
   {
     title: "Orchestral",
-    type: "Arrangements",
+    type: "Modern",
     tracks: [
-      {
-        id: "15",
-        title: "Auralis",
-        status: "",
-        desc: "",
-        duration: "03.23",
-        audio: "/audio/auralis.mp3",
-        image: img("/images/auralis.png", "Auralis"),
-      },
-      {
-        id: "16",
-        title: "The Wave Is Already Water",
-        status: "",
-        desc: "",
-        duration: "03.22",
-        audio: "/audio/the-wave-is-already-water.mp3",
-        image: img("/images/the-wave-is-already-water.png", "The Wave Is Already Water"),
-      },
-      {
-        id: "17",
-        title: "Hrim",
-        status: "",
-        desc: "",
-        duration: "03.45",
-        audio: "/audio/hrim.mp3",
-        image: img("/images/hrim.png", "Hrim"),
-      },
-      {
-        id: "18",
-        title: "Malinconia",
-        status: "",
-        desc: "",
-        duration: "03.08",
-        audio: "/audio/malinconia.mp3",
-        image: smallImg("/images/malinconia.png", "Malinconia"),
-      },
-      {
-        id: "19",
-        title: "Chasing Horizons",
-        status: "",
-        desc: "",
-        duration: "03.23",
-        audio: "/audio/chasing-horizons.mp3",
-        image: smallImg("/images/chasing-horizons.png", "Chasing Horizons"),
-      },
-      {
-        id: "20",
-        title: "Flight of Hearts",
-        status: "UPCOMING",
-        desc: `after "She Who Became The Sun"\nby Shelley Parker-Chan`,
-        duration: "02.41",
-        audio: "",
-        image: img("/images/flight-of-hearts.png", "Flight of Hearts"),
-      },
-      {
-        id: "21",
-        title: "A Little Braver Now",
-        status: "UPCOMING",
-        desc: "",
-        duration: "02.15",
-        audio: "",
-        image: smallImg("/images/a-little-braver-now.png", "A Little Braver Now"),
-      },
-      {
-        id: "22",
-        title: "Life Is a Daisy Wish",
-        status: "",
-        desc: "",
-        duration: "01.58",
-        audio: "/audio/life-is-a-daisy-wish.mp3",
-        image: smallImg("/images/life-is-a-daisy-wish.png", "Life Is a Daisy Wish"),
-      },
-      {
-        id: "23",
-        title: "Through Smoke and Starlight",
-        status: "UPCOMING",
-        desc: 'after "The Night Circus" by Erin Morgenstein',
-        duration: "02.24",
-        audio: "",
-        image: img("/images/through-smoke-and-starlight.png", "Through Smoke and Starlight"),
-      },
+      { id: "11", title: "Auralis", status: "", desc: "", duration: "03.23", audio: "/audio/auralis.mp3", image: img("/images/auralis.png", "Auralis") },
+      { id: "12", title: "The Wave Is Already Water", status: "UPCOMING", desc: "", duration: "03.22", audio: "", image: img("/images/the-wave-is-already-water.png", "The Wave Is Already Water") },
+      { id: "13", title: "Hrim", status: "", desc: "", duration: "03.45", audio: "/audio/hrim.mp3", image: img("/images/hrim.png", "Hrim") },
+      { id: "14", title: "Malinconia", status: "", desc: "", duration: "03.08", audio: "/audio/malinconia.mp3", image: smallImg("/images/malinconia-2.png", "Malinconia") },
+      { id: "15", title: "Chasing Horizons", status: "", desc: "", duration: "03.23", audio: "/audio/chasing-horizons.mp3", image: smallImg("/images/chasing-horizons.png", "Chasing Horizons") },
+      { id: "16", title: "Flight of Hearts", status: "UPCOMING", desc: `inspired by "She Who Became The Sun"\nby Shelley Parker-Chan`, duration: "02.41", audio: "", image: img("/images/flight-of-hearts.png", "Flight of Hearts") },
+      { id: "17", title: "A Little Braver Now", status: "UPCOMING", desc: "", duration: "02.15", audio: "", image: smallImg("/images/a-little-braver-now.png", "A Little Braver Now") },
+      { id: "18", title: "Life Is a Daisy Wish", status: "UPCOMING", desc: "", duration: "01.58", audio: "", image: smallImg("/images/life-is-a-daisy-wish.png", "Life Is a Daisy Wish") },
+      { id: "19", title: "Through Smoke and Starlight", status: "UPCOMING", desc: 'inspired by "The Night Circus" by Erin Morgenstein', duration: "02.24", audio: "", image: img("/images/through-smoke-and-starlight.png", "Through Smoke and Starlight") },
     ],
   },
   {
     title: "Trailer Music",
     type: "Showcase",
     tracks: [
-      {
-        id: "11",
-        title: "Asura Rising",
-        status: "UPCOMING",
-        desc: "",
-        duration: "02.36",
-        audio: "",
-        image: img("/images/asura-rising 8.png", "Asura Rising"),
-      },
-      {
-        id: "12",
-        title: "Shock Protocol",
-        status: "UPCOMING",
-        desc: "",
-        duration: "02.02",
-        audio: "",
-        image: smallImg("/images/shock-protocol-2.png", "Shock Protocol"),
-      },
-      {
-        id: "13",
-        title: "Every Shadow Hides",
-        status: "UPCOMING",
-        desc: "",
-        duration: "02.06",
-        audio: "",
-        image: smallImg("/images/every-shadow-hides.png", "Every Shadow Hides"),
-      },
-      {
-        id: "14",
-        title: "Velocidad",
-        status: "UPCOMING",
-        desc: "",
-        duration: "02.07",
-        audio: "",
-        image: img("/images/velocidad.png", "Velocidad"),
-      },
+      { id: "20", title: "Asura Rising", status: "UPCOMING", desc: "", duration: "02.36", audio: "", image: img("/images/asura-rising 8.png", "Asura Rising") },
+      { id: "21", title: "Shock Protocol", status: "UPCOMING", desc: "", duration: "02.02", audio: "", image: smallImg("/images/shock-protocol-2.png", "Shock Protocol") },
+      { id: "22", title: "Every Shadow Hides", status: "UPCOMING", desc: "", duration: "02.06", audio: "", image: smallImg("/images/every-shadow-hides.png", "Every Shadow Hides") },
+      { id: "23", title: "Velocidad", status: "UPCOMING", desc: "", duration: "02.07", audio: "", image: img("/images/velocidad.png", "Velocidad") },
     ],
   },
 ];
@@ -255,7 +63,6 @@ function getImageSrc(track) {
 function preloadImage(src) {
   return new Promise((resolve) => {
     if (!src) return resolve();
-
     const image = new Image();
     image.onload = resolve;
     image.onerror = resolve;
@@ -270,14 +77,11 @@ function useFadedValue(value) {
 
   useEffect(() => {
     if (value === displayed) return;
-
     setFading(true);
-
     timerRef.current = setTimeout(() => {
       setDisplayed(value);
       setFading(false);
     }, FADE_MS);
-
     return () => clearTimeout(timerRef.current);
   }, [value, displayed]);
 
@@ -297,18 +101,13 @@ export default function FilmComposerPortfolioSite() {
   const audioRefs = useRef({});
   const desktopImageTimerRef = useRef(null);
 
-  const [desktopDisplayedTitle, desktopCollectionFading] =
-    useFadedValue(desktopActiveTitle);
-
-  const desktopActiveCollection =
-    COLLECTIONS.find((collection) => collection.title === desktopDisplayedTitle) ??
-    null;
+  const [desktopDisplayedTitle, desktopCollectionFading] = useFadedValue(desktopActiveTitle);
+  const desktopActiveCollection = COLLECTIONS.find((c) => c.title === desktopDisplayedTitle) ?? null;
 
   useEffect(() => {
     COLLECTIONS.forEach((collection) => {
       collection.tracks.forEach((track) => {
         const src = getImageSrc(track);
-
         if (src) {
           const preloadImg = new Image();
           preloadImg.src = src;
@@ -319,13 +118,11 @@ export default function FilmComposerPortfolioSite() {
 
   useEffect(() => {
     return () => {
-      if (desktopImageTimerRef.current) {
-        clearTimeout(desktopImageTimerRef.current);
-      }
+      if (desktopImageTimerRef.current) clearTimeout(desktopImageTimerRef.current);
     };
   }, []);
 
-  const hasPlayableAudio = (track) => Boolean(track.audio && !track.status);
+  const isPlayable = (track) => track.status !== "UPCOMING" && track.audio;
 
   const pauseAllExcept = (trackId) => {
     Object.entries(audioRefs.current).forEach(([id, audio]) => {
@@ -343,7 +140,6 @@ export default function FilmComposerPortfolioSite() {
         audio.currentTime = 0;
       }
     });
-
     setPlayingId(null);
     setProgressById({});
   };
@@ -353,7 +149,6 @@ export default function FilmComposerPortfolioSite() {
       setDesktopSelectedTrack(null);
       stopAllAudio();
     }
-
     setDesktopActiveTitle(title);
   };
 
@@ -372,14 +167,9 @@ export default function FilmComposerPortfolioSite() {
   };
 
   const playOrPauseTrack = (track) => {
-    if (!hasPlayableAudio(track)) {
-      pauseAllExcept(track.id);
-      setPlayingId(null);
-      return;
-    }
+    if (!isPlayable(track)) return;
 
     const audio = audioRefs.current[track.id];
-
     pauseAllExcept(track.id);
 
     if (audio) {
@@ -393,32 +183,19 @@ export default function FilmComposerPortfolioSite() {
     }
   };
 
-  const seekTrack = (event, track) => {
-    if (!hasPlayableAudio(track)) return;
+  const handleSeek = (track, event) => {
+    if (!isPlayable(track)) return;
 
     const audio = audioRefs.current[track.id];
     if (!audio || !audio.duration) return;
 
     const rect = event.currentTarget.getBoundingClientRect();
-    const clickX = event.clientX - rect.left;
-    const ratio = Math.min(Math.max(clickX / rect.width, 0), 1);
-
-    pauseAllExcept(track.id);
-
-    audio.currentTime = audio.duration * ratio;
-    audio.play();
-    setPlayingId(track.id);
-
-    setProgressById((prev) => ({
-      ...prev,
-      [track.id]: ratio * 100,
-    }));
+    const percentage = (event.clientX - rect.left) / rect.width;
+    audio.currentTime = percentage * audio.duration;
   };
 
   const handleDesktopTrackClick = async (track) => {
-    if (desktopImageTimerRef.current) {
-      clearTimeout(desktopImageTimerRef.current);
-    }
+    if (desktopImageTimerRef.current) clearTimeout(desktopImageTimerRef.current);
 
     setDesktopImageVisible(false);
 
@@ -452,7 +229,7 @@ export default function FilmComposerPortfolioSite() {
   };
 
   const renderTrackCard = (track, onClick, showInlineImage = false) => {
-    const playable = hasPlayableAudio(track);
+    const playable = isPlayable(track);
 
     return (
       <div key={track.id} className={`border ${BORDER_SOFT} p-5 bg-[#F8FBF2]`}>
@@ -466,13 +243,10 @@ export default function FilmComposerPortfolioSite() {
               setPlayingId(null);
               setProgressById((prev) => ({ ...prev, [track.id]: 0 }));
             }}
-            onTimeUpdate={(event) => {
-              const audio = event.currentTarget;
-
+            onTimeUpdate={(e) => {
+              const audio = e.currentTarget;
               if (!audio.duration) return;
-
               const progress = (audio.currentTime / audio.duration) * 100;
-
               setProgressById((prev) => ({ ...prev, [track.id]: progress }));
             }}
           />
@@ -484,7 +258,7 @@ export default function FilmComposerPortfolioSite() {
               <div className="text-lg tracking-[0.02em]">{track.title}</div>
 
               {track.status && (
-                <div className="text-[0.68rem] uppercase tracking-[0.28em] text-[#1A1A1A] font-semibold">
+                <div className="text-[0.63rem] uppercase tracking-[0.28em] text-[#5F665C] font-medium">
                   {track.status}
                 </div>
               )}
@@ -494,25 +268,23 @@ export default function FilmComposerPortfolioSite() {
               {track.desc || " "}
             </div>
 
-            <div className="mt-3 flex items-center gap-4">
-              <div className="text-sm text-[#71786D]">{track.duration}</div>
+            {playable && (
+              <div className="mt-3 flex items-center gap-4">
+                <div className="text-sm text-[#71786D]">{track.duration}</div>
 
-              {playable && (
-                <button
-                  type="button"
-                  aria-label={`Seek ${track.title}`}
-                  onClick={(event) => seekTrack(event, track)}
-                  className="flex-1 h-[9px] flex items-center cursor-pointer group"
+                <div
+                  onClick={(e) => handleSeek(track, e)}
+                  className="flex-1 h-[5px] bg-transparent cursor-pointer flex items-center"
                 >
-                  <div className="w-full h-[1px] bg-[#D7DDD1] overflow-hidden group-hover:h-[2px] transition-all duration-200">
+                  <div className="w-full h-[1px] bg-[#D7DDD1] overflow-hidden">
                     <div
                       className="h-full bg-[#1A1A1A] transition-all duration-200 ease-out"
                       style={{ width: `${progressById[track.id] || 0}%` }}
                     />
                   </div>
-                </button>
-              )}
-            </div>
+                </div>
+              </div>
+            )}
           </div>
 
           {playable && (
@@ -553,7 +325,7 @@ export default function FilmComposerPortfolioSite() {
         <div className="space-y-8">
           <div>
             <div className="text-[1.35rem] md:text-[1.7rem] tracking-[0.32em] font-medium uppercase">
-              COMPOSER
+              MODERN COMPOSER
             </div>
 
             <h1 className="mt-6 text-4xl md:text-[4.1rem] leading-[1.05] uppercase tracking-[0.08em]">
@@ -577,14 +349,11 @@ export default function FilmComposerPortfolioSite() {
             <button
               key={collection.title}
               onClick={() => handleDesktopCollectionClick(collection.title)}
-              className={playlistButtonClass(
-                desktopActiveTitle === collection.title
-              )}
+              className={playlistButtonClass(desktopActiveTitle === collection.title)}
             >
               <div className="text-sm uppercase tracking-[0.28em] text-[#71786D]">
                 {collection.type}
               </div>
-
               <div className="mt-4 text-[1.35rem]">{collection.title}</div>
             </button>
           ))}
@@ -605,9 +374,7 @@ export default function FilmComposerPortfolioSite() {
             <div className="md:col-span-5 flex justify-center">
               <div
                 className={`w-full max-w-md flex items-center justify-center text-[#71786D] text-center transition-opacity duration-[1200ms] ease-out ${
-                  desktopImageVisible && desktopSelectedTrack
-                    ? "opacity-100"
-                    : "opacity-0"
+                  desktopImageVisible && desktopSelectedTrack ? "opacity-100" : "opacity-0"
                 }`}
               >
                 {desktopSelectedTrack ? desktopSelectedTrack.image : null}
@@ -623,14 +390,11 @@ export default function FilmComposerPortfolioSite() {
             <div key={collection.title}>
               <button
                 onClick={() => handleMobileCollectionClick(collection.title)}
-                className={playlistButtonClass(
-                  mobileActiveTitle === collection.title
-                )}
+                className={playlistButtonClass(mobileActiveTitle === collection.title)}
               >
                 <div className="text-sm uppercase tracking-[0.28em] text-[#71786D]">
                   {collection.type}
                 </div>
-
                 <div className="mt-4 text-[1.35rem]">{collection.title}</div>
               </button>
 
@@ -646,21 +410,12 @@ export default function FilmComposerPortfolioSite() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-6 py-20 grid md:grid-cols-2 gap-12 md:gap-16">
+      <section className="mx-auto max-w-6xl px-6 py-20">
         <div>
           <h2 className="text-[#1A1A1A] text-[2.1rem]">About</h2>
-
           <p className="mt-6 text-[#5F665C] text-[1.15rem] leading-[1.8]">
             Music for visual storytelling.
           </p>
-        </div>
-
-        <div className="flex justify-center items-center h-full">
-          <img
-            src="/images/marius-ygre.jpg"
-            alt="Marius Ygre"
-            className={`max-w-[17rem] h-auto object-contain ${IMAGE_FRAME}`}
-          />
         </div>
       </section>
 
@@ -670,41 +425,11 @@ export default function FilmComposerPortfolioSite() {
         </div>
 
         <div className={`border ${BORDER_SOFT} p-6 md:p-8 bg-[#F8FBF2]`}>
-          <form
-            action="https://formspree.io/f/xykvezbg"
-            method="POST"
-            className="space-y-4"
-          >
-            <input
-              required
-              type="text"
-              name="name"
-              placeholder="Name *"
-              className={`w-full border ${BORDER_SOFT} bg-[#F8FAF4] px-4 py-4 text-[1rem]`}
-            />
-
-            <input
-              required
-              type="email"
-              name="email"
-              placeholder="E-mail *"
-              className={`w-full border ${BORDER_SOFT} bg-[#F8FAF4] px-4 py-4 text-[1rem]`}
-            />
-
-            <input
-              type="tel"
-              name="phone"
-              placeholder="Phone"
-              className={`w-full border ${BORDER_SOFT} bg-[#F8FAF4] px-4 py-4 text-[1rem]`}
-            />
-
-            <textarea
-              required
-              rows={5}
-              name="message"
-              placeholder="Message"
-              className={`w-full border ${BORDER_SOFT} bg-[#F8FAF4] px-4 py-4 text-[1rem]`}
-            />
+          <form action="https://formspree.io/f/xykvezbg" method="POST" className="space-y-4">
+            <input required type="text" name="name" placeholder="Name *" className={`w-full border ${BORDER_SOFT} bg-[#F8FAF4] px-4 py-4 text-[1rem]`} />
+            <input required type="email" name="email" placeholder="E-mail *" className={`w-full border ${BORDER_SOFT} bg-[#F8FAF4] px-4 py-4 text-[1rem]`} />
+            <input type="tel" name="phone" placeholder="Phone" className={`w-full border ${BORDER_SOFT} bg-[#F8FAF4] px-4 py-4 text-[1rem]`} />
+            <textarea required rows={5} name="message" placeholder="Message" className={`w-full border ${BORDER_SOFT} bg-[#F8FAF4] px-4 py-4 text-[1rem]`} />
 
             <button className="w-full border border-[#1A1A1A] py-4 text-[0.72rem] uppercase tracking-[0.24em] text-[#1A1A1A] hover:bg-[#1A1A1A] hover:text-white transition-all duration-500 ease-out active:opacity-70">
               Send Message
