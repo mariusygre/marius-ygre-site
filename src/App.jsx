@@ -41,7 +41,7 @@ const COLLECTIONS = [
       { id: "16", title: "Flight of Hearts", status: "UPCOMING", desc: `inspired by "She Who Became The Sun"\nby Shelley Parker-Chan`, duration: "02.41", audio: "", image: img("/images/flight-of-hearts.png", "Flight of Hearts") },
       { id: "17", title: "A Little Braver Now", status: "UPCOMING", desc: "", duration: "02.15", audio: "", image: smallImg("/images/a-little-braver-now.png", "A Little Braver Now") },
       { id: "18", title: "Life Is a Daisy Wish", status: "UPCOMING", desc: "", duration: "01.58", audio: "", image: smallImg("/images/life-is-a-daisy-wish.png", "Life Is a Daisy Wish") },
-      { id: "19", title: "Through Smoke and Starlight", status: "UPCOMING", desc: 'inspired by "The Night Circus" by Erin Morgenstein', duration: "02.24", audio: "", image: img("/images/through-smoke-and-starlight.png", "Through Smoke and Starlight") },
+      { id: "19", title: "Through Smoke and Starlight", status: "", desc: 'inspired by "The Night Circus" by Erin Morgenstein', duration: "02.24", audio: "/audio/through-smoke-and-starlight.mp3", image: img("/images/through-smoke-and-starlight.png", "Through Smoke and Starlight") },
     ],
   },
   {
