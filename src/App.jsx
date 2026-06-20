@@ -19,14 +19,14 @@ const COLLECTIONS = [
     tracks: [
       { id: "1", title: "This Weight of Open Sky", status: "", desc: "", duration: "02.44", audio: "/audio/this-weight-of-open-sky.mp3", image: img("/images/this-weight-of-open-sky.png", "This Weight of Open Sky") },
       { id: "2", title: "Room in Monterey", status: "", desc: "", duration: "03.12", audio: "/audio/room-in-monterey.mp3", image: img("/images/room-in-monterey.png", "Room in Monterey") },
-      { id: "3", title: "The Liminal Passage", status: "", desc: 'inspired by "A Constellation of Vital Phenomena" by Anthony Marra', duration: "04.39", audio: "/audio/the-liminal-passage.mp3", image: img("/images/the-liminal-passage.png", "The Liminal Passage") },
+      { id: "3", title: "The Liminal Passage", status: "", desc: "", duration: "04.39", audio: "/audio/the-liminal-passage.mp3", image: img("/images/the-liminal-passage.png", "The Liminal Passage") },
       { id: "4", title: "Ridge of Desolation", status: "", desc: "", duration: "02.42", audio: "/audio/ridge-of-desolation.mp3", image: img("/images/ridge-of-desolation.png", "Ridge of Desolation") },
       { id: "5", title: "The Quiet Between", status: "", desc: "", duration: "03.28", audio: "/audio/the-quiet-between.mp3", image: smallImg("/images/the-quiet-between.png", "The Quiet Between") },
       { id: "6", title: "Iben's Dance", status: "", desc: "", duration: "02.31", audio: "/audio/ibens-dance.mp3", image: img("/images/ibens-dance.png", "Iben's Dance") },
-      { id: "7", title: "Under Currents", status: "", desc: 'a character study on Arab from "Moby Dick" by Herman Melville', duration: "02.46", audio: "/audio/under-currents.mp3", image: smallImg("/images/arab.png", "Under Currents") },
+      { id: "7", title: "Under Currents", status: "", desc: "", duration: "02.46", audio: "/audio/under-currents.mp3", image: smallImg("/images/arab.png", "Under Currents") },
       { id: "8", title: "Nival", status: "", desc: "", duration: "02.36", audio: "/audio/nival.mp3", image: img("/images/nival.png", "Nival") },
       { id: "9", title: "Suite", status: "", desc: "", duration: "03.36", audio: "/audio/suite.mp3", image: img("/images/suite.png", "Suite") },
-      { id: "10", title: "Watch the Voltage", status: "", desc: 'inspired by "Revival" by Stephen King', duration: "03.05", audio: "/audio/watch-the-voltage.mp3", image: img("/images/watch-the-voltage.png", "Watch the Voltage") },
+      { id: "10", title: "Watch the Voltage", status: "", desc: "", duration: "03.05", audio: "/audio/watch-the-voltage.mp3", image: img("/images/watch-the-voltage.png", "Watch the Voltage") },
     ],
   },
   {
@@ -38,10 +38,10 @@ const COLLECTIONS = [
       { id: "13", title: "Hrim", status: "", desc: "", duration: "03.45", audio: "/audio/hrim.mp3", image: img("/images/hrim.png", "Hrim") },
       { id: "14", title: "Malinconia", status: "", desc: "", duration: "03.08", audio: "/audio/malinconia.mp3", image: smallImg("/images/malinconia-2.png", "Malinconia") },
       { id: "15", title: "Chasing Horizons", status: "", desc: "", duration: "03.23", audio: "/audio/chasing-horizons.mp3", image: smallImg("/images/chasing-horizons.png", "Chasing Horizons") },
-      { id: "16", title: "Flight of Hearts", status: "", desc: `inspired by "She Who Became The Sun"\nby Shelley Parker-Chan`, duration: "02.41", audio: "/audio/flight-of-hearts.mp3", image: img("/images/flight-of-hearts.png", "Flight of Hearts") },
+      { id: "16", title: "Flight of Hearts", status: "", desc: "", duration: "02.41", audio: "/audio/flight-of-hearts.mp3", image: img("/images/flight-of-hearts.png", "Flight of Hearts") },
       { id: "17", title: "A Little Braver Now", status: "UPCOMING", desc: "", duration: "02.15", audio: "", image: smallImg("/images/a-little-braver-now.png", "A Little Braver Now") },
       { id: "18", title: "Life Is a Daisy Wish", status: "", desc: "", duration: "01.58", audio: "/audio/life-is-a-daisy-wish.mp3", image: smallImg("/images/life-is-a-daisy-wish.png", "Life Is a Daisy Wish") },
-      { id: "19", title: "Through Smoke and Starlight", status: "", desc: 'inspired by "The Night Circus" by Erin Morgenstein', duration: "02.24", audio: "/audio/through-smoke-and-starlight.mp3", image: img("/images/through-smoke-and-starlight.png", "Through Smoke and Starlight") },
+      { id: "19", title: "Through Smoke and Starlight", status: "", desc: "", duration: "02.24", audio: "/audio/through-smoke-and-starlight.mp3", image: img("/images/through-smoke-and-starlight.png", "Through Smoke and Starlight") },
     ],
   },
   {
@@ -99,6 +99,7 @@ export default function FilmComposerPortfolioSite() {
   const [progressById, setProgressById] = useState({});
 
   const audioRefs = useRef({});
+  const mobileCollectionRefs = useRef({});
   const desktopImageTimerRef = useRef(null);
 
   const [desktopDisplayedTitle, desktopCollectionFading] = useFadedValue(desktopActiveTitle);
@@ -124,6 +125,23 @@ export default function FilmComposerPortfolioSite() {
 
   const isPlayable = (track) => track.status !== "UPCOMING" && track.audio;
 
+  const getTrackCollection = (trackId) =>
+    COLLECTIONS.find((collection) =>
+      collection.tracks.some((track) => track.id === trackId)
+    );
+
+  const getNextPlayableTrack = (trackId) => {
+    const collection = getTrackCollection(trackId);
+    if (!collection) return null;
+
+    const currentIndex = collection.tracks.findIndex((track) => track.id === trackId);
+    if (currentIndex === -1) return null;
+
+    return collection.tracks
+      .slice(currentIndex + 1)
+      .find((track) => isPlayable(track)) || null;
+  };
+
   const pauseAllExcept = (trackId) => {
     Object.entries(audioRefs.current).forEach(([id, audio]) => {
       if (audio && id !== trackId) {
@@ -144,6 +162,33 @@ export default function FilmComposerPortfolioSite() {
     setProgressById({});
   };
 
+  const startTrack = (track) => {
+    if (!isPlayable(track)) return;
+
+    pauseAllExcept(track.id);
+
+    const audio = audioRefs.current[track.id];
+    if (audio) {
+      audio.currentTime = 0;
+      audio.play();
+      setPlayingId(track.id);
+    }
+  };
+
+  const handleTrackEnded = (track) => {
+    setProgressById((prev) => ({ ...prev, [track.id]: 0 }));
+
+    const nextTrack = getNextPlayableTrack(track.id);
+
+    if (nextTrack) {
+      setTimeout(() => {
+        startTrack(nextTrack);
+      }, 150);
+    } else {
+      setPlayingId(null);
+    }
+  };
+
   const handleDesktopCollectionClick = (title) => {
     if (title !== desktopActiveTitle) {
       setDesktopSelectedTrack(null);
@@ -158,6 +203,13 @@ export default function FilmComposerPortfolioSite() {
       setMobileImageVisible(false);
       stopAllAudio();
       setMobileActiveTitle(title);
+
+      requestAnimationFrame(() => {
+        mobileCollectionRefs.current[title]?.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      });
     } else {
       setMobileSelectedTrackId(null);
       setMobileImageVisible(false);
@@ -190,7 +242,7 @@ export default function FilmComposerPortfolioSite() {
     if (!audio || !audio.duration) return;
 
     const rect = event.currentTarget.getBoundingClientRect();
-    const percentage = (event.clientX - rect.left) / rect.width;
+    const percentage = Math.min(Math.max((event.clientX - rect.left) / rect.width, 0), 1);
     audio.currentTime = percentage * audio.duration;
   };
 
@@ -239,10 +291,7 @@ export default function FilmComposerPortfolioSite() {
               audioRefs.current[track.id] = el;
             }}
             src={track.audio}
-            onEnded={() => {
-              setPlayingId(null);
-              setProgressById((prev) => ({ ...prev, [track.id]: 0 }));
-            }}
+            onEnded={() => handleTrackEnded(track)}
             onTimeUpdate={(e) => {
               const audio = e.currentTarget;
               if (!audio.duration) return;
@@ -387,8 +436,14 @@ export default function FilmComposerPortfolioSite() {
       <section className="md:hidden mx-auto max-w-6xl px-6 py-10">
         <div className="space-y-6">
           {COLLECTIONS.map((collection) => (
-            <div key={collection.title}>
+            <div
+              key={collection.title}
+              ref={(el) => {
+                mobileCollectionRefs.current[collection.title] = el;
+              }}
+            >
               <button
+                onMouseDown={(e) => e.preventDefault()}
                 onClick={() => handleMobileCollectionClick(collection.title)}
                 className={playlistButtonClass(mobileActiveTitle === collection.title)}
               >
