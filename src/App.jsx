@@ -17,31 +17,32 @@ const COLLECTIONS = [
     title: "Minimalism",
     type: "Emotional",
     tracks: [
-      { id: "1", title: "This Weight of Open Sky", status: "", desc: "", duration: "02.44", audio: "/audio/this-weight-of-open-sky.mp3", image: img("/images/this-weight-of-open-sky.png", "This Weight of Open Sky") },
-      { id: "2", title: "Room in Monterey", status: "", desc: "", duration: "03.12", audio: "/audio/room-in-monterey.mp3", image: img("/images/room-in-monterey.png", "Room in Monterey") },
+      { id: "1", title: "Room in Monterey", status: "", desc: "", duration: "03.12", audio: "/audio/room-in-monterey.mp3", image: img("/images/room-in-monterey.png", "Room in Monterey") },
+      { id: "2", title: "This Weight of Open Sky", status: "", desc: "", duration: "02.44", audio: "/audio/this-weight-of-open-sky.mp3", image: img("/images/this-weight-of-open-sky.png", "This Weight of Open Sky") },
       { id: "3", title: "The Liminal Passage", status: "", desc: "", duration: "04.39", audio: "/audio/the-liminal-passage.mp3", image: img("/images/the-liminal-passage.png", "The Liminal Passage") },
-      { id: "4", title: "Ridge of Desolation", status: "", desc: "", duration: "02.42", audio: "/audio/ridge-of-desolation.mp3", image: img("/images/ridge-of-desolation.png", "Ridge of Desolation") },
-      { id: "5", title: "The Quiet Between", status: "", desc: "", duration: "03.28", audio: "/audio/the-quiet-between.mp3", image: smallImg("/images/the-quiet-between.png", "The Quiet Between") },
-      { id: "6", title: "Iben's Dance", status: "", desc: "", duration: "02.31", audio: "/audio/ibens-dance.mp3", image: img("/images/ibens-dance.png", "Iben's Dance") },
-      { id: "7", title: "Under Currents", status: "", desc: "", duration: "02.46", audio: "/audio/under-currents.mp3", image: smallImg("/images/arab.png", "Under Currents") },
-      { id: "8", title: "Nival", status: "", desc: "", duration: "02.36", audio: "/audio/nival.mp3", image: img("/images/nival.png", "Nival") },
-      { id: "9", title: "Suite", status: "", desc: "", duration: "03.36", audio: "/audio/suite.mp3", image: img("/images/suite.png", "Suite") },
-      { id: "10", title: "Watch the Voltage", status: "", desc: "", duration: "03.05", audio: "/audio/watch-the-voltage.mp3", image: img("/images/watch-the-voltage.png", "Watch the Voltage") },
+      { id: "4", title: "Iben's Dance", status: "", desc: "", duration: "02.31", audio: "/audio/ibens-dance.mp3", image: img("/images/ibens-dance.png", "Iben's Dance") },
+      { id: "5", title: "Under Currents", status: "", desc: "", duration: "02.46", audio: "/audio/under-currents.mp3", image: smallImg("/images/arab.png", "Under Currents") },
+      { id: "6", title: "Flight of Hearts", status: "", desc: "", duration: "02.41", audio: "/audio/flight-of-hearts.mp3", image: img("/images/flight-of-hearts.png", "Flight of Hearts") },
+      { id: "7", title: "The Quiet Between", status: "", desc: "", duration: "03.28", audio: "/audio/the-quiet-between.mp3", image: smallImg("/images/the-quiet-between.png", "The Quiet Between") },
+      { id: "8", title: "Ridge of Desolation", status: "", desc: "", duration: "02.42", audio: "/audio/ridge-of-desolation.mp3", image: img("/images/ridge-of-desolation.png", "Ridge of Desolation") },
+      { id: "9", title: "Watch the Voltage", status: "", desc: "", duration: "03.05", audio: "/audio/watch-the-voltage.mp3", image: img("/images/watch-the-voltage.png", "Watch the Voltage") },
+      { id: "10", title: "Nival", status: "", desc: "", duration: "02.36", audio: "/audio/nival.mp3", image: img("/images/nival.png", "Nival") },
+      { id: "11", title: "Suite", status: "", desc: "", duration: "03.36", audio: "/audio/suite.mp3", image: img("/images/suite.png", "Suite") },
     ],
   },
   {
     title: "Orchestral",
     type: "Modern",
     tracks: [
-      { id: "11", title: "Auralis", status: "", desc: "", duration: "03.23", audio: "/audio/auralis.mp3", image: img("/images/auralis.png", "Auralis") },
       { id: "12", title: "The Wave Is Already Water", status: "", desc: "", duration: "03.22", audio: "/audio/the-wave-is-already-water.mp3", image: img("/images/the-wave-is-already-water.png", "The Wave Is Already Water") },
-      { id: "13", title: "Hrim", status: "", desc: "", duration: "03.45", audio: "/audio/hrim.mp3", image: img("/images/hrim.png", "Hrim") },
-      { id: "14", title: "Malinconia", status: "", desc: "", duration: "03.08", audio: "/audio/malinconia.mp3", image: smallImg("/images/malinconia-2.png", "Malinconia") },
-      { id: "15", title: "Chasing Horizons", status: "", desc: "", duration: "03.23", audio: "/audio/chasing-horizons.mp3", image: smallImg("/images/chasing-horizons.png", "Chasing Horizons") },
-      { id: "16", title: "Flight of Hearts", status: "", desc: "", duration: "02.41", audio: "/audio/flight-of-hearts.mp3", image: img("/images/flight-of-hearts.png", "Flight of Hearts") },
-      { id: "17", title: "A Little Braver Now", status: "UPCOMING", desc: "", duration: "02.15", audio: "", image: smallImg("/images/a-little-braver-now.png", "A Little Braver Now") },
-      { id: "18", title: "Life Is a Daisy Wish", status: "", desc: "", duration: "01.58", audio: "/audio/life-is-a-daisy-wish.mp3", image: smallImg("/images/life-is-a-daisy-wish.png", "Life Is a Daisy Wish") },
-      { id: "19", title: "Through Smoke and Starlight", status: "", desc: "", duration: "02.24", audio: "/audio/through-smoke-and-starlight.mp3", image: img("/images/through-smoke-and-starlight.png", "Through Smoke and Starlight") },
+      { id: "13", title: "Chasing Horizons", status: "", desc: "", duration: "03.23", audio: "/audio/chasing-horizons.mp3", image: smallImg("/images/chasing-horizons.png", "Chasing Horizons") },
+      { id: "14", title: "Life Is a Daisy Wish", status: "", desc: "", duration: "01.58", audio: "/audio/life-is-a-daisy-wish.mp3", image: smallImg("/images/life-is-a-daisy-wish.png", "Life Is a Daisy Wish") },
+      { id: "15", title: "Auralis", status: "", desc: "", duration: "03.23", audio: "/audio/auralis.mp3", image: img("/images/auralis.png", "Auralis") },
+      { id: "16", title: "Hrim", status: "", desc: "", duration: "03.45", audio: "/audio/hrim.mp3", image: img("/images/hrim.png", "Hrim") },
+      { id: "17", title: "Through Smoke and Starlight", status: "", desc: "", duration: "02.24", audio: "/audio/through-smoke-and-starlight.mp3", image: img("/images/through-smoke-and-starlight.png", "Through Smoke and Starlight") },
+      { id: "18", title: "Malinconia", status: "", desc: "", duration: "03.08", audio: "/audio/malinconia.mp3", image: smallImg("/images/malinconia-2.png", "Malinconia") },
+      { id: "19", title: "A Little Braver Now", status: "UPCOMING", desc: "", duration: "02.15", audio: "", image: smallImg("/images/a-little-braver-now.png", "A Little Braver Now") },
+      
     ],
   },
   {
@@ -374,7 +375,7 @@ export default function FilmComposerPortfolioSite() {
         <div className="space-y-8">
           <div>
             <div className="text-[1.35rem] md:text-[1.7rem] tracking-[0.32em] font-medium uppercase">
-              MODERN COMPOSER
+              COMPOSER
             </div>
 
             <h1 className="mt-6 text-4xl md:text-[4.1rem] leading-[1.05] uppercase tracking-[0.08em]">
