@@ -517,19 +517,19 @@ export default function FilmComposerPortfolioSite() {
         </div>
       </section>
 
-            <section className="mx-auto max-w-6xl px-6 py-20 grid md:grid-cols-2 gap-12 md:gap-16">
+                  <section className="mx-auto max-w-6xl px-6 py-20 grid md:grid-cols-2 gap-12 md:gap-16">
         <div>
           <h2 className="text-[#1A1A1A] text-[2.1rem]">About</h2>
 
-          <p className="mt-6 text-[#5F665C] text-[1.15rem] leading-[1.8]">
+          <p className="mt-6 max-w-[33rem] text-[#5F665C] text-[1.02rem] leading-[1.85]">
             Trained in music production and composition from the Norwegian Academy of Music, and with performance studies at Berklee College of Music, Marius Ygre brings a broad musical background to his work as a composer.
           </p>
 
-          <p className="mt-6 text-[#5F665C] text-[1.15rem] leading-[1.8]">
+          <p className="mt-5 max-w-[33rem] text-[#5F665C] text-[1.02rem] leading-[1.85]">
             As the artist Madden, he built an international pop career as a composer, songwriter and producer, with songs surpassing 200 million streams and reaching audiences across the world. Collaborations with writers and artists across Europe and America helped shape a writing style marked by emotional clarity, precision and an intimate sense of melody.
           </p>
 
-          <p className="mt-6 text-[#5F665C] text-[1.15rem] leading-[1.8]">
+          <p className="mt-5 max-w-[33rem] text-[#5F665C] text-[1.02rem] leading-[1.85]">
             Now focused on film and visual storytelling, he draws on his experiences in performance, composition and production to create music that supports imagery with atmosphere, restraint and emotional detail.
           </p>
         </div>
