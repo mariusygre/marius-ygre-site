@@ -14,23 +14,6 @@ const smallImg = (src, alt) => (
 
 const COLLECTIONS = [
   {
-    title: "Minimalism",
-    type: "Emotional",
-    tracks: [
-      { id: "1", title: "Room in Monterey", status: "", desc: "", duration: "03.12", audio: "/audio/room-in-monterey.mp3", image: img("/images/room-in-monterey.png", "Room in Monterey") },
-      { id: "2", title: "This Weight of Open Sky", status: "", desc: "", duration: "02.43", audio: "/audio/this-weight-of-open-sky.mp3", image: img("/images/this-weight-of-open-sky.png", "This Weight of Open Sky") },
-      { id: "3", title: "The Liminal Passage", status: "", desc: "", duration: "04.39", audio: "/audio/the-liminal-passage.mp3", image: img("/images/the-liminal-passage.png", "The Liminal Passage") },
-      { id: "4", title: "Iben's Dance", status: "", desc: "", duration: "02.31", audio: "/audio/ibens-dance.mp3", image: img("/images/ibens-dance.png", "Iben's Dance") },
-      { id: "5", title: "Under Currents", status: "", desc: "", duration: "02.46", audio: "/audio/under-currents.mp3", image: smallImg("/images/arab.png", "Under Currents") },
-      { id: "6", title: "Flight of Hearts", status: "", desc: "", duration: "02.41", audio: "/audio/flight-of-hearts.mp3", image: img("/images/flight-of-hearts.png", "Flight of Hearts") },
-      { id: "7", title: "The Quiet Between", status: "", desc: "", duration: "03.28", audio: "/audio/the-quiet-between.mp3", image: smallImg("/images/the-quiet-between.png", "The Quiet Between") },
-      { id: "8", title: "Ridge of Desolation", status: "", desc: "", duration: "02.39", audio: "/audio/ridge-of-desolation.mp3", image: img("/images/ridge-of-desolation.png", "Ridge of Desolation") },
-      { id: "9", title: "Watch the Voltage", status: "", desc: "", duration: "03.05", audio: "/audio/watch-the-voltage.mp3", image: img("/images/watch-the-voltage.png", "Watch the Voltage") },
-      { id: "10", title: "Nival", status: "", desc: "", duration: "02.36", audio: "/audio/nival.mp3", image: img("/images/nival.png", "Nival") },
-      { id: "11", title: "Suite", status: "", desc: "", duration: "03.36", audio: "/audio/suite.mp3", image: img("/images/suite.png", "Suite") },
-    ],
-  },
-  {
     title: "Orchestral",
     type: "Modern",
     tracks: [
@@ -42,6 +25,23 @@ const COLLECTIONS = [
       { id: "17", title: "Through Smoke and Starlight", status: "", desc: "", duration: "02.24", audio: "/audio/through-smoke-and-starlight.mp3", image: img("/images/through-smoke-and-starlight.png", "Through Smoke and Starlight") },
       { id: "18", title: "Malinconia", status: "", desc: "", duration: "03.08", audio: "/audio/malinconia.mp3", image: smallImg("/images/malinconia-2.png", "Malinconia") },
       { id: "13", title: "Chasing Horizons", status: "UPCOMING", desc: "", duration: "03.19", audio: "", image: smallImg("/images/chasing-horizons.png", "Chasing Horizons") },
+    ],
+  },
+  {
+    title: "Minimalism",
+    type: "Emotional",
+    tracks: [
+      { id: "5", title: "Under Currents", status: "", desc: "", duration: "02.46", audio: "/audio/under-currents.mp3", image: smallImg("/images/arab.png", "Under Currents") },
+      { id: "6", title: "Flight of Hearts", status: "", desc: "", duration: "02.41", audio: "/audio/flight-of-hearts.mp3", image: img("/images/flight-of-hearts.png", "Flight of Hearts") },
+      { id: "4", title: "Iben's Dance", status: "", desc: "", duration: "02.31", audio: "/audio/ibens-dance.mp3", image: img("/images/ibens-dance.png", "Iben's Song") },
+      { id: "10", title: "Nival", status: "", desc: "", duration: "02.36", audio: "/audio/nival.mp3", image: img("/images/nival.png", "Nival") },
+      { id: "7", title: "The Quiet Between", status: "", desc: "", duration: "03.28", audio: "/audio/the-quiet-between.mp3", image: smallImg("/images/the-quiet-between.png", "The Quiet Between") },
+      { id: "1", title: "Room in Monterey", status: "", desc: "", duration: "03.12", audio: "/audio/room-in-monterey.mp3", image: img("/images/room-in-monterey.png", "Room in Monterey") },
+      { id: "2", title: "This Weight of Open Sky", status: "", desc: "", duration: "02.43", audio: "/audio/this-weight-of-open-sky.mp3", image: img("/images/this-weight-of-open-sky.png", "This Weight of Open Sky") },
+      { id: "3", title: "The Liminal Passage", status: "", desc: "", duration: "04.39", audio: "/audio/the-liminal-passage.mp3", image: img("/images/the-liminal-passage.png", "The Liminal Passage") },
+      { id: "9", title: "Watch The Voltage", status: "", desc: "", duration: "03.05", audio: "/audio/watch-the-voltage.mp3", image: img("/images/watch-the-voltage.png", "Watch The Voltage") },
+      { id: "8", title: "Ridge of Desolation", status: "", desc: "", duration: "02.39", audio: "/audio/ridge-of-desolation.mp3", image: img("/images/ridge-of-desolation.png", "Ridge of Desolation") },
+      { id: "11", title: "Suite", status: "", desc: "", duration: "03.36", audio: "/audio/suite.mp3", image: img("/images/suite.png", "Suite") },
     ],
   },
   {
