@@ -46,7 +46,7 @@ const COLLECTIONS = [
   },
   {
     title: "Trailer Music",
-    type: "Showcase",
+    type: "Hybrid",
     tracks: [
       { id: "20", title: "Asura Rising", status: "UPCOMING", desc: "", duration: "02.36", audio: "", image: img("/images/asura-rising 8.png", "Asura Rising") },
       { id: "21", title: "Shock Protocol", status: "UPCOMING", desc: "", duration: "02.02", audio: "", image: smallImg("/images/shock-protocol-2.png", "Shock Protocol") },
