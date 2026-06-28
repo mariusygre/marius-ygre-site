@@ -18,11 +18,11 @@ const COLLECTIONS = [
     type: "Modern",
     tracks: [
       { id: "12", title: "The Wave Is Already Water", status: "", desc: "", duration: "03.22", audio: "/audio/the-wave-is-already-water.mp3", image: img("/images/the-wave-is-already-water.png", "The Wave Is Already Water") },
-      { id: "19", title: "A Little Braver Now", status: "", desc: "", duration: "02.15", audio: "/audio/a-little-braver-now.mp3", image: smallImg("/images/a-little-braver-now.png", "A Little Braver Now") },
       { id: "14", title: "Life Is a Daisy Wish", status: "", desc: "", duration: "01.58", audio: "/audio/life-is-a-daisy-wish.mp3", image: smallImg("/images/life-is-a-daisy-wish.png", "Life Is a Daisy Wish") },
-      { id: "15", title: "Auralis", status: "", desc: "", duration: "03.19", audio: "/audio/auralis.mp3", image: img("/images/auralis.png", "Auralis") },
       { id: "16", title: "Hrim", status: "", desc: "", duration: "03.45", audio: "/audio/hrim.mp3", image: img("/images/hrim.png", "Hrim") },
       { id: "17", title: "Through Smoke and Starlight", status: "", desc: "", duration: "02.24", audio: "/audio/through-smoke-and-starlight.mp3", image: img("/images/through-smoke-and-starlight.png", "Through Smoke and Starlight") },
+      { id: "19", title: "A Little Braver Now", status: "", desc: "", duration: "02.15", audio: "/audio/a-little-braver-now.mp3", image: smallImg("/images/a-little-braver-now.png", "A Little Braver Now") },
+      { id: "15", title: "Auralis", status: "", desc: "", duration: "03.19", audio: "/audio/auralis.mp3", image: img("/images/auralis.png", "Auralis") },
       { id: "18", title: "Malinconia", status: "", desc: "", duration: "03.08", audio: "/audio/malinconia.mp3", image: smallImg("/images/malinconia-2.png", "Malinconia") },
       { id: "13", title: "Chasing Horizons", status: "UPCOMING", desc: "", duration: "03.19", audio: "", image: smallImg("/images/chasing-horizons.png", "Chasing Horizons") },
     ],
