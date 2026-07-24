@@ -48,7 +48,7 @@ const COLLECTIONS = [
     title: "Trailer Music",
     type: "Hybrid",
     tracks: [
-      { id: "20", title: "Asura Rising", status: "UPCOMING", desc: "", duration: "02.36", audio: "", image: img("/images/asura-rising 8.png", "Asura Rising") },
+     { id: "20", title: "Asura Rising", status: "", desc: "", duration: "02.36", audio: "/audio/asura-rising.mp3", image: img("/images/asura-rising 8.png", "Asura Rising") },
       { id: "21", title: "Shock Protocol", status: "UPCOMING", desc: "", duration: "02.02", audio: "", image: smallImg("/images/shock-protocol-2.png", "Shock Protocol") },
       { id: "22", title: "Every Shadow Hides", status: "UPCOMING", desc: "", duration: "02.06", audio: "", image: smallImg("/images/every-shadow-hides.png", "Every Shadow Hides") },
       { id: "23", title: "Velocidad", status: "UPCOMING", desc: "", duration: "02.07", audio: "", image: img("/images/velocidad.png", "Velocidad") },
