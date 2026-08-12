@@ -592,9 +592,6 @@ export default function FilmComposerPortfolioSite() {
             </button>
           </form>
 
-          <div className="mt-6 text-[#5F665C] text-[0.98rem]">
-            mariusygre@proton.me
-          </div>
         </div>
       </section>
 
