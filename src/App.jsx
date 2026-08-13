@@ -93,8 +93,7 @@ function useFadedValue(value) {
   return [displayed, fading];
 }
 
-function HomePage() {
-  function ImagePlaceholder({ label = "Image placeholder", tall = false }) {
+function ImagePlaceholder({ label = "Image placeholder", tall = false }) {
   return (
     <div
       className={`w-full ${tall ? "min-h-[24rem]" : "min-h-[16rem]"} ${IMAGE_FRAME} bg-[#F8FBF2] flex items-center justify-center text-[#71786D] text-[0.72rem] uppercase tracking-[0.24em]`}
@@ -546,6 +545,7 @@ function FilmPage() {
     </div>
   );
 }
+function HomePage() {
   const [desktopActiveTitle, setDesktopActiveTitle] = useState(null);
   const [mobileActiveTitle, setMobileActiveTitle] = useState(null);
   const [desktopSelectedTrack, setDesktopSelectedTrack] = useState(null);
