@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 
 const FADE_MS = 1200;
 const BORDER_SOFT = "border-[#D9DED4]";
@@ -92,7 +93,459 @@ function useFadedValue(value) {
   return [displayed, fading];
 }
 
-export default function FilmComposerPortfolioSite() {
+function HomePage() {
+  function ImagePlaceholder({ label = "Image placeholder", tall = false }) {
+  return (
+    <div
+      className={`w-full ${tall ? "min-h-[24rem]" : "min-h-[16rem]"} ${IMAGE_FRAME} bg-[#F8FBF2] flex items-center justify-center text-[#71786D] text-[0.72rem] uppercase tracking-[0.24em]`}
+    >
+      {label}
+    </div>
+  );
+}
+
+const FILM_TRACKS = [
+  {
+    id: "film-1",
+    title: "The Wave Is Already Water",
+    duration: "03.22",
+    audio: "/audio/the-wave-is-already-water.mp3",
+    imageLabel: "The Wave Is Already Water image",
+  },
+  {
+    id: "film-2",
+    title: "Auralis",
+    duration: "03.19",
+    audio: "/audio/auralis.mp3",
+    imageLabel: "Auralis image",
+  },
+  {
+    id: "film-3",
+    title: "Life Is a Daisy Wish",
+    duration: "01.58",
+    audio: "/audio/life-is-a-daisy-wish.mp3",
+    imageLabel: "Life Is a Daisy Wish image",
+  },
+  {
+    id: "film-4",
+    title: "Hrim",
+    duration: "03.45",
+    audio: "/audio/hrim.mp3",
+    imageLabel: "Hrim image",
+  },
+  {
+    id: "film-5",
+    title: "Through Smoke and Starlight",
+    duration: "02.24",
+    audio: "/audio/through-smoke-and-starlight.mp3",
+    imageLabel: "Through Smoke and Starlight image",
+  },
+  {
+    id: "film-6",
+    title: "Malinconia",
+    duration: "03.08",
+    audio: "/audio/malinconia.mp3",
+    imageLabel: "Malinconia image",
+  },
+  {
+    id: "film-7",
+    title: "Under Currents",
+    duration: "02.46",
+    audio: "/audio/under-currents.mp3",
+    imageLabel: "Under Currents image",
+  },
+  {
+    id: "film-8",
+    title: "The Liminal Passage",
+    duration: "04.39",
+    audio: "/audio/the-liminal-passage.mp3",
+    imageLabel: "The Liminal Passage image",
+  },
+  {
+    id: "film-9",
+    title: "Room in Monterey",
+    duration: "03.12",
+    audio: "/audio/room-in-monterey.mp3",
+    imageLabel: "Room in Monterey image",
+  },
+];
+
+function FilmPage() {
+  const [playingId, setPlayingId] = useState(null);
+  const [selectedTrack, setSelectedTrack] = useState(FILM_TRACKS[0]);
+  const [progressById, setProgressById] = useState({});
+  const audioRefs = useRef({});
+
+  const pauseAllExcept = (trackId) => {
+    Object.entries(audioRefs.current).forEach(([id, audio]) => {
+      if (audio && id !== trackId) {
+        audio.pause();
+        audio.currentTime = 0;
+      }
+    });
+  };
+
+  const getNextTrack = (trackId) => {
+    const index = FILM_TRACKS.findIndex((track) => track.id === trackId);
+    if (index === -1) return null;
+    return FILM_TRACKS[index + 1] || null;
+  };
+
+  const playTrack = (track, reset = false) => {
+    const audio = audioRefs.current[track.id];
+    if (!audio) return;
+
+    pauseAllExcept(track.id);
+    setSelectedTrack(track);
+
+    if (reset) {
+      audio.currentTime = 0;
+    }
+
+    audio.play();
+    setPlayingId(track.id);
+  };
+
+  const playOrPauseTrack = (track) => {
+    const audio = audioRefs.current[track.id];
+    if (!audio) return;
+
+    pauseAllExcept(track.id);
+    setSelectedTrack(track);
+
+    if (playingId === track.id) {
+      audio.pause();
+      setPlayingId(null);
+    } else {
+      audio.play();
+      setPlayingId(track.id);
+    }
+  };
+
+  const handleTrackEnded = (track) => {
+    setProgressById((prev) => ({ ...prev, [track.id]: 0 }));
+
+    const nextTrack = getNextTrack(track.id);
+
+    if (nextTrack) {
+      setTimeout(() => {
+        playTrack(nextTrack, true);
+      }, 150);
+    } else {
+      setPlayingId(null);
+    }
+  };
+
+  const handleSeek = (track, event) => {
+    const audio = audioRefs.current[track.id];
+    if (!audio || !audio.duration) return;
+
+    const rect = event.currentTarget.getBoundingClientRect();
+    const percentage = Math.min(
+      Math.max((event.clientX - rect.left) / rect.width, 0),
+      1
+    );
+
+    audio.currentTime = percentage * audio.duration;
+  };
+
+  return (
+    <div className="min-h-screen bg-[#EFF4D6] text-[#1A1A1A] font-light">
+      <header className="mx-auto max-w-6xl px-6 pt-8 pb-6 flex items-center justify-between border-b border-[#D9DED4]">
+        <Link to="/" className="text-[1.1rem] tracking-[0.22em] uppercase">
+          Marius Ygre
+        </Link>
+
+        <nav className="hidden md:flex items-center gap-10 text-[0.68rem] uppercase tracking-[0.22em] text-[#5F665C]">
+          <Link to="/" className="hover:text-[#1A1A1A] transition-colors duration-300">
+            Home
+          </Link>
+          <Link to="/film" className="text-[#1A1A1A] border-b border-[#1A1A1A] pb-1">
+            Film
+          </Link>
+          <a href="#selected-work" className="hover:text-[#1A1A1A] transition-colors duration-300">
+            Music
+          </a>
+          <a href="#contact" className="hover:text-[#1A1A1A] transition-colors duration-300">
+            Contact
+          </a>
+        </nav>
+      </header>
+
+      <section className="mx-auto max-w-6xl px-6 pt-16 pb-20 grid md:grid-cols-2 gap-12 md:gap-16 items-center">
+        <div>
+          <div className="text-[0.68rem] uppercase tracking-[0.32em] text-[#71786D]">
+            Composer for
+          </div>
+
+          <h1 className="mt-5 text-4xl md:text-[4.1rem] leading-[1.08] uppercase tracking-[0.08em]">
+            Film & Visual Storytelling
+          </h1>
+
+          <div className="mt-8 w-16 h-[1px] bg-[#5F665C]" />
+
+          <p className="mt-8 max-w-[31rem] text-[#5F665C] text-[1.05rem] leading-[1.8]">
+            Music shaped around image, atmosphere and emotional detail.
+          </p>
+
+          <p className="mt-6 max-w-[34rem] text-[#5F665C] text-[1.02rem] leading-[1.85]">
+            Original composition for film, documentaries and visual storytelling — combining orchestral writing, minimal textures, intimate piano and modern production.
+          </p>
+        </div>
+
+        <ImagePlaceholder label="Hero image placeholder" tall />
+      </section>
+
+      <section className="border-y border-[#D9DED4]">
+        <div className="mx-auto max-w-6xl px-6 py-5 grid md:grid-cols-4 gap-5 text-center text-[0.68rem] uppercase tracking-[0.22em] text-[#5F665C]">
+          <div>Composer • Pianist • Producer</div>
+          <div>200M+ streams as Madden</div>
+          <div>Film • Visual Storytelling</div>
+          <div>Orchestral • Minimalism</div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-6 py-20 grid md:grid-cols-2 gap-12 md:gap-16 items-start">
+        <ImagePlaceholder label="Secondary image placeholder" />
+
+        <div>
+          <div className="text-[0.68rem] uppercase tracking-[0.32em] text-[#71786D]">
+            For the image
+          </div>
+
+          <h2 className="mt-4 text-[2.1rem] uppercase tracking-[0.08em] leading-[1.18]">
+            Writing around the image.
+          </h2>
+
+          <div className="mt-5 w-14 h-[1px] bg-[#5F665C]" />
+
+          <p className="mt-7 max-w-[34rem] text-[#5F665C] text-[1.02rem] leading-[1.85]">
+            Marius Ygre creates music that supports the emotional direction of a scene without overpowering it. His work draws on a background in performance, composition and production, combining melodic clarity with restraint, atmosphere and narrative sensitivity.
+          </p>
+
+          <p className="mt-5 max-w-[34rem] text-[#5F665C] text-[1.02rem] leading-[1.85]">
+            The focus is not only on what the music expresses, but where it leaves space — for dialogue, silence, pacing and image.
+          </p>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-6 pb-20">
+        <h2 className="text-center text-[1.45rem] uppercase tracking-[0.16em]">
+          Approach
+        </h2>
+
+        <div className="mt-8 grid md:grid-cols-4 gap-4">
+          {[
+            ["Narrative Support", "Music shaped around story, pacing and emotional arc."],
+            ["Atmosphere", "Minimal, orchestral and textural writing for image."],
+            ["Melody & Theme", "Clear musical ideas with emotional restraint."],
+            ["Production Detail", "Composer-led production with polished, mix-ready sound."],
+          ].map(([title, text]) => (
+            <div key={title} className="border border-[#D9DED4] bg-[#F8FBF2] p-7 text-center">
+              <div className="text-[0.82rem] uppercase tracking-[0.18em]">
+                {title}
+              </div>
+              <p className="mt-4 text-[#5F665C] text-[0.92rem] leading-[1.75]">
+                {text}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section id="selected-work" className="mx-auto max-w-6xl px-6 pb-20">
+        <div className="border border-[#D9DED4] bg-[#F8FBF2] p-6 md:p-8">
+          <h2 className="text-[1.65rem] uppercase tracking-[0.12em]">
+            Selected Work
+          </h2>
+
+          <div className="mt-8 grid md:grid-cols-12 gap-8 md:gap-10 items-start">
+            <div className="md:col-span-3">
+              <ImagePlaceholder label={selectedTrack.imageLabel} />
+            </div>
+
+            <div className="md:col-span-5">
+              <div className="text-[0.68rem] uppercase tracking-[0.28em] text-[#71786D]">
+                Now Playing
+              </div>
+
+              <div className="mt-4 text-[1.65rem] leading-[1.25]">
+                {selectedTrack.title}
+              </div>
+
+              <div className="mt-8 flex items-center gap-4">
+                <div className="text-sm text-[#71786D]">
+                  {selectedTrack.duration}
+                </div>
+
+                <div
+                  onClick={(e) => handleSeek(selectedTrack, e)}
+                  className="flex-1 h-[5px] bg-transparent cursor-pointer flex items-center"
+                >
+                  <div className="w-full h-[1px] bg-[#D7DDD1] overflow-hidden">
+                    <div
+                      className="h-full bg-[#1A1A1A] transition-all duration-200 ease-out"
+                      style={{ width: `${progressById[selectedTrack.id] || 0}%` }}
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-8 flex items-center gap-5">
+                <button
+                  onClick={() => {
+                    const currentIndex = FILM_TRACKS.findIndex(
+                      (track) => track.id === selectedTrack.id
+                    );
+                    const previousTrack = FILM_TRACKS[currentIndex - 1];
+
+                    if (previousTrack) {
+                      playTrack(previousTrack, true);
+                    }
+                  }}
+                  className="text-[0.72rem] uppercase tracking-[0.24em] text-[#5F665C] hover:text-[#1A1A1A]"
+                >
+                  Previous
+                </button>
+
+                <button
+                  onClick={() => playOrPauseTrack(selectedTrack)}
+                  className="w-16 h-16 rounded-full border border-[#1A1A1A] flex items-center justify-center text-[0.72rem] uppercase tracking-[0.18em] hover:bg-[#1A1A1A] hover:text-white transition-all duration-500"
+                >
+                  {playingId === selectedTrack.id ? "Pause" : "Play"}
+                </button>
+
+                <button
+                  onClick={() => {
+                    const nextTrack = getNextTrack(selectedTrack.id);
+
+                    if (nextTrack) {
+                      playTrack(nextTrack, true);
+                    }
+                  }}
+                  className="text-[0.72rem] uppercase tracking-[0.24em] text-[#5F665C] hover:text-[#1A1A1A]"
+                >
+                  Next
+                </button>
+              </div>
+            </div>
+
+            <div className="md:col-span-4 md:border-l md:border-[#D9DED4] md:pl-8">
+              <div className="space-y-3">
+                {FILM_TRACKS.map((track, index) => (
+                  <div key={track.id}>
+                    <audio
+                      ref={(el) => {
+                        audioRefs.current[track.id] = el;
+                      }}
+                      src={track.audio}
+                      onEnded={() => handleTrackEnded(track)}
+                      onTimeUpdate={(e) => {
+                        const audio = e.currentTarget;
+                        if (!audio.duration) return;
+
+                        const progress = (audio.currentTime / audio.duration) * 100;
+                        setProgressById((prev) => ({ ...prev, [track.id]: progress }));
+                      }}
+                    />
+
+                    <button
+                      onClick={() => playTrack(track, false)}
+                      className={`w-full grid grid-cols-[2rem_1fr_auto] gap-4 text-left items-baseline py-1 transition-colors duration-300 ${
+                        selectedTrack.id === track.id
+                          ? "text-[#1A1A1A]"
+                          : "text-[#5F665C] hover:text-[#1A1A1A]"
+                      }`}
+                    >
+                      <span className="text-[0.72rem] tabular-nums">
+                        {String(index + 1).padStart(2, "0")}
+                      </span>
+
+                      <span className="text-[0.95rem]">
+                        {track.title}
+                      </span>
+
+                      <span className="text-[0.8rem] text-[#71786D]">
+                        {track.duration}
+                      </span>
+                    </button>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-3xl px-6 pb-20 text-center">
+        <h2 className="text-[1.45rem] uppercase tracking-[0.16em]">
+          For directors, editors and visual storytellers
+        </h2>
+
+        <p className="mt-6 text-[#5F665C] text-[1.02rem] leading-[1.85]">
+          Music can clarify the emotional temperature of a scene, suggest inner movement, or quietly hold the image together. The goal is to support the story with precision — whether through piano, strings, subtle electronics or larger orchestral writing.
+        </p>
+      </section>
+
+      <section id="contact" className="mx-auto max-w-6xl px-6 pb-24 grid md:grid-cols-2 gap-12 md:gap-16">
+        <div>
+          <div className="text-[0.68rem] uppercase tracking-[0.32em] text-[#71786D]">
+            Ready when you are
+          </div>
+
+          <h2 className="mt-5 text-[2.1rem] uppercase tracking-[0.08em] leading-[1.2]">
+            Let’s shape the sound of your story.
+          </h2>
+
+          <div className="mt-7 w-16 h-[1px] bg-[#5F665C]" />
+        </div>
+
+        <div className={`border ${BORDER_SOFT} p-6 md:p-8 bg-[#F8FBF2]`}>
+          <form action="https://formspree.io/f/xykvezbg" method="POST" className="space-y-4">
+            <input
+              required
+              type="text"
+              name="name"
+              placeholder="Name *"
+              className={`w-full border ${BORDER_SOFT} bg-[#F8FAF4] px-4 py-4 text-[1rem]`}
+            />
+
+            <input
+              required
+              type="email"
+              name="email"
+              placeholder="E-mail *"
+              className={`w-full border ${BORDER_SOFT} bg-[#F8FAF4] px-4 py-4 text-[1rem]`}
+            />
+
+            <input
+              type="tel"
+              name="phone"
+              placeholder="Phone"
+              className={`w-full border ${BORDER_SOFT} bg-[#F8FAF4] px-4 py-4 text-[1rem]`}
+            />
+
+            <textarea
+              required
+              rows={5}
+              name="message"
+              placeholder="Message"
+              className={`w-full border ${BORDER_SOFT} bg-[#F8FAF4] px-4 py-4 text-[1rem]`}
+            />
+
+            <button className="w-full border border-[#1A1A1A] py-4 text-[0.72rem] uppercase tracking-[0.24em] text-[#1A1A1A] hover:bg-[#1A1A1A] hover:text-white transition-all duration-500 ease-out active:opacity-70">
+              Send Message
+            </button>
+          </form>
+        </div>
+      </section>
+
+      <footer className="mx-auto max-w-6xl px-6 pb-10 text-[0.75rem] uppercase tracking-[0.28em] text-[#71786D]">
+        © Marius Ygre
+      </footer>
+    </div>
+  );
+}
   const [desktopActiveTitle, setDesktopActiveTitle] = useState(null);
   const [mobileActiveTitle, setMobileActiveTitle] = useState(null);
   const [desktopSelectedTrack, setDesktopSelectedTrack] = useState(null);
@@ -599,5 +1052,15 @@ export default function FilmComposerPortfolioSite() {
         © Marius Ygre
       </footer>
     </div>
+  );
+}
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/film" element={<FilmPage />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
