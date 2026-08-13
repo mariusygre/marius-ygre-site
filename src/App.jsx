@@ -93,12 +93,24 @@ function useFadedValue(value) {
   return [displayed, fading];
 }
 
-function ImagePlaceholder({ label = "Image placeholder", tall = false }) {
+function ImagePlaceholder({ label = "Image placeholder", tall = false, src = null, alt = "" }) {
   return (
     <div
-      className={`w-full ${tall ? "min-h-[24rem]" : "min-h-[16rem]"} ${IMAGE_FRAME} bg-[#F8FBF2] flex items-center justify-center text-[#71786D] text-[0.72rem] uppercase tracking-[0.24em]`}
+      className={`w-full ${
+        tall ? "min-h-[24rem]" : "min-h-[16rem]"
+      } ${IMAGE_FRAME} bg-[#F8FBF2] flex items-center justify-center text-[#71786D] text-[0.72rem] uppercase tracking-[0.24em] overflow-hidden`}
     >
-      {label}
+      {src ? (
+        <img
+          src={src}
+          alt={alt || label}
+          className={`w-full h-auto object-contain ${
+            tall ? "max-h-[30rem]" : "max-h-[18rem]"
+          }`}
+        />
+      ) : (
+        label
+      )}
     </div>
   );
 }
@@ -109,63 +121,63 @@ const FILM_TRACKS = [
     title: "The Wave Is Already Water",
     duration: "03.22",
     audio: "/audio/the-wave-is-already-water.mp3",
-    imageLabel: "The Wave Is Already Water image",
+    image: "/images/the-wave-is-already-water.png",
   },
   {
     id: "film-2",
     title: "Auralis",
     duration: "03.19",
     audio: "/audio/auralis.mp3",
-    imageLabel: "Auralis image",
+    image: "/images/auralis.png",
   },
   {
     id: "film-3",
     title: "Life Is a Daisy Wish",
     duration: "01.58",
     audio: "/audio/life-is-a-daisy-wish.mp3",
-    imageLabel: "Life Is a Daisy Wish image",
+    image: "/images/life-is-a-daisy-wish.png",
   },
   {
     id: "film-4",
     title: "Hrim",
     duration: "03.45",
     audio: "/audio/hrim.mp3",
-    imageLabel: "Hrim image",
+    image: "/images/hrim.png",
   },
   {
     id: "film-5",
     title: "Through Smoke and Starlight",
     duration: "02.24",
     audio: "/audio/through-smoke-and-starlight.mp3",
-    imageLabel: "Through Smoke and Starlight image",
+    image: "/images/through-smoke-and-starlight.png",
   },
   {
     id: "film-6",
     title: "Malinconia",
     duration: "03.08",
     audio: "/audio/malinconia.mp3",
-    imageLabel: "Malinconia image",
+    image: "/images/malinconia-2.png",
   },
   {
     id: "film-7",
     title: "Under Currents",
     duration: "02.46",
     audio: "/audio/under-currents.mp3",
-    imageLabel: "Under Currents image",
+    image: "/images/arab.png",
   },
   {
     id: "film-8",
     title: "The Liminal Passage",
     duration: "04.39",
     audio: "/audio/the-liminal-passage.mp3",
-    imageLabel: "The Liminal Passage image",
+    image: "/images/the-liminal-passage.png",
   },
   {
     id: "film-9",
     title: "Room in Monterey",
     duration: "03.12",
     audio: "/audio/room-in-monterey.mp3",
-    imageLabel: "Room in Monterey image",
+    image: "/images/room-in-monterey.png",
   },
 ];
 
@@ -360,7 +372,11 @@ function FilmPage() {
 
           <div className="mt-8 grid md:grid-cols-12 gap-8 md:gap-10 items-start">
             <div className="md:col-span-3">
-              <ImagePlaceholder label={selectedTrack.imageLabel} />
+              <ImagePlaceholder
+  src={selectedTrack.image}
+  label={selectedTrack.title}
+  alt={selectedTrack.title}
+/>
             </div>
 
             <div className="md:col-span-5">
