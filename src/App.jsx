@@ -94,13 +94,13 @@ function useFadedValue(value) {
 }
 
 function ImagePlaceholder({ label = "Image placeholder", tall = false, src = null, alt = "" }) {
-  return (
-    <div
-      className={`w-full ${
-        tall ? "min-h-[24rem]" : "min-h-[16rem]"
-      } ${IMAGE_FRAME} bg-[#F8FBF2] flex items-center justify-center text-[#71786D] text-[0.72rem] uppercase tracking-[0.24em] overflow-hidden`}
-    >
-      {src ? (
+  if (src) {
+    return (
+      <div
+        className={`w-full ${
+          tall ? "min-h-[24rem]" : "min-h-[16rem]"
+        } flex items-center justify-center overflow-hidden`}
+      >
         <img
           src={src}
           alt={alt || label}
@@ -108,9 +108,17 @@ function ImagePlaceholder({ label = "Image placeholder", tall = false, src = nul
             tall ? "max-h-[30rem]" : "max-h-[18rem]"
           }`}
         />
-      ) : (
-        label
-      )}
+      </div>
+    );
+  }
+
+  return (
+    <div
+      className={`w-full ${
+        tall ? "min-h-[24rem]" : "min-h-[16rem]"
+      } ${IMAGE_FRAME} bg-[#F8FBF2] flex items-center justify-center text-[#71786D] text-[0.72rem] uppercase tracking-[0.24em] overflow-hidden`}
+    >
+      {label}
     </div>
   );
 }
