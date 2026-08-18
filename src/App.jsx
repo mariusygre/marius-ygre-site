@@ -558,461 +558,100 @@ function FilmPage() {
 }
 
 function HomePage() {
-  const [desktopActiveTitle, setDesktopActiveTitle] = useState(null);
-  const [mobileActiveTitle, setMobileActiveTitle] = useState(null);
-  const [desktopSelectedTrack, setDesktopSelectedTrack] = useState(null);
-  const [mobileSelectedTrackId, setMobileSelectedTrackId] = useState(null);
-  const [desktopImageVisible, setDesktopImageVisible] = useState(true);
-  const [mobileImageVisible, setMobileImageVisible] = useState(false);
-  const [playingId, setPlayingId] = useState(null);
-  const [progressById, setProgressById] = useState({});
-
-  const audioRefs = useRef({});
-  const mobileCollectionRefs = useRef({});
-  const desktopImageTimerRef = useRef(null);
-
-  const [desktopDisplayedTitle, desktopCollectionFading] = useFadedValue(desktopActiveTitle);
-
-  const desktopActiveCollection =
-    COLLECTIONS.find((c) => c.title === desktopDisplayedTitle) ?? null;
-
-  useEffect(() => {
-    COLLECTIONS.forEach((collection) => {
-      collection.tracks.forEach((track) => {
-        const src = getImageSrc(track);
-
-        if (src) {
-          const preloadImg = new Image();
-          preloadImg.src = src;
-        }
-      });
-    });
-  }, []);
-
-  useEffect(() => {
-    return () => {
-      if (desktopImageTimerRef.current) {
-        clearTimeout(desktopImageTimerRef.current);
-      }
-    };
-  }, []);
-
-  const isPlayable = (track) => track.status !== "UPCOMING" && track.audio;
-
-  const getTrackCollection = (trackId) =>
-    COLLECTIONS.find((collection) =>
-      collection.tracks.some((track) => track.id === trackId)
-    );
-
-  const getNextPlayableTrack = (trackId) => {
-    const collection = getTrackCollection(trackId);
-    if (!collection) return null;
-
-    const currentIndex = collection.tracks.findIndex((track) => track.id === trackId);
-    if (currentIndex === -1) return null;
-
-    return (
-      collection.tracks
-        .slice(currentIndex + 1)
-        .find((track) => isPlayable(track)) || null
-    );
-  };
-
-  const updateVisibleTrackImage = async (track) => {
-    if (desktopImageTimerRef.current) {
-      clearTimeout(desktopImageTimerRef.current);
-    }
-
-    setDesktopImageVisible(false);
-
-    const src = getImageSrc(track);
-    await preloadImage(src);
-
-    desktopImageTimerRef.current = setTimeout(() => {
-      setDesktopSelectedTrack(track);
-      setDesktopImageVisible(true);
-    }, FADE_MS);
-
-    setMobileSelectedTrackId(track.id);
-    setMobileImageVisible(false);
-
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        setMobileImageVisible(true);
-      });
-    });
-  };
-
-  const pauseAllExcept = (trackId) => {
-    Object.entries(audioRefs.current).forEach(([id, audio]) => {
-      if (audio && id !== trackId) {
-        audio.pause();
-        audio.currentTime = 0;
-      }
-    });
-  };
-
-  const stopAllAudio = () => {
-    Object.values(audioRefs.current).forEach((audio) => {
-      if (audio) {
-        audio.pause();
-        audio.currentTime = 0;
-      }
-    });
-
-    setPlayingId(null);
-    setProgressById({});
-  };
-
-  const startTrack = (track) => {
-    if (!isPlayable(track)) return;
-
-    updateVisibleTrackImage(track);
-    pauseAllExcept(track.id);
-
-    const audio = audioRefs.current[track.id];
-
-    if (audio) {
-      audio.currentTime = 0;
-      audio.play();
-      setPlayingId(track.id);
-    }
-  };
-
-  const handleTrackEnded = (track) => {
-    setProgressById((prev) => ({ ...prev, [track.id]: 0 }));
-
-    const nextTrack = getNextPlayableTrack(track.id);
-
-    if (nextTrack) {
-      setTimeout(() => {
-        startTrack(nextTrack);
-      }, 150);
-    } else {
-      setPlayingId(null);
-    }
-  };
-
-  const handleDesktopCollectionClick = (title) => {
-    if (title !== desktopActiveTitle) {
-      setDesktopSelectedTrack(null);
-      stopAllAudio();
-    }
-
-    setDesktopActiveTitle(title);
-  };
-
-  const handleMobileCollectionClick = (title) => {
-    if (title !== mobileActiveTitle) {
-      setMobileSelectedTrackId(null);
-      setMobileImageVisible(false);
-      stopAllAudio();
-      setMobileActiveTitle(title);
-
-      requestAnimationFrame(() => {
-        mobileCollectionRefs.current[title]?.scrollIntoView({
-          behavior: "smooth",
-          block: "start",
-        });
-      });
-    } else {
-      setMobileSelectedTrackId(null);
-      setMobileImageVisible(false);
-      stopAllAudio();
-      setMobileActiveTitle(null);
-    }
-  };
-
-  const playOrPauseTrack = (track) => {
-    if (!isPlayable(track)) return;
-
-    const audio = audioRefs.current[track.id];
-    pauseAllExcept(track.id);
-
-    if (audio) {
-      if (playingId === track.id) {
-        audio.pause();
-        setPlayingId(null);
-      } else {
-        audio.play();
-        setPlayingId(track.id);
-      }
-    }
-  };
-
-  const handleSeek = (track, event) => {
-    if (!isPlayable(track)) return;
-
-    const audio = audioRefs.current[track.id];
-    if (!audio || !audio.duration) return;
-
-    const rect = event.currentTarget.getBoundingClientRect();
-    const percentage = Math.min(
-      Math.max((event.clientX - rect.left) / rect.width, 0),
-      1
-    );
-
-    audio.currentTime = percentage * audio.duration;
-  };
-
-  const handleDesktopTrackClick = async (track) => {
-    if (desktopImageTimerRef.current) {
-      clearTimeout(desktopImageTimerRef.current);
-    }
-
-    setDesktopImageVisible(false);
-
-    const src = getImageSrc(track);
-    await preloadImage(src);
-
-    desktopImageTimerRef.current = setTimeout(() => {
-      setDesktopSelectedTrack(track);
-      setDesktopImageVisible(true);
-    }, FADE_MS);
-
-    playOrPauseTrack(track);
-  };
-
-  const handleMobileTrackClick = async (track) => {
-    setMobileSelectedTrackId(null);
-    setMobileImageVisible(false);
-
-    const src = getImageSrc(track);
-    await preloadImage(src);
-
-    setMobileSelectedTrackId(track.id);
-
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        setMobileImageVisible(true);
-      });
-    });
-
-    playOrPauseTrack(track);
-  };
-
-  const renderTrackCard = (track, onClick, showInlineImage = false) => {
-    const playable = isPlayable(track);
-
-    return (
-      <div key={track.id} className={`border ${BORDER_SOFT} p-5 bg-[#F8FBF2]`}>
-        {playable && (
-          <audio
-            ref={(el) => {
-              audioRefs.current[track.id] = el;
-            }}
-            src={track.audio}
-            onEnded={() => handleTrackEnded(track)}
-            onTimeUpdate={(e) => {
-              const audio = e.currentTarget;
-              if (!audio.duration) return;
-
-              const progress = (audio.currentTime / audio.duration) * 100;
-
-              setProgressById((prev) => ({ ...prev, [track.id]: progress }));
-            }}
-          />
-        )}
-
-        <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-5 md:gap-6">
-          <div className="flex-1 min-w-0">
-            <div className="flex items-baseline gap-3 flex-wrap">
-              <div className="text-lg tracking-[0.02em]">{track.title}</div>
-
-              {track.status && (
-                <div className="text-[0.63rem] uppercase tracking-[0.28em] text-[#5F665C] font-medium">
-                  {track.status}
-                </div>
-              )}
-            </div>
-
-            <div className="text-[1rem] text-[#5F665C] mt-2 leading-[1.6] max-w-none whitespace-pre-line">
-              {track.desc || " "}
-            </div>
-
-            {playable && (
-              <div className="mt-3 flex items-center gap-4">
-                <div className="text-sm text-[#71786D]">{track.duration}</div>
-
-                <div
-                  onClick={(e) => handleSeek(track, e)}
-                  className="flex-1 h-[5px] bg-transparent cursor-pointer flex items-center"
-                >
-                  <div className="w-full h-[1px] bg-[#D7DDD1] overflow-hidden">
-                    <div
-                      className="h-full bg-[#1A1A1A] transition-all duration-200 ease-out"
-                      style={{ width: `${progressById[track.id] || 0}%` }}
-                    />
-                  </div>
-                </div>
-              </div>
-            )}
-          </div>
-
-          {playable && (
-            <button
-              onClick={() => onClick(track)}
-              className="self-start md:self-auto shrink-0 text-[0.72rem] uppercase tracking-[0.24em] text-[#5F665C] hover:text-[#1A1A1A] transition-all duration-500 ease-out active:opacity-60"
-            >
-              {playingId === track.id ? "Pause" : "Play"}
-            </button>
-          )}
-        </div>
-
-        {showInlineImage && mobileSelectedTrackId === track.id && (
-          <div
-            className={`mt-6 flex justify-center transition-opacity duration-[1200ms] ease-out ${
-              mobileImageVisible ? "opacity-100" : "opacity-0"
-            }`}
-          >
-            <div className="w-full max-w-md flex items-center justify-center text-[#71786D] text-center">
-              {track.image}
-            </div>
-          </div>
-        )}
-      </div>
-    );
-  };
-
-  const playlistButtonClass = (isActive) =>
-    `w-full text-left border-b py-6 transition-all duration-500 ease-out active:opacity-70 ${
-      isActive
-        ? "border-[#1A1A1A] text-[#1A1A1A]"
-        : `${BORDER_SOFT} text-[#5F665C] hover:border-[#1A1A1A] hover:text-[#1A1A1A]`
-    }`;
-
   return (
     <div className="min-h-screen bg-[#EFF4D6] text-[#1A1A1A] font-light">
       <section className="mx-auto max-w-6xl px-6 pt-20 pb-16 md:py-24 grid md:grid-cols-2 gap-12 md:gap-16 items-center">
         <div className="space-y-8">
           <div>
-            <div className="text-[1.35rem] md:text-[1.7rem] tracking-[0.32em] font-medium uppercase">
-              COMPOSER
+            <div className="text-[0.78rem] md:text-[0.82rem] uppercase tracking-[0.32em] text-[#5F665C] font-medium">
+              COMPOSER • PIANIST • PRODUCER
             </div>
 
             <h1 className="mt-6 text-4xl md:text-[4.1rem] leading-[1.05] uppercase tracking-[0.08em]">
               MARIUS YGRE
             </h1>
+
+            <div className="mt-8 w-16 h-[1px] bg-[#5F665C]" />
+
+            <p className="mt-8 max-w-[32rem] text-[#5F665C] text-[1.08rem] leading-[1.8]">
+              Music for image, story and cinematic momentum.
+            </p>
+
+            <p className="mt-6 max-w-[36rem] text-[#5F665C] text-[1.02rem] leading-[1.85]">
+              Marius Ygre creates music for film, visual storytelling and media — combining orchestral writing, minimal textures, intimate piano and modern production.
+            </p>
           </div>
         </div>
 
         <div className="w-full flex justify-center">
           <img
             src="/images/profile-image-3.jpg"
-            alt="Profile"
+            alt="Marius Ygre"
             className={`w-full h-auto object-contain ${IMAGE_FRAME}`}
           />
         </div>
       </section>
 
-      <section className="hidden md:block mx-auto max-w-6xl px-6 py-16">
-        <div className="grid md:grid-cols-3 gap-8">
-          {COLLECTIONS.map((collection) => (
-            <button
-              key={collection.title}
-              onClick={() => handleDesktopCollectionClick(collection.title)}
-              className={playlistButtonClass(desktopActiveTitle === collection.title)}
-            >
-              <div className="text-sm uppercase tracking-[0.28em] text-[#71786D]">
-                {collection.type}
-              </div>
-
-              <div className="mt-4 text-[1.35rem]">{collection.title}</div>
-            </button>
-          ))}
-        </div>
-
-        {desktopActiveCollection && (
-          <div
-            className={`mt-16 grid md:grid-cols-12 gap-10 items-center transition-opacity duration-[1200ms] ${
-              desktopCollectionFading ? "opacity-0" : "opacity-100"
-            }`}
-          >
-            <div className="md:col-span-7 space-y-4">
-              {desktopActiveCollection.tracks.map((track) =>
-                renderTrackCard(track, handleDesktopTrackClick, false)
-              )}
-            </div>
-
-            <div className="md:col-span-5 flex justify-center">
-              <div
-                className={`w-full max-w-md flex items-center justify-center text-[#71786D] text-center transition-opacity duration-[1200ms] ease-out ${
-                  desktopImageVisible && desktopSelectedTrack
-                    ? "opacity-100"
-                    : "opacity-0"
-                }`}
-              >
-                {desktopSelectedTrack ? desktopSelectedTrack.image : null}
-              </div>
-            </div>
+      <section className="mx-auto max-w-6xl px-6 pb-16 md:pb-20 grid md:grid-cols-2 gap-6 md:gap-8">
+        <Link
+          to="/film"
+          className={`group border ${BORDER_SOFT} bg-[#F8FBF2] p-8 md:p-10 transition-all duration-700 ease-out hover:border-[#1A1A1A] active:opacity-70`}
+        >
+          <div className="text-[1.45rem] md:text-[1.75rem] uppercase tracking-[0.12em]">
+            Film
           </div>
-        )}
+
+          <p className="mt-6 max-w-[28rem] text-[#5F665C] text-[1rem] leading-[1.8]">
+            Music shaped by story, rhythm and feeling.
+          </p>
+
+          <p className="mt-4 max-w-[28rem] text-[#5F665C] text-[0.96rem] leading-[1.75]">
+            For directors, editors and visual storytellers.
+          </p>
+
+          <div className="mt-8 text-[0.72rem] uppercase tracking-[0.24em] text-[#5F665C] group-hover:text-[#1A1A1A] transition-colors duration-500">
+            Enter Film Music Page →
+          </div>
+        </Link>
+
+        <Link
+          to="/tm"
+          className={`group border ${BORDER_SOFT} bg-[#F8FBF2] p-8 md:p-10 transition-all duration-700 ease-out hover:border-[#1A1A1A] active:opacity-70`}
+        >
+          <div className="text-[1.45rem] md:text-[1.75rem] uppercase tracking-[0.12em]">
+            Trailer Music
+          </div>
+
+          <p className="mt-6 max-w-[28rem] text-[#5F665C] text-[1rem] leading-[1.8]">
+            Hybrid orchestral music built for tension, impact and momentum.
+          </p>
+
+          <div className="mt-8 text-[0.72rem] uppercase tracking-[0.24em] text-[#5F665C] group-hover:text-[#1A1A1A] transition-colors duration-500">
+            Enter Trailer Music Page →
+          </div>
+        </Link>
       </section>
 
-      <section className="md:hidden mx-auto max-w-6xl px-6 py-10">
-        <div className="space-y-6">
-          {COLLECTIONS.map((collection) => (
-            <div
-              key={collection.title}
-              ref={(el) => {
-                mobileCollectionRefs.current[collection.title] = el;
-              }}
-            >
-              <button
-                onMouseDown={(e) => e.preventDefault()}
-                onClick={() => handleMobileCollectionClick(collection.title)}
-                className={playlistButtonClass(mobileActiveTitle === collection.title)}
-              >
-                <div className="text-sm uppercase tracking-[0.28em] text-[#71786D]">
-                  {collection.type}
-                </div>
-
-                <div className="mt-4 text-[1.35rem]">{collection.title}</div>
-              </button>
-
-              {mobileActiveTitle === collection.title && (
-                <div className="mt-8 space-y-4">
-                  {collection.tracks.map((track) =>
-                    renderTrackCard(track, handleMobileTrackClick, true)
-                  )}
-                </div>
-              )}
-            </div>
-          ))}
+      <section className="border-y border-[#D9DED4]">
+        <div className="mx-auto max-w-6xl px-6 py-5 grid md:grid-cols-2 gap-5 text-center text-[0.68rem] uppercase tracking-[0.22em] text-[#5F665C]">
+          <div>200M+ streams as Madden</div>
+          <div>Orchestral • Minimalism • Hybrid Production</div>
         </div>
       </section>
 
-                        <section className="mx-auto max-w-6xl px-6 py-20">
-        <h2 className="text-[#1A1A1A] text-[2.1rem]">About</h2>
-
-        <div className="mt-6 grid md:grid-cols-2 gap-12 md:gap-16 items-start">
-          <div>
-            <p className="max-w-[33rem] text-[#5F665C] text-[1.02rem] leading-[1.85]">
-              Trained in music production and composition from the Norwegian Academy of Music, and with performance studies at Berklee College of Music, Marius Ygre brings a broad musical background to his work as a composer.
-            </p>
-
-            <p className="mt-5 max-w-[33rem] text-[#5F665C] text-[1.02rem] leading-[1.85]">
-              As the artist Madden, he built an international pop career as a composer, songwriter and producer, with songs surpassing 200 million streams and reaching audiences across the world. Collaborations with writers and artists across Europe and America helped shape a writing style marked by emotional clarity, precision and an intimate sense of melody.
-            </p>
-
-            <p className="mt-5 max-w-[33rem] text-[#5F665C] text-[1.02rem] leading-[1.85]">
-              Now focused on film and visual storytelling, he draws on his experiences in performance, composition and production to create music that supports imagery with atmosphere, restraint and emotional detail.
-            </p>
-          </div>
-
-          <div className="flex justify-center items-start">
-            <img
-              src="/images/marius-ygre.jpg"
-              alt="Marius Ygre"
-              className={`max-w-[17rem] h-auto object-contain ${IMAGE_FRAME}`}
-            />
-          </div>
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-6xl px-6 pb-24 grid md:grid-cols-2 gap-12 md:gap-16">
+      <section id="contact" className="mx-auto max-w-6xl px-6 py-20 md:py-24 grid md:grid-cols-2 gap-12 md:gap-16">
         <div>
-          <h2 className="text-[#1A1A1A] text-[2.1rem]">Contact</h2>
+          <div className="text-[0.78rem] md:text-[0.82rem] uppercase tracking-[0.32em] text-[#5F665C] font-medium">
+            Start here
+          </div>
+
+          <h2 className="mt-5 text-[2.1rem] uppercase tracking-[0.08em] leading-[1.2]">
+            New projects,
+            <br />
+            collaborations or inquiries.
+          </h2>
+
+          <div className="mt-7 w-16 h-[1px] bg-[#5F665C]" />
         </div>
 
         <div className={`border ${BORDER_SOFT} p-6 md:p-8 bg-[#F8FBF2]`}>
@@ -1056,7 +695,62 @@ function HomePage() {
               Send Message
             </button>
           </form>
+        </div>
+      </section>
 
+      <footer className="mx-auto max-w-6xl px-6 pb-10 text-[0.75rem] uppercase tracking-[0.28em] text-[#71786D]">
+        © Marius Ygre
+      </footer>
+    </div>
+  );
+}
+
+function TrailerMusicPage() {
+  return (
+    <div className="min-h-screen bg-[#EFF4D6] text-[#1A1A1A] font-light">
+      <header className="mx-auto max-w-6xl px-6 pt-8 pb-6 flex items-center justify-between border-b border-[#D9DED4]">
+        <Link to="/" className="text-[1.1rem] tracking-[0.22em] uppercase">
+          Marius Ygre
+        </Link>
+
+        <nav className="hidden md:flex items-center gap-10 text-[0.68rem] uppercase tracking-[0.22em] text-[#5F665C]">
+          <Link to="/" className="hover:text-[#1A1A1A] transition-colors duration-300">
+            Home
+          </Link>
+
+          <Link to="/film" className="hover:text-[#1A1A1A] transition-colors duration-300">
+            Film
+          </Link>
+
+          <Link to="/tm" className="text-[#1A1A1A] border-b border-[#1A1A1A] pb-1">
+            Trailer Music
+          </Link>
+        </nav>
+      </header>
+
+      <section className="mx-auto max-w-6xl px-6 pt-20 pb-24 grid md:grid-cols-2 gap-12 md:gap-16 items-center">
+        <div>
+          <div className="text-[0.78rem] md:text-[0.82rem] uppercase tracking-[0.32em] text-[#5F665C] font-medium">
+            Trailer Music
+          </div>
+
+          <h1 className="mt-6 text-4xl md:text-[4.1rem] leading-[1.05] uppercase tracking-[0.08em]">
+            Coming soon
+          </h1>
+
+          <div className="mt-8 w-16 h-[1px] bg-[#5F665C]" />
+
+          <p className="mt-8 max-w-[34rem] text-[#5F665C] text-[1.02rem] leading-[1.85]">
+            A focused trailer music page is being prepared. For now, please use the contact form on the main page or visit the film music page.
+          </p>
+        </div>
+
+        <div className="w-full flex justify-center">
+          <img
+            src="/images/profile-image-3.jpg"
+            alt="Marius Ygre"
+            className={`w-full h-auto object-contain ${IMAGE_FRAME}`}
+          />
         </div>
       </section>
 
@@ -1073,6 +767,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/film" element={<FilmPage />} />
+        <Route path="/tm" element={<TrailerMusicPage />} />
       </Routes>
     </BrowserRouter>
   );
