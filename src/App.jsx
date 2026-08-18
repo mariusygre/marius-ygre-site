@@ -14,45 +14,15 @@ const smallImg = (src, alt) => (
 );
 
 const COLLECTIONS = [
-    {
-    title: "Orchestral",
-    type: "Modern",
-    tracks: [
-      { id: "12", title: "The Wave Is Already Water", status: "", desc: "", duration: "03.22", audio: "/audio/the-wave-is-already-water.mp3", image: img("/images/the-wave-is-already-water.png", "The Wave Is Already Water") },
-      { id: "15", title: "Auralis", status: "", desc: "", duration: "03.19", audio: "/audio/auralis.mp3", image: img("/images/auralis.png", "Auralis") },
-      { id: "14", title: "Life Is a Daisy Wish", status: "", desc: "", duration: "01.58", audio: "/audio/life-is-a-daisy-wish.mp3", image: smallImg("/images/life-is-a-daisy-wish.png", "Life Is a Daisy Wish") },
-      { id: "16", title: "Hrim", status: "", desc: "", duration: "03.45", audio: "/audio/hrim.mp3", image: img("/images/hrim.png", "Hrim") },
-      { id: "17", title: "Through Smoke and Starlight", status: "", desc: "", duration: "02.24", audio: "/audio/through-smoke-and-starlight.mp3", image: img("/images/through-smoke-and-starlight.png", "Through Smoke and Starlight") },
-      { id: "19", title: "A Little Braver Now", status: "", desc: "", duration: "02.15", audio: "/audio/a-little-braver-now.mp3", image: smallImg("/images/a-little-braver-now.png", "A Little Braver Now") },
-      { id: "18", title: "Malinconia", status: "", desc: "", duration: "03.08", audio: "/audio/malinconia.mp3", image: smallImg("/images/malinconia-2.png", "Malinconia") },
-      { id: "13", title: "Chasing Horizons", status: "UPCOMING", desc: "", duration: "03.19", audio: "", image: smallImg("/images/chasing-horizons.png", "Chasing Horizons") },
-    ],
-  },
-   {
+  {
     title: "Minimalism",
-    type: "Emotional",
+    type: "Selected Work",
     tracks: [
-      { id: "5", title: "Under Currents", status: "", desc: "", duration: "02.46", audio: "/audio/under-currents.mp3", image: smallImg("/images/arab.png", "Under Currents") },
       { id: "3", title: "The Liminal Passage", status: "", desc: "", duration: "04.39", audio: "/audio/the-liminal-passage.mp3", image: img("/images/the-liminal-passage.png", "The Liminal Passage") },
       { id: "1", title: "Room in Monterey", status: "", desc: "", duration: "03.12", audio: "/audio/room-in-monterey.mp3", image: img("/images/room-in-monterey.png", "Room in Monterey") },
-      { id: "6", title: "Flight of Hearts", status: "", desc: "", duration: "02.41", audio: "/audio/flight-of-hearts.mp3", image: img("/images/flight-of-hearts.png", "Flight of Hearts") },
-      { id: "4", title: "Iben's Dance", status: "", desc: "", duration: "02.31", audio: "/audio/ibens-dance.mp3", image: img("/images/ibens-dance.png", "Iben's Dance") },
-      { id: "2", title: "This Weight of Open Sky", status: "", desc: "", duration: "02.43", audio: "/audio/this-weight-of-open-sky.mp3", image: img("/images/this-weight-of-open-sky.png", "This Weight of Open Sky") },
-      { id: "7", title: "The Quiet Between", status: "", desc: "", duration: "03.28", audio: "/audio/the-quiet-between.mp3", image: smallImg("/images/the-quiet-between.png", "The Quiet Between") },
-      { id: "9", title: "Watch The Voltage", status: "", desc: "", duration: "03.05", audio: "/audio/watch-the-voltage.mp3", image: img("/images/watch-the-voltage.png", "Watch The Voltage") },
-      { id: "10", title: "Nival", status: "", desc: "", duration: "02.36", audio: "/audio/nival.mp3", image: img("/images/nival.png", "Nival") },
-      { id: "8", title: "Ridge of Desolation", status: "", desc: "", duration: "02.39", audio: "/audio/ridge-of-desolation.mp3", image: img("/images/ridge-of-desolation.png", "Ridge of Desolation") },
-      { id: "11", title: "Suite", status: "", desc: "", duration: "03.36", audio: "/audio/suite.mp3", image: img("/images/suite.png", "Suite") },
-    ],
-  },
-     {
-    title: "Trailer Music",
-    type: "Showcase",
-    tracks: [
-      { id: "22", title: "Every Shadow Hides", status: "", desc: "", duration: "02.06", audio: "/audio/every-shadow-hides.mp3", image: smallImg("/images/every-shadow-hides.png", "Every Shadow Hides") },
-      { id: "21", title: "Shock Protocol", status: "", desc: "", duration: "02.02", audio: "/audio/shock-protocol.mp3", image: smallImg("/images/shock-protocol-2.png", "Shock Protocol") },
-      { id: "20", title: "Asura Rising", status: "", desc: "", duration: "02.36", audio: "/audio/asura-rising.mp3", image: img("/images/asura-rising 8.png", "Asura Rising") },
-      { id: "23", title: "Velocidad", status: "UPCOMING", desc: "", duration: "02.07", audio: "", image: img("/images/velocidad.png", "Velocidad") },
+      { id: "5", title: "Under Currents", status: "", desc: "", duration: "02.46", audio: "/audio/under-currents.mp3", image: smallImg("/images/arab.png", "Under Currents") },
+      { id: "9", title: "Watch the Voltage", status: "", desc: "", duration: "03.05", audio: "/audio/watch-the-voltage.mp3", image: img("/images/watch-the-voltage.png", "Watch the Voltage") },
+      { id: "15", title: "Auralis", status: "", desc: "", duration: "03.19", audio: "/audio/auralis.mp3", image: img("/images/auralis.png", "Auralis") },
     ],
   },
 ];
@@ -127,66 +97,38 @@ function ImagePlaceholder({ label = "Image placeholder", tall = false, src = nul
 const FILM_TRACKS = [
   {
     id: "film-1",
-    title: "The Wave Is Already Water",
-    duration: "03.22",
-    audio: "/audio/the-wave-is-already-water.mp3",
-    image: "/images/the-wave-is-already-water.png",
-  },
-  {
-    id: "film-2",
-    title: "Auralis",
-    duration: "03.19",
-    audio: "/audio/auralis.mp3",
-    image: "/images/auralis.png",
-  },
-  {
-    id: "film-3",
-    title: "Life Is a Daisy Wish",
-    duration: "01.58",
-    audio: "/audio/life-is-a-daisy-wish.mp3",
-    image: "/images/life-is-a-daisy-wish.png",
-  },
-  {
-    id: "film-4",
-    title: "Hrim",
-    duration: "03.45",
-    audio: "/audio/hrim.mp3",
-    image: "/images/hrim.png",
-  },
-  {
-    id: "film-5",
-    title: "Through Smoke and Starlight",
-    duration: "02.24",
-    audio: "/audio/through-smoke-and-starlight.mp3",
-    image: "/images/through-smoke-and-starlight.png",
-  },
-  {
-    id: "film-6",
-    title: "Malinconia",
-    duration: "03.08",
-    audio: "/audio/malinconia.mp3",
-    image: "/images/malinconia-2.png",
-  },
-  {
-    id: "film-7",
-    title: "Under Currents",
-    duration: "02.46",
-    audio: "/audio/under-currents.mp3",
-    image: "/images/arab.png",
-  },
-  {
-    id: "film-8",
     title: "The Liminal Passage",
     duration: "04.39",
     audio: "/audio/the-liminal-passage.mp3",
     image: "/images/the-liminal-passage.png",
   },
   {
-    id: "film-9",
+    id: "film-2",
     title: "Room in Monterey",
     duration: "03.12",
     audio: "/audio/room-in-monterey.mp3",
     image: "/images/room-in-monterey.png",
+  },
+  {
+    id: "film-3",
+    title: "Under Currents",
+    duration: "02.46",
+    audio: "/audio/under-currents.mp3",
+    image: "/images/arab.png",
+  },
+  {
+    id: "film-4",
+    title: "Watch the Voltage",
+    duration: "03.05",
+    audio: "/audio/watch-the-voltage.mp3",
+    image: "/images/watch-the-voltage.png",
+  },
+  {
+    id: "film-5",
+    title: "Auralis",
+    duration: "03.19",
+    audio: "/audio/auralis.mp3",
+    image: "/images/auralis.png",
   },
 ];
 
@@ -256,6 +198,36 @@ function FilmPage() {
     }
   };
 
+  const smoothScrollToId = (id, duration = 1150) => {
+    const target = document.getElementById(id);
+    if (!target) return;
+
+    const headerOffset = 92;
+    const startY = window.scrollY;
+    const targetY =
+      target.getBoundingClientRect().top + window.scrollY - headerOffset;
+
+    const distance = targetY - startY;
+    const startTime = performance.now();
+
+    const easeInOutCubic = (t) =>
+      t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+
+    const animate = (currentTime) => {
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const easedProgress = easeInOutCubic(progress);
+
+      window.scrollTo(0, startY + distance * easedProgress);
+
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      }
+    };
+
+    requestAnimationFrame(animate);
+  };
+
   const handleSeek = (track, event) => {
     const audio = audioRefs.current[track.id];
     if (!audio || !audio.duration) return;
@@ -272,31 +244,54 @@ function FilmPage() {
   return (
     <div className="min-h-screen bg-[#EFF4D6] text-[#1A1A1A] font-light">
       <header className="mx-auto max-w-6xl px-6 pt-8 pb-6 flex items-center justify-between border-b border-[#D9DED4]">
-        <Link to="/" className="text-[1.1rem] tracking-[0.22em] uppercase">
+        <button
+          type="button"
+          onClick={() => smoothScrollToId("film-home", 1200)}
+          className="text-[1.1rem] tracking-[0.22em] uppercase"
+        >
           Marius Ygre
-        </Link>
+        </button>
 
         <nav className="hidden md:flex items-center gap-10 text-[0.68rem] uppercase tracking-[0.22em] text-[#5F665C]">
-          <Link to="/" className="hover:text-[#1A1A1A] transition-colors duration-300">
+          <button
+            type="button"
+            onClick={() => smoothScrollToId("film-home", 1200)}
+            className="hover:text-[#1A1A1A] transition-colors duration-300"
+          >
             Home
-          </Link>
+          </button>
 
-          <Link to="/film" className="text-[#1A1A1A] border-b border-[#1A1A1A] pb-1">
+          <button
+            type="button"
+            onClick={() => smoothScrollToId("film-story", 1200)}
+            className="hover:text-[#1A1A1A] transition-colors duration-300"
+          >
             Film
-          </Link>
+          </button>
 
-          <a href="#selected-work" className="hover:text-[#1A1A1A] transition-colors duration-300">
+          <button
+            type="button"
+            onClick={() => smoothScrollToId("selected-work", 1200)}
+            className="hover:text-[#1A1A1A] transition-colors duration-300"
+          >
             Music
-          </a>
+          </button>
 
-          <a href="#contact" className="hover:text-[#1A1A1A] transition-colors duration-300">
+          <button
+            type="button"
+            onClick={() => smoothScrollToId("contact", 1200)}
+            className="hover:text-[#1A1A1A] transition-colors duration-300"
+          >
             Contact
-          </a>
+          </button>
         </nav>
       </header>
 
-      <section className="mx-auto max-w-6xl px-6 pt-16 pb-20 grid md:grid-cols-2 gap-12 md:gap-16 items-center">
-        <div>
+      <section
+        id="film-home"
+        className="mx-auto max-w-6xl px-6 pt-16 pb-20 grid md:grid-cols-12 gap-12 md:gap-16 items-center"
+      >
+        <div className="md:col-span-7">
           <div className="text-[0.78rem] md:text-[0.82rem] uppercase tracking-[0.32em] text-[#5F665C] font-medium">
             COMPOSER • PIANIST • PRODUCER
           </div>
@@ -311,12 +306,14 @@ function FilmPage() {
             Music shaped by story, rhythm and feeling.
           </p>
 
-          <p className="mt-6 max-w-[34rem] text-[#5F665C] text-[1.02rem] leading-[1.85]">
-            Original composition for film, documentaries and visual storytelling — combining orchestral writing, minimal textures, intimate piano and modern production.
+          <p className="mt-6 max-w-[39rem] text-[#5F665C] text-[1rem] leading-[1.78]">
+            Original composition for film, documentaries and visual storytelling —
+            <br className="hidden lg:block" />
+            combining orchestral writing, minimal textures, intimate piano and modern production.
           </p>
         </div>
 
-        <div className="w-full flex justify-center">
+        <div className="md:col-span-5 w-full flex justify-center">
           <img
             src="/images/profile-image-3.jpg"
             alt="Marius Ygre"
@@ -332,7 +329,7 @@ function FilmPage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-6 py-20 grid md:grid-cols-2 gap-12 md:gap-16 items-start">
+      <section id="film-story" className="mx-auto max-w-6xl px-6 py-20 grid md:grid-cols-2 gap-12 md:gap-16 items-start">
         <div className="w-full flex justify-center">
           <img
             src="/images/marius-ygre.jpg"
@@ -492,7 +489,9 @@ function FilmPage() {
         </h2>
 
         <p className="mt-6 text-[#5F665C] text-[1.02rem] leading-[1.85]">
-          Original music for film, documentaries and visual storytelling. Composer-led production from first idea to polished, mix-ready sound.
+          Original music for film, documentaries and visual storytelling.
+          <br />
+          Composer-led production from first idea to polished, mix-ready sound.
         </p>
       </section>
 
