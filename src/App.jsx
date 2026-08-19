@@ -130,6 +130,13 @@ const FILM_TRACKS = [
     audio: "/audio/auralis.mp3",
     image: "/images/auralis.png",
   },
+    {
+    id: "film-6",
+    title: "Suite",
+    duration: "03.36",
+    audio: "/audio/suite.mp3",
+    image: "/images/suite.png",
+  },
 ];
 
 function FilmPage() {
