@@ -300,24 +300,21 @@ function FilmPage() {
         className="mx-auto max-w-6xl px-5 sm:px-6 pt-14 sm:pt-16 pb-16 sm:pb-20 grid md:grid-cols-12 gap-10 md:gap-16 items-center"
       >
         <div className="md:col-span-7">
-          <div className="text-[0.66rem] sm:text-[0.76rem] md:text-[0.82rem] uppercase tracking-[0.18em] sm:tracking-[0.26em] md:tracking-[0.32em] text-[#5F665C] font-medium">
-            COMPOSER • PIANIST • PRODUCER
+          <div className="text-[0.66rem] sm:text-[0.76rem] md:text-[0.82rem] uppercase tracking-[0.18em] sm:tracking-[0.26em] md:tracking-[0.32em] text-[#5F665C] font-medium leading-[1.9]">
+            <div>COMPOSER • PIANIST • PRODUCER</div>
+            <div>200M+ streams as Madden</div>
           </div>
 
           <h1 className="mt-5 text-[2.35rem] sm:text-5xl md:text-[4.1rem] leading-[1.08] uppercase tracking-[0.055em] sm:tracking-[0.07em] md:tracking-[0.08em]">
-            Film & Visual Storytelling
+            Music for Visual Storytelling
           </h1>
 
           <div className="mt-8 w-16 h-[1px] bg-[#5F665C]" />
 
-          <p className="mt-8 max-w-[31rem] text-[#5F665C] text-[1.03rem] sm:text-[1.05rem] leading-[1.8]" style={{ textWrap: "pretty" }}>
-            Music shaped by story, rhythm and feeling.
-          </p>
-
-          <p className="mt-6 max-w-[37rem] text-[#5F665C] text-[0.98rem] sm:text-[1rem] leading-[1.78]" style={{ textWrap: "pretty" }}>
-            Original composition for film, documentaries and visual storytelling —
-            <br className="hidden lg:block" />
-            combining orchestral writing, minimal textures, intimate piano and modern production.
+          <p className="mt-8 max-w-[37rem] text-[#5F665C] text-[1rem] sm:text-[1.02rem] leading-[1.85]" style={{ textWrap: "pretty" }}>
+            Original music for film, documentaries and visual storytelling.
+            <br />
+            Composer-led production from first idea to polished, mix-ready sound.
           </p>
         </div>
 
@@ -327,39 +324,6 @@ function FilmPage() {
             alt="Marius Ygre"
             className={`w-full max-w-[28rem] md:max-w-none h-auto object-contain ${IMAGE_FRAME}`}
           />
-        </div>
-      </section>
-
-      <section className="border-y border-[#D9DED4]">
-        <div className="mx-auto max-w-6xl px-5 sm:px-6 py-5 grid md:grid-cols-2 gap-5 text-center text-[0.68rem] uppercase tracking-[0.22em] text-[#5F665C]">
-          <div>200M+ streams as Madden</div>
-          <div>Orchestral • Minimalism</div>
-        </div>
-      </section>
-
-      <section id="film-story" className="mx-auto max-w-6xl px-5 sm:px-6 py-20 grid md:grid-cols-2 gap-12 md:gap-16 items-start">
-        <div className="w-full flex justify-center">
-          <img
-            src="/images/marius-ygre.jpg"
-            alt="Marius Ygre"
-            className={`max-w-[17rem] h-auto object-contain ${IMAGE_FRAME}`}
-          />
-        </div>
-
-        <div>
-          <h2 className="text-[1.75rem] sm:text-[2.1rem] uppercase tracking-[0.06em] sm:tracking-[0.08em] leading-[1.18]">
-            Writing around the image.
-          </h2>
-
-          <div className="mt-5 w-14 h-[1px] bg-[#5F665C]" />
-
-          <p className="mt-7 max-w-[33rem] text-[#5F665C] text-[1rem] sm:text-[1.02rem] leading-[1.85]" style={{ textWrap: "pretty" }}>
-            Marius Ygre is a composer, pianist and producer bringing an established musical background into film and visual storytelling. With 200M+ streams as Madden, he combines the instincts of a composer with the perspective of a modern music producer — from intimate piano and restrained strings to subtle electronics and full orchestral writing.
-          </p>
-
-          <p className="mt-5 max-w-[33rem] text-[#5F665C] text-[1rem] sm:text-[1.02rem] leading-[1.85]" style={{ textWrap: "pretty" }}>
-            His approach is simple: Know when to speak. Know when to leave space.
-          </p>
         </div>
       </section>
 
@@ -382,18 +346,18 @@ function FilmPage() {
               <div className="text-[0.68rem] uppercase tracking-[0.28em] text-[#71786D]">
                 Now Playing
               </div>
-              
-<div className="mt-4">
-  <div className="text-[1.65rem] leading-[1.25]">
-    {selectedTrack.title}
-  </div>
 
-  {selectedTrack.subtitle && (
-    <div className="mt-2 text-[0.62rem] sm:text-[0.66rem] uppercase tracking-[0.22em] text-[#71786D] leading-[1.6] max-w-[28rem] whitespace-pre-line">
-      {selectedTrack.subtitle}
-    </div>
-  )}
-</div>
+              <div className="mt-4">
+                <div className="text-[1.65rem] leading-[1.25]">
+                  {selectedTrack.title}
+                </div>
+
+                {selectedTrack.subtitle && (
+                  <div className="mt-2 text-[0.62rem] sm:text-[0.66rem] uppercase tracking-[0.22em] text-[#71786D] leading-[1.6] max-w-[28rem] whitespace-pre-line">
+                    {selectedTrack.subtitle}
+                  </div>
+                )}
+              </div>
 
               <div className="mt-8 flex items-center gap-4">
                 <div className="text-sm text-[#71786D]">
@@ -496,19 +460,41 @@ function FilmPage() {
               </div>
             </div>
           </div>
+
+          <div className="mt-8 text-right text-[0.62rem] sm:text-[0.66rem] uppercase tracking-[0.22em] text-[#71786D] leading-[1.6]">
+            Full music portfolio available at request.
+          </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-3xl px-5 sm:px-6 pb-20 text-center">
-        <h2 className="text-[1.18rem] sm:text-[1.45rem] uppercase tracking-[0.1em] sm:tracking-[0.16em]">
-          For directors, editors and visual storytellers
-        </h2>
+      <section id="film-story" className="mx-auto max-w-6xl px-5 sm:px-6 py-20 grid md:grid-cols-2 gap-12 md:gap-16 items-start">
+        <div className="w-full flex justify-center">
+          <img
+            src="/images/marius-ygre.jpg"
+            alt="Marius Ygre"
+            className={`max-w-[17rem] h-auto object-contain ${IMAGE_FRAME}`}
+          />
+        </div>
 
-        <p className="mt-6 text-[#5F665C] text-[1rem] sm:text-[1.02rem] leading-[1.85]" style={{ textWrap: "pretty" }}>
-          Original music for film, documentaries and visual storytelling.
-          <br />
-          Composer-led production from first idea to polished, mix-ready sound.
-        </p>
+        <div>
+          <h2 className="text-[1.75rem] sm:text-[2.1rem] uppercase tracking-[0.06em] sm:tracking-[0.08em] leading-[1.18]">
+            ABOUT
+          </h2>
+
+          <div className="mt-5 w-14 h-[1px] bg-[#5F665C]" />
+
+          <p className="mt-7 max-w-[33rem] text-[#5F665C] text-[1rem] sm:text-[1.02rem] leading-[1.85]" style={{ textWrap: "pretty" }}>
+            Marius Ygre is a composer, pianist and producer whose work bridges traditional musicianship and contemporary production.
+          </p>
+
+          <p className="mt-5 max-w-[33rem] text-[#5F665C] text-[1rem] sm:text-[1.02rem] leading-[1.85]" style={{ textWrap: "pretty" }}>
+            Educated in Composition and Music Production at the Norwegian Academy of Music, and with more than 200 million streams as Madden, he combines a strong sense of musical atmosphere with a detailed approach to sound and production — from intimate piano and restrained strings to subtle electronics and full orchestral writing.
+          </p>
+
+          <p className="mt-5 max-w-[33rem] text-[#5F665C] text-[1rem] sm:text-[1.02rem] leading-[1.85]" style={{ textWrap: "pretty" }}>
+            Now focused on composing for film and visual storytelling, he creates music shaped around narrative and emotional direction.
+          </p>
+        </div>
       </section>
 
       <section id="contact" className="mx-auto max-w-6xl px-5 sm:px-6 pb-24 grid md:grid-cols-2 gap-12 md:gap-16">
@@ -518,9 +504,9 @@ function FilmPage() {
           </div>
 
           <h2 className="mt-5 text-[1.75rem] sm:text-[2.1rem] uppercase tracking-[0.06em] sm:tracking-[0.08em] leading-[1.2]">
-            YOUR STORY.
+            New projects,
             <br />
-            ITS SOUND.
+            collaborations or inquiries.
           </h2>
 
           <div className="mt-7 w-16 h-[1px] bg-[#5F665C]" />
@@ -579,8 +565,9 @@ function HomePage() {
       <section className="mx-auto max-w-6xl px-5 sm:px-6 pt-16 pb-14 md:py-24 grid md:grid-cols-2 gap-10 md:gap-16 items-center">
         <div className="space-y-8">
           <div>
-            <div className="text-[0.66rem] sm:text-[0.76rem] md:text-[0.82rem] uppercase tracking-[0.18em] sm:tracking-[0.26em] md:tracking-[0.32em] text-[#5F665C] font-medium">
-              COMPOSER • PIANIST • PRODUCER
+            <div className="text-[0.66rem] sm:text-[0.76rem] md:text-[0.82rem] uppercase tracking-[0.18em] sm:tracking-[0.26em] md:tracking-[0.32em] text-[#5F665C] font-medium leading-[1.9]">
+              <div>COMPOSER • PIANIST • PRODUCER</div>
+              <div>200M+ streams as Madden</div>
             </div>
 
             <h1 className="mt-6 text-[2.55rem] sm:text-5xl md:text-[4.1rem] leading-[1.05] uppercase tracking-[0.055em] sm:tracking-[0.07em] md:tracking-[0.08em]">
@@ -604,51 +591,19 @@ function HomePage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-5 sm:px-6 pb-16 md:pb-20 grid md:grid-cols-2 gap-6 md:gap-8">
+      <section className="mx-auto max-w-6xl px-5 sm:px-6 pb-16 md:pb-20">
         <Link
           to="/film"
-          className={`group border ${BORDER_SOFT} bg-[#F8FBF2] p-6 sm:p-8 md:p-10 transition-all duration-700 ease-out hover:border-[#1A1A1A] active:opacity-70`}
+          className={`group block max-w-2xl border ${BORDER_SOFT} bg-[#F8FBF2] p-6 sm:p-8 md:p-10 transition-all duration-700 ease-out hover:border-[#1A1A1A] active:opacity-70`}
         >
-          <div className="text-[1.45rem] md:text-[1.75rem] uppercase tracking-[0.12em]">
-            Film
+          <div className="text-[1.45rem] md:text-[1.75rem] uppercase tracking-[0.12em] leading-[1.2]">
+            Music for Visual Storytelling
           </div>
-
-          <p className="mt-6 max-w-[28rem] text-[#5F665C] text-[0.98rem] sm:text-[1rem] leading-[1.8]" style={{ textWrap: "pretty" }}>
-            Music shaped by story, rhythm and feeling.
-          </p>
-
-          <p className="mt-4 max-w-[28rem] text-[#5F665C] text-[0.94rem] sm:text-[0.96rem] leading-[1.75]" style={{ textWrap: "pretty" }}>
-            For directors, editors and visual storytellers.
-          </p>
 
           <div className="mt-8 text-[0.72rem] uppercase tracking-[0.24em] text-[#5F665C] group-hover:text-[#1A1A1A] transition-colors duration-500">
-            Enter Film Music Page →
+            Enter Music Page →
           </div>
         </Link>
-
-        <Link
-          to="/tm"
-          className={`group border ${BORDER_SOFT} bg-[#F8FBF2] p-6 sm:p-8 md:p-10 transition-all duration-700 ease-out hover:border-[#1A1A1A] active:opacity-70`}
-        >
-          <div className="text-[1.45rem] md:text-[1.75rem] uppercase tracking-[0.12em]">
-            Trailer Music
-          </div>
-
-          <p className="mt-6 max-w-[28rem] text-[#5F665C] text-[0.98rem] sm:text-[1rem] leading-[1.8]" style={{ textWrap: "pretty" }}>
-            Hybrid orchestral music built for tension, impact and momentum.
-          </p>
-
-          <div className="mt-8 text-[0.72rem] uppercase tracking-[0.24em] text-[#5F665C] group-hover:text-[#1A1A1A] transition-colors duration-500">
-            Enter Trailer Music Page →
-          </div>
-        </Link>
-      </section>
-
-      <section className="border-y border-[#D9DED4]">
-        <div className="mx-auto max-w-6xl px-5 sm:px-6 py-5 grid md:grid-cols-2 gap-5 text-center text-[0.68rem] uppercase tracking-[0.22em] text-[#5F665C]">
-          <div>200M+ streams as Madden</div>
-          <div>Orchestral • Minimalism • Hybrid Production</div>
-        </div>
       </section>
 
       <section id="contact" className="mx-auto max-w-6xl px-5 sm:px-6 py-20 md:py-24 grid md:grid-cols-2 gap-12 md:gap-16">
@@ -717,62 +672,6 @@ function HomePage() {
   );
 }
 
-function TrailerMusicPage() {
-  return (
-    <div className="min-h-screen overflow-x-hidden bg-[#EFF4D6] text-[#1A1A1A] font-light">
-      <header className="mx-auto max-w-6xl px-5 sm:px-6 pt-7 sm:pt-8 pb-5 sm:pb-6 flex items-center justify-between border-b border-[#D9DED4]">
-        <Link to="/" className="text-[0.95rem] sm:text-[1.1rem] tracking-[0.16em] sm:tracking-[0.22em] uppercase">
-          Marius Ygre
-        </Link>
-
-        <nav className="hidden md:flex items-center gap-10 text-[0.68rem] uppercase tracking-[0.22em] text-[#5F665C]">
-          <Link to="/" className="hover:text-[#1A1A1A] transition-colors duration-300">
-            Home
-          </Link>
-
-          <Link to="/film" className="hover:text-[#1A1A1A] transition-colors duration-300">
-            Film
-          </Link>
-
-          <Link to="/tm" className="text-[#1A1A1A] border-b border-[#1A1A1A] pb-1">
-            Trailer Music
-          </Link>
-        </nav>
-      </header>
-
-      <section className="mx-auto max-w-6xl px-5 sm:px-6 pt-20 pb-24 grid md:grid-cols-2 gap-12 md:gap-16 items-center">
-        <div>
-          <div className="text-[0.66rem] sm:text-[0.76rem] md:text-[0.82rem] uppercase tracking-[0.18em] sm:tracking-[0.26em] md:tracking-[0.32em] text-[#5F665C] font-medium">
-            Trailer Music
-          </div>
-
-          <h1 className="mt-6 text-[2.55rem] sm:text-5xl md:text-[4.1rem] leading-[1.05] uppercase tracking-[0.055em] sm:tracking-[0.07em] md:tracking-[0.08em]">
-            Coming soon
-          </h1>
-
-          <div className="mt-8 w-16 h-[1px] bg-[#5F665C]" />
-
-          <p className="mt-8 max-w-[33rem] text-[#5F665C] text-[1rem] sm:text-[1.02rem] leading-[1.85]" style={{ textWrap: "pretty" }}>
-            A focused trailer music page is being prepared. For now, please use the contact form on the main page or visit the film music page.
-          </p>
-        </div>
-
-        <div className="w-full flex justify-center">
-          <img
-            src="/images/profile-image-3.jpg"
-            alt="Marius Ygre"
-            className={`w-full max-w-[28rem] md:max-w-none h-auto object-contain ${IMAGE_FRAME}`}
-          />
-        </div>
-      </section>
-
-      <footer className="mx-auto max-w-6xl px-5 sm:px-6 pb-10 text-[0.75rem] uppercase tracking-[0.28em] text-[#71786D]">
-        © Marius Ygre
-      </footer>
-    </div>
-  );
-}
-
 function ScrollToTop() {
   const { pathname } = useLocation();
 
@@ -791,7 +690,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/film" element={<FilmPage />} />
-        <Route path="/tm" element={<TrailerMusicPage />} />
+        <Route path="*" element={<HomePage />} />
       </Routes>
     </BrowserRouter>
   );
