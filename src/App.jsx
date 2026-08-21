@@ -580,12 +580,8 @@ function HomePage() {
 
             <div className="mt-8 w-16 h-[1px] bg-[#5F665C]" />
 
-            <p className="mt-8 max-w-[32rem] text-[#5F665C] text-[1.04rem] sm:text-[1.08rem] leading-[1.8]" style={{ textWrap: "pretty" }}>
-              Music for image, story and cinematic momentum.
-            </p>
-
             <p className="mt-6 max-w-[34rem] text-[#5F665C] text-[1rem] sm:text-[1.02rem] leading-[1.85]" style={{ textWrap: "pretty" }}>
-              Marius Ygre creates music for film, visual storytelling and media — combining orchestral writing, minimal textures, intimate piano and modern production.
+              Marius Ygre creates music that moves between intimate piano, minimal textures, orchestral writing and modern production.
             </p>
           </div>
         </div>
