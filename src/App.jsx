@@ -133,6 +133,7 @@ const FILM_TRACKS = [
     {
     id: "film-6",
     title: "Suite",
+    subtitle: 'FROM STRING QUARTET NO. 2, "WHERE I GO YOU CANNOT COME"',
     duration: "03.36",
     audio: "/audio/suite.mp3",
     image: "/images/suite.png",
@@ -382,8 +383,16 @@ function FilmPage() {
                 Now Playing
               </div>
 
-              <div className="mt-4 text-[1.35rem] sm:text-[1.65rem] leading-[1.25]">
-                {selectedTrack.title}
+                            <div className="mt-4 flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-3">
+                <div className="text-[1.65rem] leading-[1.25]">
+                  {selectedTrack.title}
+                </div>
+
+                {selectedTrack.subtitle && (
+                  <div className="text-[0.62rem] sm:text-[0.66rem] uppercase tracking-[0.22em] text-[#71786D] leading-[1.6] max-w-[22rem]">
+                    {selectedTrack.subtitle}
+                  </div>
+                )}
               </div>
 
               <div className="mt-8 flex items-center gap-4">
