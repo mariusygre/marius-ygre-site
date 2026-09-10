@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { BrowserRouter, Routes, Route, Link, useLocation } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link, useLocation, useParams } from "react-router-dom";
 
 const FADE_MS = 1200;
 const BORDER_SOFT = "border-[#D9DED4]";
@@ -130,7 +130,7 @@ const FILM_TRACKS = [
     audio: "/audio/auralis.mp3",
     image: "/images/auralis.png",
   },
-     {
+  {
     id: "film-6",
     title: "Suite",
     subtitle: 'FROM STRING QUARTET NO. 2,\n"WHERE I GO YOU CANNOT COME"',
@@ -138,13 +138,439 @@ const FILM_TRACKS = [
     audio: "/audio/suite.mp3",
     image: "/images/suite.png",
   },
+  { id: "film-7", title: "Nival", duration: "02.36", audio: "/audio/nival.mp3", image: "/images/nival.png" },
+  { id: "film-8", title: "Hrim", duration: "03.46", audio: "/audio/hrim.mp3", image: "/images/hrim.png" },
+  { id: "film-9", title: "Ridge of Desolation", duration: "02.47", audio: "/audio/ridge-of-desolation.mp3", image: "/images/ridge-of-desolation.png" },
+  { id: "film-10", title: "Every Shadow Hides", duration: "02.06", audio: "/audio/every-shadow-hides.mp3", image: "/images/every-shadow-hides.png" },
 ];
+
+const DCR_TRACKS = [
+  {
+    id: "dcr-1",
+    title: "Shock Protocol",
+    duration: "02.02",
+    audio: "/audio/shock-protocol.mp3",
+    image: "/images/shock-protocol-2.png",
+  },
+  {
+    id: "dcr-2",
+    title: "Every Shadow Hides",
+    duration: "02.06",
+    audio: "/audio/every-shadow-hides.mp3",
+    image: "/images/every-shadow-hides.png",
+  },
+  {
+    id: "dcr-3",
+    title: "Asura Rising",
+    duration: "02.35",
+    audio: "/audio/asura-rising.mp3",
+    image: "/images/asura-rising 8.png",
+  },
+  {
+    id: "dcr-4",
+    title: "Auralis",
+    duration: "03.26",
+    audio: "/audio/auralis.mp3",
+    image: "/images/auralis.png",
+  },
+  {
+    id: "dcr-5",
+    title: "Hrim",
+    duration: "03.46",
+    audio: "/audio/hrim.mp3",
+    image: "/images/hrim.png",
+  },
+];
+
+function DedicatedComposerReelPage() {
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [playing, setPlaying] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const [displayedTrack, setDisplayedTrack] = useState(DCR_TRACKS[0]);
+  const [artworkVisible, setArtworkVisible] = useState(true);
+  const audioRef = useRef(null);
+  const selectedTrack = DCR_TRACKS[selectedIndex];
+
+  useEffect(() => {
+    if (selectedTrack.id === displayedTrack.id) return;
+
+    let cancelled = false;
+    let swapTimer = null;
+    const nextArtwork = new Image();
+
+    const beginSwap = () => {
+      if (cancelled) return;
+
+      setArtworkVisible(false);
+      swapTimer = window.setTimeout(() => {
+        if (!cancelled) setDisplayedTrack(selectedTrack);
+      }, 650);
+    };
+
+    nextArtwork.onload = beginSwap;
+    nextArtwork.onerror = beginSwap;
+    nextArtwork.src = selectedTrack.image;
+
+    return () => {
+      cancelled = true;
+      if (swapTimer) window.clearTimeout(swapTimer);
+    };
+  }, [selectedTrack, displayedTrack]);
+
+  useEffect(() => {
+    const frame = window.requestAnimationFrame(() => setArtworkVisible(true));
+    return () => window.cancelAnimationFrame(frame);
+  }, [displayedTrack]);
+
+  useEffect(() => {
+    const previousTitle = document.title;
+    const existingRobots = document.querySelector('meta[name="robots"]');
+    const previousRobots = existingRobots?.getAttribute("content") || null;
+    const robots = existingRobots || document.createElement("meta");
+
+    document.title = "Additional Composer Reel — Marius Ygre";
+    robots.setAttribute("name", "robots");
+    robots.setAttribute("content", "noindex, nofollow, noarchive");
+
+    if (!existingRobots) document.head.appendChild(robots);
+
+    return () => {
+      document.title = previousTitle;
+      if (existingRobots && previousRobots !== null) {
+        existingRobots.setAttribute("content", previousRobots);
+      } else if (!existingRobots) {
+        robots.remove();
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    audio.load();
+    setProgress(0);
+
+    if (playing) {
+      audio.play().catch(() => setPlaying(false));
+    }
+  }, [selectedIndex]);
+
+  const chooseTrack = (index, shouldPlay = true) => {
+    if (index === selectedIndex) {
+      if (shouldPlay) {
+        const audio = audioRef.current;
+        if (!audio) return;
+        if (audio.paused) {
+          audio.play().then(() => setPlaying(true)).catch(() => setPlaying(false));
+        }
+      }
+      return;
+    }
+
+    setSelectedIndex(index);
+    setPlaying(shouldPlay);
+  };
+
+  const togglePlayback = () => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    if (audio.paused) {
+      audio.play().then(() => setPlaying(true)).catch(() => setPlaying(false));
+    } else {
+      audio.pause();
+      setPlaying(false);
+    }
+  };
+
+  const moveTrack = (direction) => {
+    const nextIndex = selectedIndex + direction;
+    if (nextIndex < 0 || nextIndex >= DCR_TRACKS.length) return;
+    setSelectedIndex(nextIndex);
+    setPlaying(true);
+  };
+
+  const handleEnded = () => {
+    if (selectedIndex < DCR_TRACKS.length - 1) {
+      setSelectedIndex((current) => current + 1);
+      setPlaying(true);
+    } else {
+      setPlaying(false);
+      setProgress(0);
+    }
+  };
+
+  const handleSeek = (event) => {
+    const audio = audioRef.current;
+    if (!audio?.duration) return;
+
+    const rect = event.currentTarget.getBoundingClientRect();
+    const ratio = Math.min(Math.max((event.clientX - rect.left) / rect.width, 0), 1);
+    audio.currentTime = ratio * audio.duration;
+  };
+
+  return (
+    <div className="min-h-screen overflow-x-hidden bg-[#EFF4D6] text-[#1A1A1A] font-light">
+      <main className="mx-auto max-w-6xl px-5 sm:px-6 pt-7 sm:pt-8 pb-10 sm:pb-12">
+        <header className="border-b border-[#D9DED4] pb-7 sm:pb-8">
+          <div className="flex items-baseline justify-between gap-5">
+            <div className="text-[0.95rem] sm:text-[1.05rem] uppercase tracking-[0.16em] sm:tracking-[0.2em]">
+              Marius Ygre
+            </div>
+            <div className="text-right text-[0.6rem] sm:text-[0.64rem] uppercase tracking-[0.2em] sm:tracking-[0.24em] text-[#71786D]">
+              Private listening page
+            </div>
+          </div>
+
+          <h1 className="mt-8 sm:mt-10 max-w-4xl text-[1.65rem] sm:text-[2rem] md:text-[2.35rem] leading-[1.12] uppercase tracking-[0.055em] sm:tracking-[0.07em]">
+            Additional Composer Reel — Marius Ygre
+          </h1>
+          <p className="mt-4 sm:mt-5 max-w-[42rem] text-[#5F665C] text-[0.95rem] sm:text-[1rem] leading-[1.75]" style={{ textWrap: "pretty" }}>
+            A short selection of recent work across orchestral, electronic and intimate film music, shared as an introduction to my writing and production for potential future collaboration.
+          </p>
+        </header>
+
+        <section className="pt-8 sm:pt-10 pb-12 sm:pb-16">
+          <div className="border border-[#D9DED4] bg-[#F8FBF2] p-5 sm:p-6 md:p-8">
+            <h2 className="text-[1.2rem] sm:text-[1.4rem] uppercase tracking-[0.09em] sm:tracking-[0.12em]">
+              Selected Work
+            </h2>
+
+            <div className="mt-6 sm:mt-7 grid md:grid-cols-12 gap-8 md:gap-10 items-start">
+              <div className="md:col-span-3">
+                <div className={`transition-opacity duration-[650ms] ease-out ${artworkVisible ? "opacity-100" : "opacity-0"}`}>
+                  <ImagePlaceholder
+                    src={displayedTrack.image}
+                    label={displayedTrack.title}
+                    alt={`${displayedTrack.title} artwork`}
+                  />
+                </div>
+              </div>
+
+              <div className="md:col-span-5">
+                <div className="text-[0.66rem] uppercase tracking-[0.28em] text-[#71786D]">
+                  Now Playing
+                </div>
+                <div className="mt-4 flex items-baseline justify-between gap-5">
+                  <h3 className="text-[1.4rem] sm:text-[1.65rem] leading-[1.25]">{selectedTrack.title}</h3>
+                  <span className="text-[0.8rem] text-[#71786D]">{selectedTrack.duration}</span>
+                </div>
+
+                <audio
+                  ref={audioRef}
+                  src={selectedTrack.audio}
+                  onPlay={() => setPlaying(true)}
+                  onPause={() => setPlaying(false)}
+                  onEnded={handleEnded}
+                  onTimeUpdate={(event) => {
+                    const audio = event.currentTarget;
+                    setProgress(audio.duration ? (audio.currentTime / audio.duration) * 100 : 0);
+                  }}
+                />
+
+                <button type="button" onClick={handleSeek} className="mt-8 w-full h-[5px] flex items-center" aria-label="Seek within track">
+                  <span className="block w-full h-[1px] bg-[#D7DDD1] overflow-hidden">
+                    <span className="block h-full bg-[#1A1A1A] transition-all duration-200 ease-out" style={{ width: `${progress}%` }} />
+                  </span>
+                </button>
+
+                <div className="mt-8 flex flex-wrap items-center gap-4 sm:gap-5">
+                  <button type="button" onClick={() => moveTrack(-1)} disabled={selectedIndex === 0} className="text-[0.72rem] uppercase tracking-[0.24em] text-[#5F665C] hover:text-[#1A1A1A] disabled:opacity-30">
+                    Previous
+                  </button>
+                  <button type="button" onClick={togglePlayback} className="w-16 h-16 rounded-full border border-[#1A1A1A] flex items-center justify-center text-[0.72rem] uppercase tracking-[0.18em] hover:bg-[#1A1A1A] hover:text-white transition-all duration-500">
+                    {playing ? "Pause" : "Play"}
+                  </button>
+                  <button type="button" onClick={() => moveTrack(1)} disabled={selectedIndex === DCR_TRACKS.length - 1} className="text-[0.72rem] uppercase tracking-[0.24em] text-[#5F665C] hover:text-[#1A1A1A] disabled:opacity-30">
+                    Next
+                  </button>
+                </div>
+              </div>
+
+              <div className="md:col-span-4 md:border-l md:border-[#D9DED4] md:pl-8">
+                <ol className="space-y-3">
+                  {DCR_TRACKS.map((track, index) => (
+                    <li key={track.id}>
+                      <button type="button" onClick={() => chooseTrack(index)} className={`w-full grid grid-cols-[1.65rem_minmax(0,1fr)_auto] sm:grid-cols-[2rem_minmax(0,1fr)_auto] gap-3 sm:gap-4 text-left items-baseline py-1 transition-colors duration-300 ${index === selectedIndex ? "text-[#1A1A1A]" : "text-[#5F665C] hover:text-[#1A1A1A]"}`}>
+                        <span className="text-[0.72rem] tabular-nums">{String(index + 1).padStart(2, "0")}</span>
+                        <span className="text-[0.95rem] min-w-0 break-words">{track.title}</span>
+                        <span className="text-[0.8rem] text-[#71786D]">{track.duration}</span>
+                      </button>
+                    </li>
+                  ))}
+                </ol>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <footer className="border-t border-[#D9DED4] pt-6 text-[0.64rem] uppercase tracking-[0.24em] text-[#71786D]">
+          © Marius Ygre
+        </footer>
+      </main>
+    </div>
+  );
+}
+
+function CustomOutreachReelPage() {
+  const { reelSlug = "" } = useParams();
+  const [primaryTracks, setPrimaryTracks] = useState([]);
+  const [moreTracks, setMoreTracks] = useState([]);
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [displayedTrack, setDisplayedTrack] = useState(null);
+  const [artworkVisible, setArtworkVisible] = useState(true);
+  const [moreOpen, setMoreOpen] = useState(false);
+  const [playing, setPlaying] = useState(false);
+  const [progress, setProgress] = useState(0);
+  const [loadState, setLoadState] = useState("loading");
+  const audioRef = useRef(null);
+  const allTracks = [...primaryTracks, ...moreTracks];
+  const selectedTrack = allTracks[selectedIndex] || null;
+
+  useEffect(() => {
+    const previousTitle = document.title;
+    const existingRobots = document.querySelector('meta[name="robots"]');
+    const previousRobots = existingRobots?.getAttribute("content") || null;
+    const robots = existingRobots || document.createElement("meta");
+    document.title = "Private Selected Work — Marius Ygre";
+    robots.setAttribute("name", "robots");
+    robots.setAttribute("content", "noindex, nofollow, noarchive, noimageindex");
+    if (!existingRobots) document.head.appendChild(robots);
+    return () => {
+      document.title = previousTitle;
+      if (existingRobots && previousRobots !== null) existingRobots.setAttribute("content", previousRobots);
+      else if (!existingRobots) robots.remove();
+    };
+  }, []);
+
+  useEffect(() => {
+    let cancelled = false;
+    const slug = String(reelSlug || "").trim().toLowerCase();
+    if (!/^[a-z][a-z0-9]*$/.test(slug)) {
+      const timer = window.setTimeout(() => setLoadState("missing"), 0);
+      return () => window.clearTimeout(timer);
+    }
+    Promise.all([
+      fetch("/data/web-track-catalog.json", { cache: "no-store" }),
+      fetch(`/reels/${encodeURIComponent(slug)}.json`, { cache: "no-store" }),
+    ])
+      .then(async ([catalogResponse, reelResponse]) => {
+        if (!catalogResponse.ok || !reelResponse.ok) throw new Error("not-found");
+        return Promise.all([catalogResponse.json(), reelResponse.json()]);
+      })
+      .then(([catalog, reel]) => {
+        if (cancelled || String(reel.slug || "").toLowerCase() !== slug) return;
+        const byId = new Map((catalog.tracks || []).map((track) => [track.id, track]));
+        const used = new Set();
+        const resolve = (ids) => (ids || []).map((id) => byId.get(id)).filter((track) => {
+          if (!track || used.has(track.id)) return false;
+          used.add(track.id);
+          return true;
+        });
+        const selected = resolve(reel.selected_works).slice(0, 5);
+        const additional = resolve(reel.more).slice(0, 5);
+        if (!selected.length) throw new Error("empty");
+        setPrimaryTracks(selected);
+        setMoreTracks(additional);
+        setSelectedIndex(0);
+        setDisplayedTrack(selected[0]);
+        setLoadState("ready");
+      })
+      .catch(() => { if (!cancelled) setLoadState("missing"); });
+    return () => { cancelled = true; };
+  }, [reelSlug]);
+
+  useEffect(() => {
+    if (!selectedTrack || selectedTrack.id === displayedTrack?.id) return;
+    let cancelled = false;
+    let swapTimer = null;
+    const nextArtwork = new Image();
+    const beginSwap = () => {
+      if (cancelled) return;
+      setArtworkVisible(false);
+      swapTimer = window.setTimeout(() => { if (!cancelled) setDisplayedTrack(selectedTrack); }, 650);
+    };
+    nextArtwork.onload = beginSwap;
+    nextArtwork.onerror = beginSwap;
+    nextArtwork.src = selectedTrack.image;
+    return () => { cancelled = true; if (swapTimer) window.clearTimeout(swapTimer); };
+  }, [selectedTrack, displayedTrack]);
+
+  useEffect(() => {
+    const frame = window.requestAnimationFrame(() => setArtworkVisible(true));
+    return () => window.cancelAnimationFrame(frame);
+  }, [displayedTrack]);
+
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio || !selectedTrack) return;
+    audio.load();
+    setProgress(0);
+    if (playing) audio.play().catch(() => setPlaying(false));
+  }, [selectedIndex]);
+
+  const chooseTrack = (track) => {
+    const index = allTracks.findIndex((item) => item.id === track.id);
+    if (index < 0) return;
+    if (index === selectedIndex) {
+      const audio = audioRef.current;
+      if (audio?.paused) audio.play().then(() => setPlaying(true)).catch(() => setPlaying(false));
+      return;
+    }
+    setSelectedIndex(index);
+    setPlaying(true);
+  };
+  const moveTrack = (direction) => {
+    if (!selectedTrack) return;
+    const inPrimary = selectedIndex < primaryTracks.length;
+    const start = inPrimary ? 0 : primaryTracks.length;
+    const end = inPrimary ? primaryTracks.length - 1 : allTracks.length - 1;
+    const next = selectedIndex + direction;
+    if (next >= start && next <= end) { setSelectedIndex(next); setPlaying(true); }
+  };
+  const handleEnded = () => {
+    const inPrimary = selectedIndex < primaryTracks.length;
+    const end = inPrimary ? primaryTracks.length - 1 : allTracks.length - 1;
+    if (selectedIndex < end) { setSelectedIndex((current) => current + 1); setPlaying(true); }
+    else { setPlaying(false); setProgress(0); }
+  };
+  const togglePlayback = () => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    if (audio.paused) audio.play().then(() => setPlaying(true)).catch(() => setPlaying(false));
+    else { audio.pause(); setPlaying(false); }
+  };
+  const handleSeek = (event) => {
+    const audio = audioRef.current;
+    if (!audio?.duration) return;
+    const rect = event.currentTarget.getBoundingClientRect();
+    const ratio = Math.min(Math.max((event.clientX - rect.left) / rect.width, 0), 1);
+    audio.currentTime = ratio * audio.duration;
+  };
+
+  if (loadState !== "ready" || !selectedTrack || !displayedTrack) {
+    return <div className="min-h-screen bg-[#EFF4D6] text-[#1A1A1A] font-light"><main className="mx-auto max-w-3xl px-5 sm:px-6 py-16 sm:py-24"><div className="text-[0.95rem] sm:text-[1.05rem] uppercase tracking-[0.2em]">Marius Ygre</div><div className="mt-12 border border-[#D9DED4] bg-[#F8FBF2] p-7 sm:p-10"><div className="text-[0.66rem] uppercase tracking-[0.28em] text-[#71786D]">Private listening page</div><h1 className="mt-5 text-[1.55rem] sm:text-[2rem] uppercase tracking-[0.07em]">{loadState === "loading" ? "Preparing selected work" : "This listening page is unavailable"}</h1>{loadState === "missing" && <p className="mt-5 text-[#5F665C] leading-[1.75]">Please check the link in the original message.</p>}</div></main></div>;
+  }
+
+  const inPrimary = selectedIndex < primaryTracks.length;
+  const previousDisabled = inPrimary ? selectedIndex === 0 : selectedIndex === primaryTracks.length;
+  const nextDisabled = inPrimary ? selectedIndex === primaryTracks.length - 1 : selectedIndex === allTracks.length - 1;
+  const renderTrack = (track, index, offset = 0) => {
+    const absoluteIndex = index + offset;
+    return <li key={track.id}><button type="button" onClick={() => chooseTrack(track)} className={`w-full grid grid-cols-[1.65rem_minmax(0,1fr)_auto] sm:grid-cols-[2rem_minmax(0,1fr)_auto] gap-3 sm:gap-4 text-left items-baseline py-1 transition-colors duration-300 ${absoluteIndex === selectedIndex ? "text-[#1A1A1A]" : "text-[#5F665C] hover:text-[#1A1A1A]"}`}><span className="text-[0.72rem] tabular-nums">{String(absoluteIndex + 1).padStart(2, "0")}</span><span className="text-[0.95rem] min-w-0 break-words">{track.title}</span><span className="text-[0.8rem] text-[#71786D]">{track.duration}</span></button></li>;
+  };
+
+  return <div className="min-h-screen overflow-x-hidden bg-[#EFF4D6] text-[#1A1A1A] font-light"><main className="mx-auto max-w-6xl px-5 sm:px-6 pt-7 sm:pt-8 pb-10 sm:pb-12"><header className="border-b border-[#D9DED4] pb-7 sm:pb-8"><div className="flex items-baseline justify-between gap-5"><div className="text-[0.95rem] sm:text-[1.05rem] uppercase tracking-[0.16em] sm:tracking-[0.2em]">Marius Ygre</div><div className="text-right text-[0.64rem] uppercase tracking-[0.24em] text-[#71786D]">Private listening page</div></div><h1 className="mt-8 sm:mt-10 text-[1.65rem] sm:text-[2rem] md:text-[2.35rem] leading-[1.12] uppercase tracking-[0.055em] sm:tracking-[0.07em]">Selected Work — Marius Ygre</h1><p className="mt-4 sm:mt-5 max-w-[42rem] text-[#5F665C] text-[1rem] leading-[1.75]">A focused selection of music for film and visual storytelling.</p></header><section className="pt-8 sm:pt-10 pb-12 sm:pb-16"><div className="border border-[#D9DED4] bg-[#F8FBF2] p-5 sm:p-6 md:p-8"><h2 className="text-[1.2rem] sm:text-[1.4rem] uppercase tracking-[0.09em] sm:tracking-[0.12em]">Selected Works</h2><div className="mt-6 sm:mt-7 grid md:grid-cols-12 gap-8 md:gap-10 items-start"><div className="md:col-span-3"><div className={`transition-opacity duration-[650ms] ease-out ${artworkVisible ? "opacity-100" : "opacity-0"}`}><ImagePlaceholder src={displayedTrack.image} label={displayedTrack.title} alt={`${displayedTrack.title} artwork`} /></div></div><div className="md:col-span-5"><div className="text-[0.66rem] uppercase tracking-[0.28em] text-[#71786D]">Now Playing</div><div className="mt-4 flex items-baseline justify-between gap-5"><h3 className="text-[1.4rem] sm:text-[1.65rem] leading-[1.25]">{selectedTrack.title}</h3><span className="text-[0.8rem] text-[#71786D]">{selectedTrack.duration}</span></div>{selectedTrack.subtitle && <div className="mt-2 text-[0.66rem] uppercase tracking-[0.22em] text-[#71786D] leading-[1.6] whitespace-pre-line">{selectedTrack.subtitle}</div>}<audio ref={audioRef} src={selectedTrack.audio} onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} onEnded={handleEnded} onTimeUpdate={(event) => { const audio = event.currentTarget; setProgress(audio.duration ? (audio.currentTime / audio.duration) * 100 : 0); }} /><button type="button" onClick={handleSeek} className="mt-8 w-full h-[5px] flex items-center" aria-label="Seek within track"><span className="block w-full h-[1px] bg-[#D7DDD1] overflow-hidden"><span className="block h-full bg-[#1A1A1A] transition-all duration-200 ease-out" style={{ width: `${progress}%` }} /></span></button><div className="mt-8 flex flex-wrap items-center gap-4 sm:gap-5"><button type="button" onClick={() => moveTrack(-1)} disabled={previousDisabled} className="text-[0.72rem] uppercase tracking-[0.24em] text-[#5F665C] hover:text-[#1A1A1A] disabled:opacity-30">Previous</button><button type="button" onClick={togglePlayback} className="w-16 h-16 rounded-full border border-[#1A1A1A] flex items-center justify-center text-[0.72rem] uppercase tracking-[0.18em] hover:bg-[#1A1A1A] hover:text-white transition-all duration-500">{playing ? "Pause" : "Play"}</button><button type="button" onClick={() => moveTrack(1)} disabled={nextDisabled} className="text-[0.72rem] uppercase tracking-[0.24em] text-[#5F665C] hover:text-[#1A1A1A] disabled:opacity-30">Next</button></div></div><div className="md:col-span-4 md:border-l md:border-[#D9DED4] md:pl-8"><ol className="space-y-3">{primaryTracks.map((track, index) => renderTrack(track, index))}</ol>{moreTracks.length > 0 && <div className="mt-5 border-t border-[#D9DED4] pt-4"><button type="button" onClick={() => { if (moreOpen && !inPrimary) { setSelectedIndex(0); setPlaying(false); } setMoreOpen((open) => !open); }} className="w-full flex items-center justify-between text-[0.7rem] uppercase tracking-[0.24em] text-[#5F665C] hover:text-[#1A1A1A] transition-colors duration-300"><span>{moreOpen ? "Less" : "More"}</span><span aria-hidden="true">{moreOpen ? "−" : "+"}</span></button>{moreOpen && <div className="mt-4"><div className="mb-3 text-[0.62rem] uppercase tracking-[0.22em] text-[#71786D]">Additional Work</div><ol className="space-y-3">{moreTracks.map((track, index) => renderTrack(track, index, primaryTracks.length))}</ol></div>}</div>}</div></div></div></section><footer className="border-t border-[#D9DED4] pt-6 text-[0.64rem] uppercase tracking-[0.24em] text-[#71786D]">© Marius Ygre</footer></main></div>;
+}
 
 function FilmPage() {
   const [playingId, setPlayingId] = useState(null);
   const [selectedTrack, setSelectedTrack] = useState(FILM_TRACKS[0]);
   const [progressById, setProgressById] = useState({});
+  const [filmMoreOpen, setFilmMoreOpen] = useState(false);
   const audioRefs = useRef({});
+  const visibleFilmTracks = filmMoreOpen ? FILM_TRACKS : FILM_TRACKS.slice(0, 5);
 
   const pauseAllExcept = (trackId) => {
     Object.entries(audioRefs.current).forEach(([id, audio]) => {
@@ -156,9 +582,9 @@ function FilmPage() {
   };
 
   const getNextTrack = (trackId) => {
-    const index = FILM_TRACKS.findIndex((track) => track.id === trackId);
+    const index = visibleFilmTracks.findIndex((track) => track.id === trackId);
     if (index === -1) return null;
-    return FILM_TRACKS[index + 1] || null;
+    return visibleFilmTracks[index + 1] || null;
   };
 
   const playTrack = (track, reset = false) => {
@@ -380,10 +806,10 @@ function FilmPage() {
               <div className="mt-8 flex flex-wrap items-center gap-4 sm:gap-5">
                 <button
                   onClick={() => {
-                    const currentIndex = FILM_TRACKS.findIndex(
+                    const currentIndex = visibleFilmTracks.findIndex(
                       (track) => track.id === selectedTrack.id
                     );
-                    const previousTrack = FILM_TRACKS[currentIndex - 1];
+                    const previousTrack = visibleFilmTracks[currentIndex - 1];
 
                     if (previousTrack) {
                       playTrack(previousTrack, true);
@@ -418,7 +844,7 @@ function FilmPage() {
 
             <div className="md:col-span-4 md:border-l md:border-[#D9DED4] md:pl-8">
               <div className="space-y-3">
-                {FILM_TRACKS.map((track, index) => (
+                {visibleFilmTracks.map((track, index) => (
                   <div key={track.id}>
                     <audio
                       ref={(el) => {
@@ -458,6 +884,19 @@ function FilmPage() {
                   </div>
                 ))}
               </div>
+              {FILM_TRACKS.length > 5 && <div className="mt-5 border-t border-[#D9DED4] pt-4">
+                <button type="button" onClick={() => {
+                  if (filmMoreOpen && !FILM_TRACKS.slice(0, 5).some((track) => track.id === selectedTrack.id)) {
+                    pauseAllExcept(FILM_TRACKS[0].id);
+                    setPlayingId(null);
+                    setSelectedTrack(FILM_TRACKS[0]);
+                  }
+                  setFilmMoreOpen((open) => !open);
+                }} className="w-full flex items-center justify-between text-[0.7rem] uppercase tracking-[0.24em] text-[#5F665C] hover:text-[#1A1A1A] transition-colors duration-300">
+                  <span>{filmMoreOpen ? "Less" : "More"}</span>
+                  <span aria-hidden="true">{filmMoreOpen ? "−" : "+"}</span>
+                </button>
+              </div>}
             </div>
           </div>
 
@@ -690,6 +1129,8 @@ export default function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/film" element={<FilmPage />} />
+        <Route path="/dcr" element={<DedicatedComposerReelPage />} />
+        <Route path="/:reelSlug" element={<CustomOutreachReelPage />} />
         <Route path="*" element={<HomePage />} />
       </Routes>
     </BrowserRouter>
