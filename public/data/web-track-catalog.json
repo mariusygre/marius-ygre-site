@@ -22,6 +22,7 @@
     {"id":"this-weight-of-open-sky","title":"This Weight of Open Sky","duration":"02.33","audio":"/audio/this-weight-of-open-sky.mp3","image":"/images/this-weight-of-open-sky.png"},
     {"id":"through-smoke-and-starlight","title":"Through Smoke and Starlight","duration":"02.24","audio":"/audio/through-smoke-and-starlight.mp3","image":"/images/through-smoke-and-starlight.png"},
     {"id":"under-currents","title":"Under Currents","duration":"02.47","audio":"/audio/under-currents.mp3","image":"/images/arab.png"},
+    {"id":"velocidad","title":"Velocidad","duration":"00.00","audio":"/audio/velocidad.mp3","image":"/images/velocidad.png"},
     {"id":"watch-the-voltage","title":"Watch the Voltage","duration":"03.06","audio":"/audio/watch-the-voltage.mp3","image":"/images/watch-the-voltage.png"}
   ]
 }
