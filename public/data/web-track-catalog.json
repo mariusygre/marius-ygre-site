@@ -1,167 +1,28 @@
 {
-    "version":  1,
-    "tracks":  [
-                   {
-                       "id":  "a-little-braver-now",
-                       "title":  "A Little Braver Now",
-                       "duration":  "02.17",
-                       "audio":  "/audio/a-little-braver-now.mp3",
-                       "image":  "/images/a-little-braver-now.png"
-                   },
-                   {
-                       "id":  "asura-rising",
-                       "title":  "Asura Rising",
-                       "duration":  "02.35",
-                       "audio":  "/audio/asura-rising.mp3",
-                       "image":  "/images/asura-rising 8.png"
-                   },
-                   {
-                       "id":  "auralis",
-                       "title":  "Auralis",
-                       "duration":  "03.26",
-                       "audio":  "/audio/auralis.mp3",
-                       "image":  "/images/auralis.png"
-                   },
-                   {
-                       "id":  "chasing-horizons",
-                       "title":  "Chasing Horizons",
-                       "duration":  "03.19",
-                       "audio":  "/audio/chasing-horizons.mp3",
-                       "image":  "/images/chasing-horizons.png"
-                   },
-                   {
-                       "id":  "every-shadow-hides",
-                       "title":  "Every Shadow Hides",
-                       "duration":  "02.06",
-                       "audio":  "/audio/every-shadow-hides.mp3",
-                       "image":  "/images/every-shadow-hides.png"
-                   },
-                   {
-                       "id":  "flight-of-hearts",
-                       "title":  "Flight of Hearts",
-                       "duration":  "01.22",
-                       "audio":  "/audio/flight-of-hearts.mp3",
-                       "image":  "/images/flight-of-hearts.png"
-                   },
-                   {
-                       "id":  "hrim",
-                       "title":  "Hrim",
-                       "duration":  "03.46",
-                       "audio":  "/audio/hrim.mp3",
-                       "image":  "/images/hrim.png"
-                   },
-                   {
-                       "id":  "ibens-dance",
-                       "title":  "Iben\u0027s Dance",
-                       "duration":  "02.32",
-                       "audio":  "/audio/ibens-dance.mp3",
-                       "image":  "/images/ibens-dance.png"
-                   },
-                   {
-                       "id":  "life-is-a-daisy-wish",
-                       "title":  "Life Is a Daisy Wish",
-                       "duration":  "02.01",
-                       "audio":  "/audio/life-is-a-daisy-wish.mp3",
-                       "image":  "/images/life-is-a-daisy-wish.png"
-                   },
-                   {
-                       "id":  "malinconia",
-                       "title":  "Malinconia",
-                       "duration":  "03.17",
-                       "audio":  "/audio/malinconia.mp3",
-                       "image":  "/images/malinconia.png"
-                   },
-                   {
-                       "id":  "nival",
-                       "title":  "Nival",
-                       "duration":  "02.36",
-                       "audio":  "/audio/nival.mp3",
-                       "image":  "/images/nival.png"
-                   },
-                   {
-                       "id":  "ridge-of-desolation",
-                       "title":  "Ridge of Desolation",
-                       "duration":  "02.47",
-                       "audio":  "/audio/ridge-of-desolation.mp3",
-                       "image":  "/images/ridge-of-desolation.png"
-                   },
-                   {
-                       "id":  "room-in-monterey",
-                       "title":  "Room in Monterey",
-                       "duration":  "02.24",
-                       "audio":  "/audio/room-in-monterey.mp3",
-                       "image":  "/images/room-in-monterey.png"
-                   },
-                   {
-                       "id":  "shock-protocol",
-                       "title":  "Shock Protocol",
-                       "duration":  "02.02",
-                       "audio":  "/audio/shock-protocol.mp3",
-                       "image":  "/images/shock-protocol-2.png"
-                   },
-                   {
-                       "id":  "suite",
-                       "title":  "Suite",
-                       "subtitle":  "FROM STRING QUARTET NO. 2,\n\"WHERE I GO YOU CANNOT COME\"",
-                       "duration":  "07.04",
-                       "audio":  "/audio/suite.mp3",
-                       "image":  "/images/suite.png"
-                   },
-                   {
-                       "id":  "the-liminal-passage",
-                       "title":  "The Liminal Passage",
-                       "duration":  "03.24",
-                       "audio":  "/audio/the-liminal-passage.mp3",
-                       "image":  "/images/the-liminal-passage.png"
-                   },
-                   {
-                       "id":  "the-quiet-between",
-                       "title":  "The Quiet Between",
-                       "duration":  "03.12",
-                       "audio":  "/audio/the-quiet-between.mp3",
-                       "image":  "/images/the-quiet-between.png"
-                   },
-                   {
-                       "id":  "the-wave-is-already-water",
-                       "title":  "The Wave Is Already Water",
-                       "duration":  "03.23",
-                       "audio":  "/audio/the-wave-is-already-water.mp3",
-                       "image":  "/images/the-wave-is-already-water.png"
-                   },
-                   {
-                       "id":  "this-weight-of-open-sky",
-                       "title":  "This Weight of Open Sky",
-                       "duration":  "02.33",
-                       "audio":  "/audio/this-weight-of-open-sky.mp3",
-                       "image":  "/images/this-weight-of-open-sky.png"
-                   },
-                   {
-                       "id":  "through-smoke-and-starlight",
-                       "title":  "Through Smoke and Starlight",
-                       "duration":  "02.24",
-                       "audio":  "/audio/through-smoke-and-starlight.mp3",
-                       "image":  "/images/through-smoke-and-starlight.png"
-                   },
-                   {
-                       "id":  "under-currents",
-                       "title":  "Under Currents",
-                       "duration":  "02.47",
-                       "audio":  "/audio/under-currents.mp3",
-                       "image":  "/images/arab.png"
-                   },
-                   {
-                       "id":  "velocidad",
-                       "title":  "Velocidad",
-                       "duration":  null,
-                       "audio":  "/audio/velocidad.mp3",
-                       "image":  "/images/velocidad.png"
-                   },
-                   {
-                       "id":  "watch-the-voltage",
-                       "title":  "Watch the Voltage",
-                       "duration":  "03.06",
-                       "audio":  "/audio/watch-the-voltage.mp3",
-                       "image":  "/images/watch-the-voltage.png"
-                   }
-               ]
+  "version": 1,
+  "tracks": [
+    {"id":"a-little-braver-now","title":"A Little Braver Now","duration":"02.17","audio":"/audio/a-little-braver-now.mp3","image":"/images/a-little-braver-now.png"},
+    {"id":"asura-rising","title":"Asura Rising","duration":"02.35","audio":"/audio/asura-rising.mp3","image":"/images/asura-rising 8.png"},
+    {"id":"auralis","title":"Auralis","duration":"03.26","audio":"/audio/auralis.mp3","image":"/images/auralis.png"},
+    {"id":"chasing-horizons","title":"Chasing Horizons","duration":"03.19","audio":"/audio/chasing-horizons.mp3","image":"/images/chasing-horizons.png"},
+    {"id":"every-shadow-hides","title":"Every Shadow Hides","duration":"02.06","audio":"/audio/every-shadow-hides.mp3","image":"/images/every-shadow-hides.png"},
+    {"id":"flight-of-hearts","title":"Flight of Hearts","duration":"01.22","audio":"/audio/flight-of-hearts.mp3","image":"/images/flight-of-hearts.png"},
+    {"id":"hrim","title":"Hrim","duration":"03.46","audio":"/audio/hrim.mp3","image":"/images/hrim.png"},
+    {"id":"ibens-dance","title":"Iben's Dance","duration":"02.32","audio":"/audio/ibens-dance.mp3","image":"/images/ibens-dance.png"},
+    {"id":"life-is-a-daisy-wish","title":"Life Is a Daisy Wish","duration":"02.01","audio":"/audio/life-is-a-daisy-wish.mp3","image":"/images/life-is-a-daisy-wish.png"},
+    {"id":"malinconia","title":"Malinconia","duration":"03.17","audio":"/audio/malinconia.mp3","image":"/images/malinconia.png"},
+    {"id":"nival","title":"Nival","duration":"02.36","audio":"/audio/nival.mp3","image":"/images/nival.png"},
+    {"id":"ridge-of-desolation","title":"Ridge of Desolation","duration":"02.47","audio":"/audio/ridge-of-desolation.mp3","image":"/images/ridge-of-desolation.png"},
+    {"id":"room-in-monterey","title":"Room in Monterey","duration":"02.24","audio":"/audio/room-in-monterey.mp3","image":"/images/room-in-monterey.png"},
+    {"id":"shock-protocol","title":"Shock Protocol","duration":"02.02","audio":"/audio/shock-protocol.mp3","image":"/images/shock-protocol-2.png"},
+    {"id":"suite","title":"Suite","subtitle":"FROM STRING QUARTET NO. 2,\n\"WHERE I GO YOU CANNOT COME\"","duration":"07.04","audio":"/audio/suite.mp3","image":"/images/suite.png"},
+    {"id":"the-liminal-passage","title":"The Liminal Passage","duration":"03.24","audio":"/audio/the-liminal-passage.mp3","image":"/images/the-liminal-passage.png"},
+    {"id":"the-quiet-between","title":"The Quiet Between","duration":"03.12","audio":"/audio/the-quiet-between.mp3","image":"/images/the-quiet-between.png"},
+    {"id":"the-wave-is-already-water","title":"The Wave Is Already Water","duration":"03.23","audio":"/audio/the-wave-is-already-water.mp3","image":"/images/the-wave-is-already-water.png"},
+    {"id":"this-weight-of-open-sky","title":"This Weight of Open Sky","duration":"02.33","audio":"/audio/this-weight-of-open-sky.mp3","image":"/images/this-weight-of-open-sky.png"},
+    {"id":"through-smoke-and-starlight","title":"Through Smoke and Starlight","duration":"02.24","audio":"/audio/through-smoke-and-starlight.mp3","image":"/images/through-smoke-and-starlight.png"},
+    {"id":"under-currents","title":"Under Currents","duration":"02.47","audio":"/audio/under-currents.mp3","image":"/images/arab.png"},
+    {"id":"velocidad","title":"Velocidad","duration":"00.00","audio":"/audio/velocidad.mp3","image":"/images/velocidad.png"},
+    {"id":"watch-the-voltage","title":"Watch the Voltage","duration":"03.06","audio":"/audio/watch-the-voltage.mp3","image":"/images/watch-the-voltage.png"}
+  ]
 }
